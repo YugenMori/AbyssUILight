@@ -1,0 +1,29 @@
+## Interface: 11404
+## Title: AbyssUI|cff0d75d4Light|r
+## Version: 1.14.4.1
+## Author: Yugen
+## Notes-enUS: Minimalist UI for World of Warcraft
+## Notes-ptBR: Interface Minimalista para World of Warcraft
+## Notes-deDE: Minimalistische Benutzeroberfläche für World of Warcraft
+## Notes-enGB: Minimalist UI for World of Warcraft
+## Notes-enUS: Minimalist UI for World of Warcraft
+## Notes-esES: Interfaz de usuario minimalista para World of Warcraft
+## Notes-esMX: Interfaz de usuario minimalista para World of Warcraft
+## Notes-frFR: Interface utilisateur minimaliste pour World of Warcraft
+## Notes-itIT: Interfaccia utente minimalista per World of Warcraft
+## Notes-koKR: 월드 오브 워크래프트 용 미니멀리스트 UI
+## Notes-ptBR: Interface minimalista para World of Warcraft
+## Notes-ruRU: Минималистичный интерфейс для World of Warcraft
+## Notes-zhCN: 魔兽世界的简约UI
+## Notes-zhTW: 魔獸世界的簡約UI
+## SavedVariablesPerCharacter: AbyssUILightProfile, AbyssUILightAddonSettings, COLOR_MY_UI
+
+
+AbyssUILight.lua
+AbyssUILight_Config.lua
+AbyssUILight_Frames.lua
+AbyssUILight_Functions.lua
+AbyssUILight_FunctionsExtras.lua
+AbyssUILight_Inventory.lua
+AbyssUILight_MoveFrames.lua
+AbyssUILight_UnitFrame.lua
