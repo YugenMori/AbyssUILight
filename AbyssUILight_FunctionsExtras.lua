@@ -9,24 +9,37 @@
 --------------------------------------------------------------------------------
 -- Init - Tables - Saves
 local addonName, addonTable = ...
+local L = LibStub("AceLocale-3.0"):GetLocale("AbyssUILight")
 local GetWoWVersion = ((select(4, GetBuildInfo())))
-if not AbyssUILight_Config then
-  local AbyssUILight_Config = {}
-end
--- Color Init
-local f = CreateFrame("Frame")
+local f = CreateFrame("Frame", "AbyssUILight_Config", UIParent)
+f:SetSize(50, 50)
 f:RegisterEvent("PLAYER_LOGIN")
-f:SetScript("OnEvent", function(self, event)
-    character = UnitName("player").."-"..GetRealmName()
-    if not COLOR_MY_UI then
-        COLOR_MY_UI = {}
-    end
-    if not COLOR_MY_UI[character] then
-        COLOR_MY_UI[character] = {}
-    end
-    if not COLOR_MY_UI[character].Color then
-        COLOR_MY_UI[character].Color = { r = 1, g = 1, b = 1 }
-    end
+f:SetScript("OnEvent", function(self, event, ...)
+  character = UnitName("player").."-"..GetRealmName()
+  -- Config/Panel
+  if not AbyssUILight_Config then
+    local AbyssUILight_Config = {}
+  end
+    if not AbyssUI_Config then
+    local AbyssUI_Config = {}
+  end
+  -- AddonSettings
+  if not AbyssUILightAddonSettings then
+    AbyssUILightAddonSettings = {}
+  end
+  if not AbyssUILightAddonSettings[character] then
+    AbyssUILightAddonSettings[character] = {}
+  end
+  -- Color Init
+  if not COLOR_MY_UI then
+      COLOR_MY_UI = {}
+  end
+  if not COLOR_MY_UI[character] then
+      COLOR_MY_UI[character] = {}
+  end
+  if not COLOR_MY_UI[character].Color then
+      COLOR_MY_UI[character].Color = { r = 1, g = 1, b = 1 }
+  end
 end)
 -- Fontfication
 local function AbyssUILight_Fontification(globalFont, subFont, damageFont)

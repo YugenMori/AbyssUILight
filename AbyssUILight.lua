@@ -6,25 +6,28 @@
 --------------------------------------------------------------
 -- Init - Tables - Saves
 local addonName, addonTable = ...
+local L = LibStub("AceLocale-3.0"):GetLocale("AbyssUILight")
 local GetWoWVersion = ((select(4, GetBuildInfo())))
---local L = LibStub("AceLocale-3.0"):GetLocale("AbyssUILight")
-local f = CreateFrame("Frame", "AbyssUI_Config", UIParent)
+local f = CreateFrame("Frame", "AbyssUILight_Config", UIParent)
 f:SetSize(50, 50)
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function(self, event, ...)
   character = UnitName("player").."-"..GetRealmName()
   -- Config/Panel
-	if not AbyssUI_Config then
-		local AbyssUI_Config = {}
-	end
-	-- AddonSettings
-	if not AbyssUILightAddonSettings then
-		AbyssUILightAddonSettings = {}
-	end
+  if not AbyssUILight_Config then
+    local AbyssUILight_Config = {}
+  end
+    if not AbyssUI_Config then
+    local AbyssUI_Config = {}
+  end
+  -- AddonSettings
+  if not AbyssUILightAddonSettings then
+    AbyssUILightAddonSettings = {}
+  end
   if not AbyssUILightAddonSettings[character] then
     AbyssUILightAddonSettings[character] = {}
   end
-	-- Color Init
+  -- Color Init
   if not COLOR_MY_UI then
       COLOR_MY_UI = {}
   end
@@ -837,6 +840,19 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 					AbyssUILight_ColorizationFrameFunction(v)
 				end
 			end
+			-- CastBarBorder
+			if (GetWoWVersion <= 90500) then
+				for i, v in pairs({	
+					CastingBarFrame.Border,
+					TargetFrameSpellBar.Border,
+				TargetFrameSpellBar.BorderShield, }) do
+					if AbyssUILightAddonSettings ~= nil then
+						AbyssUILight_ColorizationFrameFunction(v)
+					else
+						return nil
+					end
+				end	
+			end
 			-- TradeFrame
 			for i, v in pairs({ 
 				TradeFrameTopBorder,
@@ -939,6 +955,7 @@ f:SetScript("OnEvent", function(self, event, name)
 		end
 	end
 end)
+
 -- AuctionFrame
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
@@ -1605,7 +1622,10 @@ end)
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(self, event, name)
-	if name == "AbyssUILight" then
+	if not AbyssUILightAddonSettings then
+    AbyssUILightAddonSettings = {}
+  end
+	if name == "AbyssUILight" and AbyssUILightAddonSettings.DisableCharacterText ~= true then
 		local localizedClass, englishClass = UnitClass("player")
     local classColor = RAID_CLASS_COLORS[englishClass]
     if (classColor) then
@@ -1620,6 +1640,16 @@ f:SetScript("OnEvent", function(self, event, name)
   	end
 	end
 end)
+local function TargetFramePortraitChecker()
+local classification = UnitClassification("target")
+	if (classification == "normal") then
+		TargetFrameTextureFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\targetingframe\\UI-TargetingFrame")
+	elseif (classification == "elite") then
+		TargetFrameTextureFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\targetingframe\\UI-TargetingFrame-Elite")
+	else
+		return nil
+	end
+end
 -- Target Mob(Enemy) Health Bar Color
 local frame = CreateFrame("Frame", "$parentFrame", nil)
 frame:RegisterEvent("PLAYER_TARGET_CHANGED")
@@ -1627,6 +1657,7 @@ local function eventHandler(self, event, ...)
 	if ( AbyssUILightAddonSettings.UnitFrameImproved ~= true ) then
 		if GetWoWVersion <= 30600 then
 			if ( event == "PLAYER_TARGET_CHANGED" ) then
+				TargetFramePortraitChecker()
 				if ( UnitReaction("player", "target") ~= nil ) then
 					local target = UnitReaction("player", "target")
 					local utarget = UnitIsPlayer("target")
@@ -1650,6 +1681,26 @@ frame:SetScript("OnEvent", eventHandler)
 for _, BarTextures in pairs({ TargetFrameNameBackground, FocusFrameNameBackground, }) do
 	BarTextures:SetTexture("Interface\\TargetingFrame\\UI-StatusBar")
 end
+--[[
+-- Change HealthBarSize
+local frame = CreateFrame("Frame", "$parentFrameHealthBarSize", nil)
+frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+local function eventHandler(self, event, ...)
+	if ( AbyssUILightAddonSettings.UnitFrameImproved ~= true ) then
+		if GetWoWVersion <= 30600 then
+			if not InCombatLockdown() then 
+			  PlayerFrameHealthBar.lockColor = true
+			  PlayerFrameHealthBar.capNumericDisplay = true
+			  PlayerFrameHealthBar:SetWidth(119)
+			  PlayerFrameHealthBar:SetHeight(29)
+			  PlayerFrameHealthBar:SetPoint("TOPLEFT", 106, -22)
+			  PlayerFrameHealthBarText:SetPoint("CENTER", 50, 6)
+			end
+		end
+	end
+end
+frame:SetScript("OnEvent", eventHandler)
+--]]
 ----------------------------------------------------
 -- Keep the color when health changes
 hooksecurefunc("HealthBar_OnValueChanged", function()

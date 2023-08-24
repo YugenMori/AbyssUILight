@@ -116,8 +116,8 @@ local function AbyssUILightMoveFrames_Slash(msg)
     if ( msg ~= "" ) then
         if ( msg == "config" ) then
             InterfaceOptionsFrame_Show()
-            InterfaceOptionsFrame_OpenToCategory("AbyssUI|cff0d75d4Classic|r")
-            InterfaceOptionsFrame_OpenToCategory("AbyssUI|cff0d75d4Classic|r")
+            InterfaceOptionsFrame_OpenToCategory("AbyssUI|cff0d75d4Light|r")
+            InterfaceOptionsFrame_OpenToCategory("AbyssUI|cff0d75d4Light|r")
         elseif (msg == "setup") then
             AbyssUILightSecondFrame:Show()
         elseif (msg == "reset") then

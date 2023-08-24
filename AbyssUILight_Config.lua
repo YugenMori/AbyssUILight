@@ -8,24 +8,37 @@
 --------------------------------------------------------------------------------
 -- Init - Tables - Saves
 local addonName, addonTable = ...
-if not AbyssUILight_Config then
-  local AbyssUILight_Config = {}
-end
-local character
--- Color Init
-local f = CreateFrame("Frame")
+local L = LibStub("AceLocale-3.0"):GetLocale("AbyssUILight")
+local GetWoWVersion = ((select(4, GetBuildInfo())))
+local f = CreateFrame("Frame", "AbyssUILight_Config", UIParent)
+f:SetSize(50, 50)
 f:RegisterEvent("PLAYER_LOGIN")
-f:SetScript("OnEvent", function(self, event)
-    character = UnitName("player").."-"..GetRealmName()
-    if not COLOR_MY_UI then
-        COLOR_MY_UI = {}
-    end
-    if not COLOR_MY_UI[character] then
-        COLOR_MY_UI[character] = {}
-    end
-    if not COLOR_MY_UI[character].Color then
-        COLOR_MY_UI[character].Color = { r = 1, g = 1, b = 1 }
-    end
+f:SetScript("OnEvent", function(self, event, ...)
+  character = UnitName("player").."-"..GetRealmName()
+  -- Config/Panel
+  if not AbyssUILight_Config then
+    local AbyssUILight_Config = {}
+  end
+    if not AbyssUI_Config then
+    local AbyssUI_Config = {}
+  end
+  -- AddonSettings
+  if not AbyssUILightAddonSettings then
+    AbyssUILightAddonSettings = {}
+  end
+  if not AbyssUILightAddonSettings[character] then
+    AbyssUILightAddonSettings[character] = {}
+  end
+  -- Color Init
+  if not COLOR_MY_UI then
+      COLOR_MY_UI = {}
+  end
+  if not COLOR_MY_UI[character] then
+      COLOR_MY_UI[character] = {}
+  end
+  if not COLOR_MY_UI[character].Color then
+      COLOR_MY_UI[character].Color = { r = 1, g = 1, b = 1 }
+  end
 end)
 -- Fontfication
 local function AbyssUILight_Fontification(globalFont, subFont, damageFont)
@@ -91,7 +104,7 @@ local function InitSettings()
 AbyssUILight_Config.panel = CreateFrame( "Frame", "$parentAbyssUILight_Config", InterfaceOptionsFramePanelContainer)
 -- Register in the Interface Addon Options GUI
 -- Set the name for the Category for the Options Panel1
-AbyssUILight_Config.panel.name = "AbyssUI|cff0d75d4Classic|r"
+AbyssUILight_Config.panel.name = "AbyssUI|cff0d75d4Light|r"
 -- Add the panel to the Interface Options
 InterfaceOptions_AddCategory(AbyssUILight_Config.panel, addonName)
 --Child Panels
@@ -127,7 +140,7 @@ Frame:SetWidth(70)
 Frame:SetScale(1.5)
 Frame = Frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 Frame:SetPoint("CENTER")
-Frame:SetText("AbyssUI|cff0d75d4Classic|r")
+Frame:SetText("AbyssUI|cff0d75d4Light|r")
 -- SubTittle
 local Frame = CreateFrame("Frame","$parentFrameButtonSubTitle", AbyssUILight_Config.panel)
 Frame:SetPoint("CENTER", AbyssUILight_Config.panel, "TOP", 0, -120)
@@ -187,7 +200,7 @@ Frame:SetHeight(24)
 Frame:SetScale(1.5)
 Frame = Frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 Frame:SetPoint("CENTER")
-Frame:SetText("AbyssUI|cff0d75d4Classic|r Actionbar")
+Frame:SetText("AbyssUI|cff0d75d4Light|r Actionbar")
 -- Panel 02 (HideElements)
 local Frame = CreateFrame("Frame","$parentFrameButtonPanel02", AbyssUILight_Config.childpanel2)
 Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel2, "TOP", 0, -20)
@@ -377,37 +390,37 @@ FrameButton.text:SetShadowOffset(1, -1)
 FrameButton:SetScript("OnClick", function()
   ReloadUI()
 end)
--- Twitch --
-local FrameButton = CreateFrame("Button","$parentExtraTwitchButton", AbyssUILight_Config.panel, "UIPanelButtonTemplate")
+-- GitHub --
+local FrameButton = CreateFrame("Button","$parentExtraGitButton", AbyssUILight_Config.panel, "UIPanelButtonTemplate")
 FrameButton:SetHeight(30)
 FrameButton:SetWidth(140)
 FrameButton:SetPoint("CENTER", AbyssUILight_Config.panel, "TOP", 0, -300)
 FrameButton.text = FrameButton.text or FrameButton:CreateFontString(nil, "ARTWORK", "QuestMapRewardsFont")
 FrameButton.text:SetFont(globalFont, 12)
 FrameButton.text:SetPoint("CENTER", FrameButton, "CENTER", 0, -1)
-FrameButton.text:SetText("Twitch")
+FrameButton.text:SetText("Github")
 FrameButton.text:SetTextColor(229/255, 229/255, 229/255)
 FrameButton.text:SetShadowColor(0, 0, 0)
 FrameButton.text:SetShadowOffset(1, -1)
 FrameButton:SetScript("OnClick", function()
-    AbyssUILight_EditBox:SetText("https://www.twitch.tv/yugensan")
-    AbyssUILight_EditBox_Frame:Show()
+  AbyssUILight_EditBox:SetText("https://github.com/YugenMori/AbyssUILight")
+  AbyssUILight_EditBox_Frame:Show()
 end)
--- Donate --
-local FrameButton = CreateFrame("Button","$parentExtraDonateButton", AbyssUILight_Config.panel, "UIPanelButtonTemplate")
+-- Ko-fi --
+local FrameButton = CreateFrame("Button","$parentExtraKofiButton", AbyssUILight_Config.panel, "UIPanelButtonTemplate")
 FrameButton:SetHeight(30)
 FrameButton:SetWidth(140)
 FrameButton:SetPoint("CENTER", AbyssUILight_Config.panel, "TOP", 200, -300)
 FrameButton.text = FrameButton.text or FrameButton:CreateFontString(nil, "ARTWORK", "QuestMapRewardsFont")
 FrameButton.text:SetFont(globalFont, 12)
 FrameButton.text:SetPoint("CENTER", FrameButton, "CENTER", 0, -1)
-FrameButton.text:SetText("Donate")
+FrameButton.text:SetText("Ko-fi")
 FrameButton.text:SetTextColor(229/255, 229/255, 229/255)
 FrameButton.text:SetShadowColor(0, 0, 0)
 FrameButton.text:SetShadowOffset(1, -1)
 FrameButton:SetScript("OnClick", function()
-    AbyssUILight_EditBox:SetText("https://www.wowinterface.com/downloads/info24701-AbyssUI.html#donate")
-    AbyssUILight_EditBox_Frame:Show()
+  AbyssUILight_EditBox:SetText("https://ko-fi.com/yugensan")
+  AbyssUILight_EditBox_Frame:Show()
 end)
 -- Check InfoPanel AddOns
 -- Texture Trigger Function
@@ -1083,6 +1096,23 @@ addonTable.HideUnitImprovedFaction = HideUnitImprovedFaction_CheckButton
 HideUnitImprovedFaction_CheckButton:SetScript("OnClick", function(self)
   AbyssUILightAddonSettings.HideUnitImprovedFaction = self:GetChecked()
 end)
+-- Disable Tooltip Healthbar --
+local DisableTooltipHealth_CheckButton = CreateFrame("CheckButton", "$parentDisableTooltipHealth_CheckButton", AbyssUILight_Config.childpanel2, "ChatConfigCheckButtonTemplate")
+DisableTooltipHealth_CheckButton:SetPoint("TOPRIGHT", -200, -170)
+DisableTooltipHealth_CheckButton.Text:SetText(L["|cff0d75d4Disable Tooltip Health|r"])
+local Frame = CreateFrame("Frame", nil, DisableTooltipHealth_CheckButton)
+Frame:SetWidth(180)
+Frame:SetHeight(40)
+Frame:SetPoint("LEFT", 25, 0)
+DisableTooltipHealth_CheckButton.Text:SetAllPoints(Frame)
+DisableTooltipHealth_CheckButton.tooltip = L["Disable the tooltip healthBar from mouse hover functions"]
+DisableTooltipHealth_CheckButton:SetChecked(AbyssUILightAddonSettings.DisableTooltipHealth)
+addonTable.DisableTooltipHealth = DisableTooltipHealth_CheckButton
+-- OnClick Function
+DisableTooltipHealth_CheckButton:SetScript("OnClick", function(self)
+  AbyssUILightAddonSettings.DisableTooltipHealth = self:GetChecked()
+  AbyssUILight_ReloadFrame:Show()
+end)
 -- End
 ------------------------------- Miscellaneous -------------------------------
 local PSINFOHide_CheckButton = CreateFrame("Frame","$parentPSINFOHide_CheckButton", AbyssUILight_Config.childpanel3)
@@ -1582,6 +1612,19 @@ AbyssUILight_FontWhiteText_CheckButton:SetChecked(AbyssUILightAddonSettings.Extr
 -- OnClick Function
 AbyssUILight_FontWhiteText_CheckButton:SetScript("OnClick", function(self)
   AbyssUILightAddonSettings.ExtraFunctionDisableFontWhiteText = self:GetChecked()
+  AbyssUILight_ReloadFrame:Show()
+end)
+-- Disable character name color --
+local AbyssUILight_CharacterText_CheckButton = CreateFrame("CheckButton", "$parentAbyssUILight_CharacterText_CheckButton", AbyssUILight_Config.childpanel3, "ChatConfigCheckButtonTemplate")
+AbyssUILight_CharacterText_CheckButton:SetPoint("TOPLEFT", 400, -440)
+AbyssUILight_CharacterText_CheckButton.Text:SetText("|cff0d75d4Default CharacterNameText|r")
+AbyssUILight_CharacterText_CheckButton.tooltip = "Disable the character name colorization"..
+"back to the default font color"
+AbyssUILight_CharacterText_CheckButton:SetChecked(AbyssUILightAddonSettings.DisableCharacterText)
+addonTable.DisableCharacterText = AbyssUILight_CharacterText_CheckButton
+-- OnClick Function
+AbyssUILight_CharacterText_CheckButton:SetScript("OnClick", function(self)
+  AbyssUILightAddonSettings.DisableCharacterText = self:GetChecked()
   AbyssUILight_ReloadFrame:Show()
 end)
 --End

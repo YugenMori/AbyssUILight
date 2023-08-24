@@ -8,24 +8,37 @@
 --------------------------------------------------------------------------------
 -- Init - Tables - Saves
 local addonName, addonTable = ...
+local L = LibStub("AceLocale-3.0"):GetLocale("AbyssUILight")
 local GetWoWVersion = ((select(4, GetBuildInfo())))
-if not AbyssUILight_Config then
-  local AbyssUILight_Config = {}
-end
--- Color Init
-local f = CreateFrame("Frame")
+local f = CreateFrame("Frame", "AbyssUILight_Config", UIParent)
+f:SetSize(50, 50)
 f:RegisterEvent("PLAYER_LOGIN")
-f:SetScript("OnEvent", function(self, event)
-    character = UnitName("player").."-"..GetRealmName()
-    if not COLOR_MY_UI then
-        COLOR_MY_UI = {}
-    end
-    if not COLOR_MY_UI[character] then
-        COLOR_MY_UI[character] = {}
-    end
-    if not COLOR_MY_UI[character].Color then
-        COLOR_MY_UI[character].Color = { r = 1, g = 1, b = 1 }
-    end
+f:SetScript("OnEvent", function(self, event, ...)
+  character = UnitName("player").."-"..GetRealmName()
+  -- Config/Panel
+  if not AbyssUILight_Config then
+    local AbyssUILight_Config = {}
+  end
+    if not AbyssUI_Config then
+    local AbyssUI_Config = {}
+  end
+  -- AddonSettings
+  if not AbyssUILightAddonSettings then
+    AbyssUILightAddonSettings = {}
+  end
+  if not AbyssUILightAddonSettings[character] then
+    AbyssUILightAddonSettings[character] = {}
+  end
+  -- Color Init
+  if not COLOR_MY_UI then
+      COLOR_MY_UI = {}
+  end
+  if not COLOR_MY_UI[character] then
+      COLOR_MY_UI[character] = {}
+  end
+  if not COLOR_MY_UI[character].Color then
+      COLOR_MY_UI[character].Color = { r = 1, g = 1, b = 1 }
+  end
 end)
 -- Fontfication
 local function AbyssUILight_Fontification(globalFont, subFont, damageFont)
@@ -85,13 +98,15 @@ local _G = _G
 local moveString      = _G["BINDING_NAME_MOVEFORWARD"]
 local cancelString    = _G["CANCEL"]
 local confirmString   = _G["OKAY"]
+local dialogFrameTexture 		= "Interface\\Addons\\AbyssUILight\\textures\\extra\\dialogFrameTexture"
+local dialogFrameTextureBorder 	= "Interface\\DialogFrame\\UI-DialogBox-Background"
 ----------------------------------------------------
 ----------------------------------------------------
 -- AbyssUILight_EditBox_Frame
 AbyssUILight_EditBox_Frame = CreateFrame("Frame", "$parentAbyssUILight_EditBox_Frame", AbyssUILight_Config.childpanel1)
 AbyssUILight_EditBox_Frame:Hide()
 AbyssUILight_EditBox_Frame:SetWidth(500)
-AbyssUILight_EditBox_Frame:SetHeight(125)
+AbyssUILight_EditBox_Frame:SetHeight(128)
 AbyssUILight_EditBox_Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel1, "CENTER", 0, 0)
 AbyssUILight_EditBox_Frame:EnableMouse(true)
 AbyssUILight_EditBox_Frame:SetClampedToScreen(true)
@@ -104,18 +119,18 @@ end)
 AbyssUILight_EditBox_Frame:SetFrameStrata("Dialog")
 ----------------------------------------------------
 local Border = AbyssUILight_EditBox_Frame:CreateTexture(nil, "BACKGROUND")
-Border:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
+Border:SetTexture(dialogFrameTextureBorder)
 Border:SetPoint("TOPLEFT", -3, 3)
 Border:SetPoint("BOTTOMRIGHT", 3, -3)
-Border:SetVertexColor(0.2, 0.2, 0.2, 0.6)
+--Border:SetVertexColor(0.2, 0.2, 0.2, 0.6)
 ----------------------------------------------------
 local BorderBody = AbyssUILight_EditBox_Frame:CreateTexture(nil, "ARTWORK")
-BorderBody:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
+BorderBody:SetTexture(dialogFrameTextureBorder)
 BorderBody:SetAllPoints(AbyssUILight_EditBox_Frame)
 BorderBody:SetVertexColor(0.34, 0.34, 0.34, 0.7)
 ----------------------------------------------------
 local Texture = AbyssUILight_EditBox_Frame:CreateTexture(nil, "BACKGROUND")
-Texture:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
+Texture:SetTexture(dialogFrameTextureBorder)
 Texture:SetAllPoints(AbyssUILight_EditBox_Frame)
 AbyssUILight_EditBox_Frame.texture = Texture
 ----------------------------------------------------
@@ -135,13 +150,12 @@ FrameButtonConfirm:SetScript("OnClick", function()
 end)
 ----------------------------------------------------
 -- EditBox
-AbyssUILight_EditBox= CreateFrame("EditBox", "$parentEditBox_TexturePack", AbyssUILight_EditBox_Frame)
-AbyssUILight_EditBox:SetFont(globalFont, 12, "THINOUTLINE")
+local AbyssUILight_EditBox= CreateFrame("EditBox", "$parentAbyssUILight_EditBox", AbyssUILight_EditBox_Frame)
+AbyssUILight_EditBox:SetFont(globalFont, 14, "THINOUTLINE")
 AbyssUILight_EditBox:SetPoint("CENTER", 0, 0)
 AbyssUILight_EditBox:SetMultiLine(true)
 AbyssUILight_EditBox:SetHeight(24)
 AbyssUILight_EditBox:SetWidth(450)
-----------------------------------------------------
 ----------------------------------------------------
 -- AbyssUILight_AFKCameraFrame
 local AbyssUILight_AFKCameraFrame = CreateFrame("Frame", "$parentAbyssUILight_AFKCameraFrame", WorldFrame)
@@ -650,7 +664,7 @@ AbyssUILightFirstFrame.text:SetScale(5)
 AbyssUILightFirstFrame.text:SetAllPoints(true)
 AbyssUILightFirstFrame.text:SetJustifyH("CENTER")
 AbyssUILightFirstFrame.text:SetJustifyV("CENTER")
-AbyssUILightFirstFrame.text:SetText("Thank you for choosing AbyssUI|cff0d75d4Classic|r!")
+AbyssUILightFirstFrame.text:SetText("Thank you for choosing AbyssUI|cff0d75d4Light|r!")
 ----------------------------------------------------
 local Subtittle = CreateFrame("Frame", "$parentSubtittle", AbyssUILightFirstFrame)
 Subtittle:SetWidth(GetScreenWidth())
@@ -805,16 +819,16 @@ FrameButtonModern:SetScript("OnClick", function()
 	 	v:SetChecked(true)
 	end
 	-- Get
-	AbyssUILightAddonSettings.HideUnitImprovedFaction 			= addonTable.HideUnitImprovedFaction:GetChecked()
-	AbyssUILightAddonSettings.HideGroupFrame						= addonTable.HideGroupFrame:GetChecked()
-	AbyssUILightAddonSettings.ExtraFunctionInspectTarget 			= addonTable.InspectTarget:GetChecked()
-	AbyssUILightAddonSettings.ExtraFunctionConfirmPopUps 			= addonTable.ConfirmPopUps:GetChecked()
-	AbyssUILightAddonSettings.ExtraFunctionSellGray 				= addonTable.AutoSellGray:GetChecked()
-	AbyssUILightAddonSettings.ExtraFunctionHideInCombat			= addonTable.HideInCombat:GetChecked()
+	AbyssUILightAddonSettings.HideUnitImprovedFaction 					= addonTable.HideUnitImprovedFaction:GetChecked()
+	AbyssUILightAddonSettings.HideGroupFrame										= addonTable.HideGroupFrame:GetChecked()
+	AbyssUILightAddonSettings.ExtraFunctionInspectTarget 				= addonTable.InspectTarget:GetChecked()
+	AbyssUILightAddonSettings.ExtraFunctionConfirmPopUps 				= addonTable.ConfirmPopUps:GetChecked()
+	AbyssUILightAddonSettings.ExtraFunctionSellGray 						= addonTable.AutoSellGray:GetChecked()
+	AbyssUILightAddonSettings.ExtraFunctionHideInCombat					= addonTable.HideInCombat:GetChecked()
 	AbyssUILightAddonSettings.ExtraFunctionDisableHealingSpam		= addonTable.DisableHealingSpam:GetChecked()
-	AbyssUILightAddonSettings.TooltipOnCursor 					= addonTable.TooltipOnCursor:GetChecked()
-	AbyssUILightAddonSettings.UnitFrameImproved 					= addonTable.UnitFrameImproved:GetChecked()
-	AbyssUILightAddonSettings.ElitePortrait 						= addonTable.ElitePortrait:GetChecked()
+	AbyssUILightAddonSettings.TooltipOnCursor 									= addonTable.TooltipOnCursor:GetChecked()
+	AbyssUILightAddonSettings.UnitFrameImproved 								= addonTable.UnitFrameImproved:GetChecked()
+	AbyssUILightAddonSettings.ElitePortrait 										= addonTable.ElitePortrait:GetChecked()
 	AbyssUILightSecondFrame:Hide()
 	FrameButtonModern.Glow:Finish()
 	ReloadUI()
@@ -848,21 +862,25 @@ FrameButtonClassic:SetScript("OnClick", function()
 		addonTable.DisableHealingSpam,
 		addonTable.DisableSquareMinimap,
 		addonTable.DisableUnitFrameSmoke,
+		addonTable.DisableCharacterText,
+		addonTable.DisableTooltipHealth,
 	} do
 		v:SetChecked(true)
 	end
 	-- Get
-	AbyssUILightAddonSettings.HideFPSMSFrame 						= addonTable.FPSMSFrame:GetChecked()
-	AbyssUILightAddonSettings.HideYouDiedLevelUpFrame 			= addonTable.YouDiedLevelUpFrame:GetChecked()
-	AbyssUILightAddonSettings.HideUnitImprovedFaction 			= addonTable.HideUnitImprovedFaction:GetChecked()
-	AbyssUILightAddonSettings.HideCastTimer						= addonTable.HideCastTimer:GetChecked()
-	AbyssUILightAddonSettings.ExtraFunctionInspectTarget 			= addonTable.InspectTarget:GetChecked()
-	AbyssUILightAddonSettings.ExtraFunctionConfirmPopUps 			= addonTable.ConfirmPopUps:GetChecked()
-	AbyssUILightAddonSettings.ExtraFunctionSellGray 				= addonTable.AutoSellGray:GetChecked()
+	AbyssUILightAddonSettings.HideFPSMSFrame 										= addonTable.FPSMSFrame:GetChecked()
+	AbyssUILightAddonSettings.HideYouDiedLevelUpFrame 					= addonTable.YouDiedLevelUpFrame:GetChecked()
+	AbyssUILightAddonSettings.HideUnitImprovedFaction 					= addonTable.HideUnitImprovedFaction:GetChecked()
+	AbyssUILightAddonSettings.HideCastTimer											= addonTable.HideCastTimer:GetChecked()
+	AbyssUILightAddonSettings.ExtraFunctionInspectTarget 				= addonTable.InspectTarget:GetChecked()
+	AbyssUILightAddonSettings.ExtraFunctionConfirmPopUps 				= addonTable.ConfirmPopUps:GetChecked()
+	AbyssUILightAddonSettings.ExtraFunctionSellGray 						= addonTable.AutoSellGray:GetChecked()
 	AbyssUILightAddonSettings.ExtraFunctionChatBubbleChanges 		= addonTable.ChatBubbleChanges:GetChecked()
 	AbyssUILightAddonSettings.ExtraFunctionDisableHealingSpam		= addonTable.DisableHealingSpam:GetChecked()
-	AbyssUILightAddonSettings.DisableSquareMinimap				= addonTable.DisableSquareMinimap:GetChecked()
+	AbyssUILightAddonSettings.DisableSquareMinimap							= addonTable.DisableSquareMinimap:GetChecked()
 	AbyssUILightAddonSettings.UnitFrameImprovedDefaultTexture 	= addonTable.DisableUnitFrameSmoke:GetChecked()
+	AbyssUILightAddonSettings.DisableCharacterText							= addonTable.DisableCharacterText:GetChecked()
+	AbyssUILightAddonSettings.DisableTooltipHealth 							= addonTable.DisableTooltipHealth:GetChecked()
 	AbyssUILightSecondFrame:Hide()
 	FrameButtonModern.Glow:Finish()
 	ReloadUI()
@@ -1098,7 +1116,7 @@ AbyssUILight_ActionBarInfo.text:SetScale(1.5)
 AbyssUILight_ActionBarInfo.text:SetAllPoints(true)
 AbyssUILight_ActionBarInfo.text:SetJustifyH("CENTER")
 AbyssUILight_ActionBarInfo.text:SetJustifyV("CENTER")
-AbyssUILight_ActionBarInfo.text:SetText("AbyssUI|cff0d75d4Classic|r Actionbar could glitch sometimes.")
+AbyssUILight_ActionBarInfo.text:SetText("AbyssUI|cff0d75d4Light|r Actionbar could glitch sometimes.")
 ----------------------------------------------------
 local Border = AbyssUILight_ActionBarInfo:CreateTexture(nil, "BACKGROUND")
 Border:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")

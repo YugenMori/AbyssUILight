@@ -8,24 +8,37 @@
 ----------------------------------------------------
 -- Init - Tables - Saves
 local addonName, addonTable = ...
+local L = LibStub("AceLocale-3.0"):GetLocale("AbyssUILight")
 local GetWoWVersion = ((select(4, GetBuildInfo())))
-if not AbyssUILight_Config then
-  local AbyssUILight_Config = {}
-end
--- Color Init
-local f = CreateFrame("Frame")
+local f = CreateFrame("Frame", "AbyssUILight_Config", UIParent)
+f:SetSize(50, 50)
 f:RegisterEvent("PLAYER_LOGIN")
-f:SetScript("OnEvent", function(self, event)
-    character = UnitName("player").."-"..GetRealmName()
-    if not COLOR_MY_UI then
-        COLOR_MY_UI = {}
-    end
-    if not COLOR_MY_UI[character] then
-        COLOR_MY_UI[character] = {}
-    end
-    if not COLOR_MY_UI[character].Color then
-        COLOR_MY_UI[character].Color = { r = 1, g = 1, b = 1 }
-    end
+f:SetScript("OnEvent", function(self, event, ...)
+  character = UnitName("player").."-"..GetRealmName()
+  -- Config/Panel
+  if not AbyssUILight_Config then
+    local AbyssUILight_Config = {}
+  end
+    if not AbyssUI_Config then
+    local AbyssUI_Config = {}
+  end
+  -- AddonSettings
+  if not AbyssUILightAddonSettings then
+    AbyssUILightAddonSettings = {}
+  end
+  if not AbyssUILightAddonSettings[character] then
+    AbyssUILightAddonSettings[character] = {}
+  end
+  -- Color Init
+  if not COLOR_MY_UI then
+      COLOR_MY_UI = {}
+  end
+  if not COLOR_MY_UI[character] then
+      COLOR_MY_UI[character] = {}
+  end
+  if not COLOR_MY_UI[character].Color then
+      COLOR_MY_UI[character].Color = { r = 1, g = 1, b = 1 }
+  end
 end)
 -- Fontfication
 local function AbyssUILight_Fontification(globalFont, subFont, damageFont)
@@ -235,7 +248,6 @@ end)
 -- CastBar size fixes
 
 -- Cast bars
-
 ----------------------------------------------------
 -- Minimap Tweaks
 MinimapZoomIn:Hide()
@@ -301,17 +313,22 @@ end
 GameTooltip:HookScript("OnUpdate", function(self, elapsed)
 	local _, unit = self:GetUnit()
 	if unit == nil then return end
-	if UnitIsPlayer(unit) then
-		local _, class = UnitClass(unit)
-		local color = class and (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
-		if color then
-			GameTooltipStatusBar:SetStatusBarColor(color.r, color.g, color.b)
-		end		
+	if (AbyssUILightAddonSettings ~= nil and AbyssUILightAddonSettings.DisableTooltipHealth ~= true) then
+		GameTooltipStatusBar:SetAlpha(1)
+		if UnitIsPlayer(unit) then
+			local _, class = UnitClass(unit)
+			local color = class and (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
+			if color then
+				GameTooltipStatusBar:SetStatusBarColor(color.r, color.g, color.b)
+			end		
+		else
+			GameTooltipStatusBar:SetStatusBarColor(UnitColor(unit))
+		end
 	else
-		GameTooltipStatusBar:SetStatusBarColor(UnitColor(unit))
+		GameTooltipStatusBar:SetAlpha(0)
 	end
 end)
-----------------------------------------------------
+----------------------------------------------
 -- StatsFrame
 -- Many thanks to Syiana for part of this
 local StatsFrame = CreateFrame("Frame", "$parentStatsFrame", UIParent)
@@ -735,6 +752,7 @@ AbyssUILight_MinimalActionBar:SetScript("OnEvent", function(self, event, ...)
 	end
 end)
 -- Elite Portrait
+--[[
 local AbyssUILight_ElitePortrait = CreateFrame("Button", '$parentAbyssUILight_ElitePortrait', nil)
 AbyssUILight_ElitePortrait:RegisterEvent("PLAYER_ENTERING_WORLD")
 AbyssUILight_ElitePortrait:SetScript("OnEvent", function(self, event, ...)
@@ -750,12 +768,53 @@ AbyssUILight_ElitePortrait:SetScript("OnEvent", function(self, event, ...)
 		return nil
 	end
 end)
+--]]
+-- Elite Portrait
+local AbyssUILight_ElitePortrait = CreateFrame("Button", '$parentAbyssUILight_ElitePortrait', nil)
+AbyssUILight_ElitePortrait:RegisterEvent("PLAYER_ENTERING_WORLD")
+AbyssUILight_ElitePortrait:SetScript("OnEvent", function(self, event, ...)
+	if (AbyssUILightAddonSettings.UnitFrameImprovedDefaultTexture ~= true) then
+    if (AbyssUILightAddonSettings.ElitePortrait == true and AbyssUILightAddonSettings.UnitFrameImproved == true) then
+      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\UI-TargetingFrame-Elite")
+    elseif(AbyssUILightAddonSettings.ElitePortrait == true and AbyssUILightAddonSettings.UnitFrameImproved ~= true) then
+    	PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\backup\\UI-TargetingFrame-Rare-Elite-Normal")
+    else 
+      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\UI-TargetingFrame")
+    end
+  else
+    if (AbyssUILightAddonSettings.ElitePortrait == true and AbyssUILightAddonSettings.UnitFrameImproved == true) then
+      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\backup\\UI-TargetingFrame-Elite")
+    elseif(AbyssUILightAddonSettings.ElitePortrait == true and AbyssUILightAddonSettings.UnitFrameImproved ~= true) then
+    	PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\backup\\UI-TargetingFrame-Rare-Elite-Normal")
+    else 
+      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\backup\\UI-TargetingFrame")
+    end
+  end
+end)
+-- Exp Font Color Change
+local function SetFontStringColor(fontString, red, green, blue, alpha)
+    fontString:SetTextColor(red, green, blue, alpha)
+end
+-- Event update
+local AbyssUILight_XPColor = CreateFrame("FRAME", '$parentAbyssUILight_XPColor', nil)
+AbyssUILight_XPColor:RegisterEvent("PLAYER_XP_UPDATE")
+AbyssUILight_XPColor:SetScript("OnEvent", function(self, event, ...)
+-- Find and change the color of "NumberFontNormalLarge"
+local fontStringName = "NumberFontNormalLarge"
+local fontString = _G[fontStringName]
+	if fontString then
+	    local red, green, blue, alpha = 0, 0, 0, 1 -- Change these values to set the desired color (RGBA format)
+	    SetFontStringColor(fontString, red, green, blue, alpha)
+	else
+	    print("FontString not found: " .. fontStringName)
+	end
+end)
 --------------------------------------------
 local _G = _G
 local levelString 			= _G["LEVEL"]
 local versionString 		= _G["GAME_VERSION_LABEL"]
-local latestString     		= _G["KBASE_RECENTLY_UPDATED"] 
-local timeStringLabel 		= _G["TIME_LABEL"]
+local latestString     	= _G["KBASE_RECENTLY_UPDATED"] 
+local timeStringLabel 	= _G["TIME_LABEL"]
 -- DailyInfo Function
 local AbyssUILightDailyInfo = CreateFrame("Frame")
 AbyssUILightDailyInfo:RegisterEvent("PLAYER_LOGIN")
