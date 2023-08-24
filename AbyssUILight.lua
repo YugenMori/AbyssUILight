@@ -1400,10 +1400,12 @@ f:SetScript("OnEvent", function(self, event, name)
 		local showclock = true
 		if (showclock and not AbyssUILightAddonSettings.ExtraFunctionMinimapClock) then
 			local clockFrame, clockTime = TimeManagerClockButton:GetRegions()
-			clockFrame:Hide()
-			clockTime:Show()
-			TimeManagerClockButton:SetPoint("BOTTOM", Minimap, 0, -6)
-			TimeManagerClockButton:SetAlpha(0)
+			if (AbyssUILightAddonSettings.AlwaysShowClock ~= true) then
+				clockFrame:Hide()
+				clockTime:Show()
+				TimeManagerClockButton:SetPoint("BOTTOM", Minimap, 0, -6)
+				TimeManagerClockButton:SetAlpha(0)
+			end
 		elseif (showclock and AbyssUILightAddonSettings.ExtraFunctionMinimapClock) then
 			LoadAddOn('Blizzard_TimeManager')
 			local clockFrame, clockTime = TimeManagerClockButton:GetRegions()
@@ -1424,7 +1426,7 @@ f:SetScript("OnEvent", function(self, event, name)
 		  TimeManagerClockButton:SetAlpha(1)
 		end)
 		Minimap:HookScript("OnLeave", function()
-			if not AbyssUILightAddonSettings.ExtraFunctionMinimapClock then
+			if (not AbyssUILightAddonSettings.ExtraFunctionMinimapClock and AbyssUILightAddonSettings.AlwaysShowClock ~= true) then
 		  	TimeManagerClockButton:SetAlpha(0)
 			end
 		end)

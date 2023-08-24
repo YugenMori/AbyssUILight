@@ -48,11 +48,14 @@ localization\zhCN.lua
 localization\zhTW.lua
 
 # AbyssUILight
-AbyssUILight.lua
-AbyssUILight_Config.lua
-AbyssUILight_Frames.lua
-AbyssUILight_Functions.lua
-AbyssUILight_FunctionsExtras.lua
-AbyssUILight_Inventory.lua
-AbyssUILight_MoveFrames.lua
-AbyssUILight_UnitFrame.lua
+core\AbyssUILight.lua
+core\AbyssUILight_Frames.lua
+core\AbyssUILight_Config.lua
+
+functions\AbyssUILight_Functions.lua
+functions\AbyssUILight_FunctionsExtras.lua
+
+modules\AbyssUILight_IconStyle.lua
+modules\AbyssUILight_Inventory.lua
+modules\AbyssUILight_MoveFrames.lua
+modules\AbyssUILight_UnitFrame.lua

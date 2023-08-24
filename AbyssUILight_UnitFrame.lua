@@ -63,7 +63,7 @@ local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
 		locale == "esES" or locale == "esMX" or locale == "ptBR") then
 		globalFont	= mediaFolder.."global.ttf"
 		subFont 	= mediaFolder.."npcfont.ttf"
-		damageFont 	= mediaFolder.."damagefont.ttf"
+		damageFont 	= mediaFolder.."damagefont_classic.ttf"
 	else
 		globalFont	= fontName
 		subFont 	= fontName

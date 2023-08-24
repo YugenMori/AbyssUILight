@@ -66,7 +66,7 @@ local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
 		locale == "esES" or locale == "esMX" or locale == "ptBR") then
 		globalFont	= mediaFolder.."global.ttf"
 		subFont 	= mediaFolder.."npcfont.ttf"
-		damageFont 	= mediaFolder.."damagefont.ttf"
+		damageFont 	= mediaFolder.."damagefont_classic.ttf"
 	else
 		globalFont	= fontName
 		subFont 	= fontName
@@ -326,7 +326,7 @@ hooksecurefunc("CompactUnitFrame_UpdateStatusText", function(frame)
 			if not frame.healthBar.percent then
 				frame.healthBar.percent = frame.healthBar:CreateFontString(nil,"OVERLAY")
 				frame.healthBar.percent:SetPoint("LEFT", frame.healthBar)
-				frame.healthBar.percent:SetFont("Interface\\AddOns\\AbyssUILight\\Textures\\font\\damagefont.ttf", 10)
+				frame.healthBar.percent:SetFont("Interface\\AddOns\\AbyssUILight\\Textures\\font\\damagefont_classic.ttf", 10)
 				--frame.healthBar.percent:SetFont(damageFont, 10)
 				frame.healthBar.percent:SetShadowColor(0, 0, 0)
 				frame.healthBar.percent:SetShadowOffset(1, -0.25)
