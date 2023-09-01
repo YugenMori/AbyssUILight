@@ -41,7 +41,7 @@ f:SetScript("OnEvent", function(self, event, ...)
   end
 end)
 -- Fontfication
-local function AbyssUILight_Fontification(globalFont, subFont, damageFont)
+local function AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 local locale = GetLocale()
 local fontName, fontHeight, fontFlags = MinimapZoneText:GetFont()
 local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
@@ -49,31 +49,37 @@ local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
     globalFont  = mediaFolder.."zhCN-TW\\senty.ttf"
     subFont   = mediaFolder.."zhCN-TW\\senty.ttf"
     damageFont  = mediaFolder.."zhCN-TW\\senty.ttf"
+    oldglobalFont = mediaFolder.."zhCN-TW\\senty.ttf"
   elseif ( locale == "zhTW" ) then
     globalFont  = mediaFolder.."zhCN-TW\\senty.ttf"
     subFont   = mediaFolder.."zhCN-TW\\senty.ttf"
     damageFont  = mediaFolder.."zhCN-TW\\senty.ttf"
+    oldglobalFont = mediaFolder.."zhCN-TW\\senty.ttf"
   elseif ( locale == "ruRU" ) then
     globalFont  = mediaFolder.."ruRU\\dejavu.ttf"
     subFont   = mediaFolder.."ruRU\\dejavu.ttf"
     damageFont  = mediaFolder.."ruRU\\dejavu.ttf"
+    oldglobalFont = mediaFolder.."ruRU\\dejavu.ttf"
   elseif ( locale == "koKR" ) then
     globalFont  = mediaFolder.."koKR\\dxlbab.ttf"
     subFont   = mediaFolder.."koKR\\dxlbab.ttf"
     damageFont  = mediaFolder.."koKR\\dxlbab.ttf"
+    oldglobalFont = mediaFolder.."koKR\\dxlbab.ttf"
   elseif ( locale == "frFR" or locale == "deDE" or locale == "enGB" or locale == "enUS" or locale == "itIT" or
     locale == "esES" or locale == "esMX" or locale == "ptBR") then
     globalFont  = mediaFolder.."global.ttf"
-    subFont   = mediaFolder.."npcfont.ttf"
+    subFont   = mediaFolder.."damagefont_classic.ttf"
     damageFont  = mediaFolder.."damagefont_classic.ttf"
+    oldglobalFont = mediaFolder .. "damagefont_classic.ttf"
   else
     globalFont  = fontName
     subFont   = fontName
     damageFont  = fontName
+    oldglobalFont = fontName
   end
-  return globalFont, subFont, damageFont
+  return globalFont, subFont, damageFont, oldglobalFont
 end
-local globalFont, subFont, damageFont = AbyssUILight_Fontification(globalFont, subFont, damageFont)
+local globalFont, subFont, damageFont, oldglobalFont = AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 -- RegionList
 local function AbyssUILight_RegionListSize(self, width, height)
   local regionList = { 
@@ -132,6 +138,11 @@ local function InitSettings()
   AbyssUILight_Config.childpanel5.name = "Tweaks & Extra"
   AbyssUILight_Config.childpanel5.parent = AbyssUILight_Config.panel.name
   InterfaceOptions_AddCategory(AbyssUILight_Config.childpanel5)
+    --
+  AbyssUILight_Config.childpanel7 = CreateFrame( "Frame", "$parentConfigChild_Extras", AbyssUILight_Config.panel)
+  AbyssUILight_Config.childpanel7.name = "Icons"
+  AbyssUILight_Config.childpanel7.parent = AbyssUILight_Config.panel.name
+  InterfaceOptions_AddCategory(AbyssUILight_Config.childpanel7)
   -- Title
   local Frame = CreateFrame("Frame","$parentFrameButtonTitle", AbyssUILight_Config.panel)
   Frame:SetPoint("CENTER", AbyssUILight_Config.panel, "TOP", 0, -20)
@@ -221,7 +232,7 @@ local function InitSettings()
   Frame:SetText("Miscellaneous")
   -- Panel 03.01 (Miscellaneous)
   local Frame = CreateFrame("Frame","$parentFrameButtonPanel041", AbyssUILight_Config.childpanel3)
-  Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel3, "TOP", -265, -70)
+  Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel3, "TOP", -290, -70)
   Frame:SetWidth(120)
   Frame:SetHeight(24)
   Frame:SetScale(1)
@@ -230,7 +241,7 @@ local function InitSettings()
   Frame:SetText("- General")
   -- Panel 03.01 (Miscellaneous)
   local Frame = CreateFrame("Frame","$parentFrameButtonPanel041", AbyssUILight_Config.childpanel3)
-  Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel3, "TOP", 125, -70)
+  Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel3, "TOP", 100, -70)
   Frame:SetWidth(120)
   Frame:SetHeight(24)
   Frame:SetScale(1)
@@ -248,7 +259,7 @@ local function InitSettings()
   Frame:SetText("Player Portrait")
   -- Panel 04.01 (Themes)
   local Frame = CreateFrame("Frame","$parentFrameButtonPanel041", AbyssUILight_Config.childpanel4)
-  Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel4, "TOP", -255, -70)
+  Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel4, "TOP", -285, -70)
   Frame:SetWidth(120)
   Frame:SetHeight(24)
   Frame:SetScale(1)
@@ -266,7 +277,7 @@ local function InitSettings()
   Frame:SetText("Frame Colorization")
   -- Panel 05.01 (Themes)
   local Frame = CreateFrame("Frame","$parentFrameButtonPanel051", AbyssUILight_Config.childpanel4)
-  Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel4, "TOP", 90, -70)
+  Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel4, "TOP", 110, -70)
   Frame:SetWidth(120)
   Frame:SetHeight(24)
   Frame:SetScale(1)
@@ -293,7 +304,7 @@ local function InitSettings()
   Frame:SetText("Extras")
   -- Panel 06.01 (Extra)
   local Frame = CreateFrame("Frame","$parentFrameButtonPanel061", AbyssUILight_Config.childpanel5)
-  Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel5, "TOP", -265, -70)
+  Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel5, "TOP", -290, -70)
   Frame:SetWidth(120)
   Frame:SetHeight(24)
   Frame:SetScale(1)
@@ -302,13 +313,31 @@ local function InitSettings()
   Frame:SetText("- General")
   -- Panel 06.02 (Extra)
   local Frame = CreateFrame("Frame","$parentFrameButtonPanel062", AbyssUILight_Config.childpanel5)
-  Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel5, "TOP", 125, -70)
+  Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel5, "TOP", 100, -70)
   Frame:SetWidth(120)
   Frame:SetHeight(24)
   Frame:SetScale(1)
   Frame = Frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   Frame:SetPoint("CENTER")
   Frame:SetText("- Frames")
+  -- Panel 07 (Icons)
+  local Frame = CreateFrame("Frame","$parentFrameButtonPanel07", AbyssUILight_Config.childpanel7)
+  Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel7, "TOP", 0, -20)
+  Frame:SetWidth(120)
+  Frame:SetHeight(24)
+  Frame:SetScale(1.5)
+  Frame = Frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+  Frame:SetPoint("CENTER")
+  Frame:SetText("Icons")
+  -- Panel 06.01 (Extra)
+  local Frame = CreateFrame("Frame","$parentFrameButtonPanel071", AbyssUILight_Config.childpanel7)
+  Frame:SetPoint("CENTER", AbyssUILight_Config.childpanel7, "TOP", -300, -70)
+  Frame:SetWidth(120)
+  Frame:SetHeight(24)
+  Frame:SetScale(1)
+  Frame = Frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+  Frame:SetPoint("CENTER")
+  Frame:SetText("- Icons")
   --------------------------------- Buttons ---------------------------------
   local _G = _G
   local levelString       = _G["LEVEL"]
@@ -1500,8 +1529,8 @@ local function Miscellaneous()
   AbyssUILight_BetterFonts_CheckButton:SetScript("OnEvent", function(self, event, ...)
     if ( event == "PLAYER_ENTERING_WORLD" ) then
       if ( AbyssUILightAddonSettings.ExtraFunctionBetterFonts == true ) then
-         ChatFrame1:SetFont("Fonts\\MORPHEUS.TTF", 13)
-         ChatFrame1.editBox.header:SetFont("Fonts\\MORPHEUS.TTF", 13)
+        ChatFrame1:SetFont(subFont, 13, "THINOUTLINE")
+        ChatFrame1.editBox.header:SetFont(subFont, 13, "THINOUTLINE")
       else 
         return nil
       end
@@ -1836,6 +1865,334 @@ local function TweaksExtra()
     AbyssUILightAddonSettings.UnitFrameImproved = self:GetChecked()
     AbyssUILight_ReloadFrame:Show()
   end)
+end
+-- End
+local function IconsFonts ()
+----------------------------------- Icons  -----------------------------------
+-- Icon Border --
+  -- Gloss
+  local GlossIconBorder_CheckButton = CreateFrame("CheckButton", "$parentGlossIconBorder_CheckButton", AbyssUILight_Config.childpanel7, "ChatConfigCheckButtonTemplate")
+  GlossIconBorder_CheckButton:SetPoint("TOPLEFT", 10, -80)
+  GlossIconBorder_CheckButton.Text:SetText(L["Class Color"])
+  local Frame = CreateFrame("Frame", nil, GlossIconBorder_CheckButton)
+  Frame:SetWidth(180)
+  Frame:SetHeight(40)
+  Frame:SetPoint("LEFT", 25, 0)
+  GlossIconBorder_CheckButton.Text:SetAllPoints(Frame)
+  GlossIconBorder_CheckButton.tooltip = L["Change icon border to a class colored theme"]
+  GlossIconBorder_CheckButton:SetChecked(AbyssUILightAddonSettings.GlossIconBorder)
+  -- OnClick Function
+  GlossIconBorder_CheckButton:SetScript("OnClick", function(self)
+   if AbyssUILightAddonSettings.CrispIconBorder     ~= true and 
+      AbyssUILightAddonSettings.OriginalIconBorder  ~= true and 
+      AbyssUILightAddonSettings.SquareIconBorder    ~= true and 
+      AbyssUILightAddonSettings.GlassIconBorder     ~= true and
+      AbyssUILightAddonSettings.ClassicIconBorder   ~= true and
+      AbyssUILightAddonSettings.OldSchoolIconBorder ~= true and
+      AbyssUILightAddonSettings.DefaultIconBorder   ~= true and 
+      AbyssUILightAddonSettings.ThinIconBorder      ~= true then 
+      AbyssUILightAddonSettings.GlossIconBorder = self:GetChecked()
+      AbyssUILight_ReloadFrame:Show()
+    else
+      UIErrorsFrame:AddMessage(L["You need to select just one of those options so they don't overlap"], 1.0, 0.1, 0.1, 1.0)
+      GlossIconBorder_CheckButton:SetChecked(nil)
+    end
+  end)
+  -- Crisp
+  local CrispIconBorder_CheckButton = CreateFrame("CheckButton", "$parentCrispIconBorder_CheckButton", AbyssUILight_Config.childpanel7, "ChatConfigCheckButtonTemplate")
+  CrispIconBorder_CheckButton:SetPoint("TOPLEFT", 10, -110)
+  CrispIconBorder_CheckButton.Text:SetText(L["Crisp"])
+  local Frame = CreateFrame("Frame", nil, CrispIconBorder_CheckButton)
+  Frame:SetWidth(180)
+  Frame:SetHeight(40)
+  Frame:SetPoint("LEFT", 25, 0)
+  CrispIconBorder_CheckButton.Text:SetAllPoints(Frame)
+  CrispIconBorder_CheckButton.tooltip = L["Change icon border to a crisp theme"]
+  CrispIconBorder_CheckButton:SetChecked(AbyssUILightAddonSettings.CrispIconBorder)
+  -- OnClick Function
+  CrispIconBorder_CheckButton:SetScript("OnClick", function(self)
+    if AbyssUILightAddonSettings.GlossIconBorder    ~= true and 
+      AbyssUILightAddonSettings.OriginalIconBorder  ~= true and 
+      AbyssUILightAddonSettings.SquareIconBorder    ~= true and
+      AbyssUILightAddonSettings.GlassIconBorder     ~= true and
+      AbyssUILightAddonSettings.ClassicIconBorder   ~= true and
+      AbyssUILightAddonSettings.OldSchoolIconBorder ~= true and
+      AbyssUILightAddonSettings.DefaultIconBorder   ~= true and  
+      AbyssUILightAddonSettings.ThinIconBorder      ~= true then 
+      AbyssUILightAddonSettings.CrispIconBorder = self:GetChecked()
+      AbyssUILight_ReloadFrame:Show()
+    else
+      UIErrorsFrame:AddMessage(L["You need to select just one of those options so they don't overlap"], 1.0, 0.1, 0.1, 1.0)
+      CrispIconBorder_CheckButton:SetChecked(nil)
+    end
+  end)
+  -- Original
+  local OriginalIconBorder_CheckButton = CreateFrame("CheckButton", "$parentOriginalIconBorder_CheckButton", AbyssUILight_Config.childpanel7, "ChatConfigCheckButtonTemplate")
+  OriginalIconBorder_CheckButton:SetPoint("TOPLEFT", 10, -140)
+  OriginalIconBorder_CheckButton.Text:SetText(L["Original"])
+  local Frame = CreateFrame("Frame", nil, OriginalIconBorder_CheckButton)
+  Frame:SetWidth(180)
+  Frame:SetHeight(40)
+  Frame:SetPoint("LEFT", 25, 0)
+  OriginalIconBorder_CheckButton.Text:SetAllPoints(Frame)
+  OriginalIconBorder_CheckButton.tooltip = L["Change icon border to a original theme"]
+  OriginalIconBorder_CheckButton:SetChecked(AbyssUILightAddonSettings.OriginalIconBorder)
+  -- OnClick Function
+  OriginalIconBorder_CheckButton:SetScript("OnClick", function(self)
+    if AbyssUILightAddonSettings.CrispIconBorder    ~= true and 
+      AbyssUILightAddonSettings.GlossIconBorder     ~= true and 
+      AbyssUILightAddonSettings.SquareIconBorder    ~= true and 
+      AbyssUILightAddonSettings.GlassIconBorder     ~= true and
+      AbyssUILightAddonSettings.ClassicIconBorder   ~= true and
+      AbyssUILightAddonSettings.OldSchoolIconBorder ~= true and
+      AbyssUILightAddonSettings.DefaultIconBorder   ~= true and 
+      AbyssUILightAddonSettings.ThinIconBorder      ~= true then 
+      AbyssUILightAddonSettings.OriginalIconBorder = self:GetChecked()
+      AbyssUILight_ReloadFrame:Show()
+    else
+      UIErrorsFrame:AddMessage(L["You need to select just one of those options so they don't overlap"], 1.0, 0.1, 0.1, 1.0)
+      OriginalIconBorder_CheckButton:SetChecked(nil)
+    end
+  end)
+  -- Square
+  local SquareIconBorder_CheckButton = CreateFrame("CheckButton", "$parentSquareIconBorder_CheckButton", AbyssUILight_Config.childpanel7, "ChatConfigCheckButtonTemplate")
+  SquareIconBorder_CheckButton:SetPoint("TOPLEFT", 10, -170)
+  SquareIconBorder_CheckButton.Text:SetText(L["Square"])
+  local Frame = CreateFrame("Frame", nil, SquareIconBorder_CheckButton)
+  Frame:SetWidth(180)
+  Frame:SetHeight(40)
+  Frame:SetPoint("LEFT", 25, 0)
+  SquareIconBorder_CheckButton.Text:SetAllPoints(Frame)
+  SquareIconBorder_CheckButton.tooltip = L["Change icon border to a square theme"]
+  SquareIconBorder_CheckButton:SetChecked(AbyssUILightAddonSettings.SquareIconBorder)
+  -- OnClick Function
+  SquareIconBorder_CheckButton:SetScript("OnClick", function(self)
+    if AbyssUILightAddonSettings.CrispIconBorder    ~= true and 
+      AbyssUILightAddonSettings.OriginalIconBorder  ~= true and 
+      AbyssUILightAddonSettings.GlossIconBorder     ~= true and 
+      AbyssUILightAddonSettings.GlassIconBorder     ~= true and
+      AbyssUILightAddonSettings.ClassicIconBorder   ~= true and 
+      AbyssUILightAddonSettings.OldSchoolIconBorder ~= true and
+      AbyssUILightAddonSettings.DefaultIconBorder   ~= true and
+      AbyssUILightAddonSettings.ThinIconBorder      ~= true then 
+      AbyssUILightAddonSettings.SquareIconBorder = self:GetChecked()
+      AbyssUILight_ReloadFrame:Show()
+    else
+      UIErrorsFrame:AddMessage(L["You need to select just one of those options so they don't overlap"], 1.0, 0.1, 0.1, 1.0)
+      SquareIconBorder_CheckButton:SetChecked(nil)
+    end
+  end)
+  -- Thin
+  local ThinIconBorder_CheckButton = CreateFrame("CheckButton", "$parentThinIconBorder_CheckButton", AbyssUILight_Config.childpanel7, "ChatConfigCheckButtonTemplate")
+  ThinIconBorder_CheckButton:SetPoint("TOPLEFT", 10, -200)
+  ThinIconBorder_CheckButton.Text:SetText(L["Thin"])
+  local Frame = CreateFrame("Frame", nil, ThinIconBorder_CheckButton)
+  Frame:SetWidth(180)
+  Frame:SetHeight(40)
+  Frame:SetPoint("LEFT", 25, 0)
+  ThinIconBorder_CheckButton.Text:SetAllPoints(Frame)
+  ThinIconBorder_CheckButton.tooltip = L["Change icon border to a thin theme"]
+  ThinIconBorder_CheckButton:SetChecked(AbyssUILightAddonSettings.ThinIconBorder)
+  -- OnClick Function
+  ThinIconBorder_CheckButton:SetScript("OnClick", function(self)
+    if AbyssUILightAddonSettings.CrispIconBorder    ~= true and 
+      AbyssUILightAddonSettings.OriginalIconBorder  ~= true and 
+      AbyssUILightAddonSettings.SquareIconBorder    ~= true and 
+      AbyssUILightAddonSettings.GlassIconBorder     ~= true and
+      AbyssUILightAddonSettings.ClassicIconBorder   ~= true and
+      AbyssUILightAddonSettings.OldSchoolIconBorder ~= true and
+      AbyssUILightAddonSettings.DefaultIconBorder   ~= true and 
+      AbyssUILightAddonSettings.GlossIconBorder     ~= true then 
+      AbyssUILightAddonSettings.ThinIconBorder = self:GetChecked()
+      AbyssUILight_ReloadFrame:Show()
+    else
+      UIErrorsFrame:AddMessage(L["You need to select just one of those options so they don't overlap"], 1.0, 0.1, 0.1, 1.0)
+      ThinIconBorder_CheckButton:SetChecked(nil)
+    end
+  end)
+  -- Glass
+  local GlassIconBorder_CheckButton = CreateFrame("CheckButton", "$parentGlassIconBorder_CheckButton", AbyssUILight_Config.childpanel7, "ChatConfigCheckButtonTemplate")
+  GlassIconBorder_CheckButton:SetPoint("TOPLEFT", 180, -80)
+  GlassIconBorder_CheckButton.Text:SetText(L["Glass"])
+  local Frame = CreateFrame("Frame", nil, GlassIconBorder_CheckButton)
+  Frame:SetWidth(180)
+  Frame:SetHeight(40)
+  Frame:SetPoint("LEFT", 25, 0)
+  GlassIconBorder_CheckButton.Text:SetAllPoints(Frame)
+  GlassIconBorder_CheckButton.tooltip = L["Change the icon to a glass theme"]
+  GlassIconBorder_CheckButton:SetChecked(AbyssUILightAddonSettings.GlassIconBorder)
+  -- OnClick Function
+  GlassIconBorder_CheckButton:SetScript("OnClick", function(self)
+    if AbyssUILightAddonSettings.CrispIconBorder    ~= true and 
+      AbyssUILightAddonSettings.OriginalIconBorder  ~= true and 
+      AbyssUILightAddonSettings.SquareIconBorder    ~= true and 
+      AbyssUILightAddonSettings.GlossIconBorder     ~= true and
+      AbyssUILightAddonSettings.ClassicIconBorder   ~= true and
+      AbyssUILightAddonSettings.OldSchoolIconBorder ~= true and
+      AbyssUILightAddonSettings.DefaultIconBorder   ~= true and
+      AbyssUILightAddonSettings.ThinIconBorder      ~= true then 
+      AbyssUILightAddonSettings.GlassIconBorder = self:GetChecked()
+      AbyssUILight_ReloadFrame:Show()
+    else
+      UIErrorsFrame:AddMessage(L["You need to select just one of those options so they don't overlap"], 1.0, 0.1, 0.1, 1.0)
+      GlassIconBorder_CheckButton:SetChecked(nil)
+    end
+  end)
+  -- Classic Theme
+  local ClassicIconBorder_CheckButton = CreateFrame("CheckButton", "$parentClassicIconBorder_CheckButton", AbyssUILight_Config.childpanel7, "ChatConfigCheckButtonTemplate")
+  ClassicIconBorder_CheckButton:SetPoint("TOPLEFT", 180, -110)
+  ClassicIconBorder_CheckButton.Text:SetText("Classic")
+  local Frame = CreateFrame("Frame", nil, ClassicIconBorder_CheckButton)
+  Frame:SetWidth(180)
+  Frame:SetHeight(40)
+  Frame:SetPoint("LEFT", 25, 0)
+  ClassicIconBorder_CheckButton.Text:SetAllPoints(Frame)
+  ClassicIconBorder_CheckButton.tooltip = "Classic"
+  ClassicIconBorder_CheckButton:SetChecked(AbyssUILightAddonSettings.ClassicIconBorder)
+  -- OnClick Function
+  ClassicIconBorder_CheckButton:SetScript("OnClick", function(self)
+    if AbyssUILightAddonSettings.CrispIconBorder    ~= true and 
+      AbyssUILightAddonSettings.OriginalIconBorder  ~= true and 
+      AbyssUILightAddonSettings.SquareIconBorder    ~= true and 
+      AbyssUILightAddonSettings.GlossIconBorder     ~= true and
+      AbyssUILightAddonSettings.GlassIconBorder     ~= true and
+      AbyssUILightAddonSettings.OldSchoolIconBorder ~= true and
+      AbyssUILightAddonSettings.DefaultIconBorder   ~= true and
+      AbyssUILightAddonSettings.ThinIconBorder      ~= true then 
+      AbyssUILightAddonSettings.ClassicIconBorder = self:GetChecked()
+      AbyssUILight_ReloadFrame:Show()
+    else
+      UIErrorsFrame:AddMessage(L["You need to select just one of those options so they don't overlap"], 1.0, 0.1, 0.1, 1.0)
+      ClassicIconBorder_CheckButton:SetChecked(nil)
+    end
+  end)
+  -- Default Theme
+  local DefaultIconBorder_CheckButton = CreateFrame("CheckButton", "$parentDefaultIconBorder_CheckButton", AbyssUILight_Config.childpanel7, "ChatConfigCheckButtonTemplate")
+  DefaultIconBorder_CheckButton:SetPoint("TOPLEFT", 180, -140)
+  DefaultIconBorder_CheckButton.Text:SetText("Default (Blizzard)")
+  local Frame = CreateFrame("Frame", nil, DefaultIconBorder_CheckButton)
+  Frame:SetWidth(180)
+  Frame:SetHeight(40)
+  Frame:SetPoint("LEFT", 25, 0)
+  DefaultIconBorder_CheckButton.Text:SetAllPoints(Frame)
+  DefaultIconBorder_CheckButton.tooltip = "Default (Blizzard)"
+  DefaultIconBorder_CheckButton:SetChecked(AbyssUILightAddonSettings.DefaultIconBorder)
+  -- OnClick Function
+  DefaultIconBorder_CheckButton:SetScript("OnClick", function(self)
+    if AbyssUILightAddonSettings.CrispIconBorder    ~= true and 
+      AbyssUILightAddonSettings.OriginalIconBorder  ~= true and 
+      AbyssUILightAddonSettings.SquareIconBorder    ~= true and 
+      AbyssUILightAddonSettings.GlossIconBorder     ~= true and
+      AbyssUILightAddonSettings.GlassIconBorder     ~= true and 
+      AbyssUILightAddonSettings.ThinIconBorder      ~= true and 
+      AbyssUILightAddonSettings.OldSchoolIconBorder ~= true and
+      AbyssUILightAddonSettings.ClassicIconBorder   ~= true then
+      AbyssUILightAddonSettings.DefaultIconBorder = self:GetChecked()
+      AbyssUILight_ReloadFrame:Show()
+    else
+      UIErrorsFrame:AddMessage(L["You need to select just one of those options so they don't overlap"], 1.0, 0.1, 0.1, 1.0)
+      DefaultIconBorder_CheckButton:SetChecked(nil)
+    end
+  end)
+  -- Oldschool Theme
+  local OldSchoolIconBorder_CheckButton = CreateFrame("CheckButton", "$parentOldSchoolIconBorder_CheckButton", AbyssUILight_Config.childpanel7, "ChatConfigCheckButtonTemplate")
+  OldSchoolIconBorder_CheckButton:SetPoint("TOPLEFT", 180, -170)
+  OldSchoolIconBorder_CheckButton.Text:SetText("|cff0d75d4Old School|r")
+  local Frame = CreateFrame("Frame", nil, OldSchoolIconBorder_CheckButton)
+  Frame:SetWidth(180)
+  Frame:SetHeight(40)
+  Frame:SetPoint("LEFT", 25, 0)
+  OldSchoolIconBorder_CheckButton.Text:SetAllPoints(Frame)
+  OldSchoolIconBorder_CheckButton.tooltip = "Old School"
+  OldSchoolIconBorder_CheckButton:SetChecked(AbyssUILightAddonSettings.OldSchoolIconBorder)
+  addonTable.OldSchoolIconBorder = OldSchoolIconBorder_CheckButton
+  -- OnClick Function
+  OldSchoolIconBorder_CheckButton:SetScript("OnClick", function(self)
+    if AbyssUILightAddonSettings.CrispIconBorder   ~= true and 
+      AbyssUILightAddonSettings.OriginalIconBorder ~= true and 
+      AbyssUILightAddonSettings.SquareIconBorder   ~= true and 
+      AbyssUILightAddonSettings.GlossIconBorder    ~= true and
+      AbyssUILightAddonSettings.GlassIconBorder    ~= true and 
+      AbyssUILightAddonSettings.ThinIconBorder     ~= true and 
+      AbyssUILightAddonSettings.ClassicIconBorder  ~= true and
+      AbyssUILightAddonSettings.DefaultIconBorder  ~= true then
+      AbyssUILightAddonSettings.OldSchoolIconBorder = self:GetChecked()
+      AbyssUILight_ReloadFrame:Show()
+    else
+      UIErrorsFrame:AddMessage(L["You need to select just one of those options so they don't overlap"], 1.0, 0.1, 0.1, 1.0)
+      OldSchoolIconBorder_CheckButton:SetChecked(nil)
+    end
+  end)
+  --[[
+  --Fonts
+  -- Create a frame to hold the dropdown
+  --Global
+  local frame = CreateFrame("Frame", "$parentFontSelectionFrameGlobal", AbyssUILight_Config.childpanel7, "UIDropDownMenuTemplate")
+  frame:SetPoint("CENTER", AbyssUILight_Config.childpanel7, "CENTER")
+  frame:SetSize(200, 30)
+
+  -- Create a function to be called when a font is selected
+  local function OnFontSelected(self, fontName)
+    UIDropDownMenu_SetText(frame, fontName)
+    -- Do something with the selected font, like updating a font for a specific frame or element
+    local newglobalFont = fontName
+  end
+
+  -- Initialize the dropdown menu
+  UIDropDownMenu_Initialize(frame, function(self, level, menuList)
+      local info = UIDropDownMenu_CreateInfo()
+      local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
+      local newglobalFont = mediaFolder.."global.tff"
+      info.func = OnFontSelected
+
+      local fonts = {
+          "Blizzard Default",
+          "Open Sans",
+          "Monstserrat",
+          "Oswald",
+          "Nikkyou",
+          "Rocker",
+          "Immortal",
+          -- Add more fonts as needed
+      }
+
+      for _, fontName in ipairs(fonts) do
+          info.text = fontName
+          info.arg1 = fontName
+          UIDropDownMenu_AddButton(info)
+      end
+  end)
+
+  -- Set the default text
+  UIDropDownMenu_SetText(frame, "Select Font")
+
+  -- Add the dropdown to your UI frame or wherever you need it
+  -- Your code to add the frame to your UI goes here
+  if (fontName == "Blizzard Default") then
+    newglobalFont = "Fonts\\FRIZQT__.TTF"
+    AbyssUILight_ReloadFrame()
+  elseif (fontName == "Open Sans") then
+    newglobalFont = mediaFolder.."global.tff"
+    AbyssUILight_ReloadFrame()
+  elseif (fontName == "Monstserrat") then
+    newglobalFont = mediaFolder.."globalsmall.tff"
+    AbyssUILight_ReloadFrame()
+  elseif (fontName == "Oswald") then
+    newglobalFont = mediaFolder.."npcfont.tff"
+    AbyssUILight_ReloadFrame()
+  elseif (fontName == "Nikkyou") then
+    newglobalFont = mediaFolder.."npcfont_fat.tff"
+    AbyssUILight_ReloadFrame()
+  elseif (fontName == "Rocker") then
+    newglobalFont = mediaFolder.."damagefont.tff"
+    AbyssUILight_ReloadFrame()
+  elseif (fontName == "Nikkyou") then
+    newglobalFont = mediaFolder.."damagefont_classic.tff"
+    AbyssUILight_ReloadFrame()
+  else
+    return nil
+  end
+  --]]
 end
 --End
 local function Stylization()
@@ -2854,6 +3211,7 @@ f:SetScript("OnEvent", function(self, event, ...)
   HideElementsInit()
   Miscellaneous()
   TweaksExtra()
+  IconsFonts()
   Stylization()
 end)
 ----------------------------------------------------

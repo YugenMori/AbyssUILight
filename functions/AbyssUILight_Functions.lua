@@ -41,7 +41,7 @@ f:SetScript("OnEvent", function(self, event, ...)
   end
 end)
 -- Fontfication
-local function AbyssUILight_Fontification(globalFont, subFont, damageFont)
+local function AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 local locale = GetLocale()
 local fontName, fontHeight, fontFlags = MinimapZoneText:GetFont()
 local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
@@ -49,31 +49,37 @@ local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
 		globalFont	= mediaFolder.."zhCN-TW\\senty.ttf"
 		subFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
 		damageFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
+		oldglobalFont = mediaFolder.."zhCN-TW\\senty.ttf"
 	elseif ( locale == "zhTW" ) then
 		globalFont	= mediaFolder.."zhCN-TW\\senty.ttf"
 		subFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
 		damageFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
+		oldglobalFont = mediaFolder.."zhCN-TW\\senty.ttf"
 	elseif ( locale == "ruRU" ) then
 		globalFont	= mediaFolder.."ruRU\\dejavu.ttf"
 		subFont 	= mediaFolder.."ruRU\\dejavu.ttf"
 		damageFont 	= mediaFolder.."ruRU\\dejavu.ttf"
+		oldglobalFont = mediaFolder.."ruRU\\dejavu.ttf"
 	elseif ( locale == "koKR" ) then
 		globalFont	= mediaFolder.."koKR\\dxlbab.ttf"
 		subFont 	= mediaFolder.."koKR\\dxlbab.ttf"
 		damageFont 	= mediaFolder.."koKR\\dxlbab.ttf"
+		oldglobalFont = mediaFolder.."koKR\\dxlbab.ttf"
 	elseif ( locale == "frFR" or locale == "deDE" or locale == "enGB" or locale == "enUS" or locale == "itIT" or
 		locale == "esES" or locale == "esMX" or locale == "ptBR") then
-		globalFont	= mediaFolder.."global.ttf"
-		subFont 	= mediaFolder.."npcfont.ttf"
+		globalFont	= mediaFolder.."global.tff"
+		subFont 	= mediaFolder.."damagefont_classic.ttf"
 		damageFont 	= mediaFolder.."damagefont_classic.ttf"
+		oldglobalFont = mediaFolder .. "damagefont_classic.ttf"
 	else
 		globalFont	= fontName
 		subFont 	= fontName
 		damageFont 	= fontName
+		oldglobalFont = fontName
 	end
-	return globalFont, subFont, damageFont
+	return globalFont, subFont, damageFont, oldglobalFont
 end
-local globalFont, subFont, damageFont = AbyssUILight_Fontification(globalFont, subFont, damageFont)
+local globalFont, subFont, damageFont, oldglobalFont = AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 -- RegionList
 local function AbyssUILight_RegionListSize(self, width, height)
 	local regionList = { 
@@ -486,10 +492,10 @@ AbyssUILight_AutoSell:SetScript("OnEvent", function()
 	if ( AbyssUILightAddonSettings.ExtraFunctionSellGray == true ) then
 		local bag, slot
 		for bag = 0, 4 do
-	    	for slot = 0, GetContainerNumSlots(bag) do
-	        	local link = GetContainerItemLink(bag, slot)
+	    	for slot = 0, C_Container.GetContainerNumSlots(bag) do
+	        	local link = C_Container.GetContainerItemLink(bag, slot)
 	       		if link and (select(3, GetItemInfo(link)) == 0) then
-	            	UseContainerItem(bag, slot)
+	            	C_Container.UseContainerItem(bag, slot)
 	        	end
 	    	end
 		end
@@ -792,6 +798,7 @@ AbyssUILight_ElitePortrait:SetScript("OnEvent", function(self, event, ...)
   end
 end)
 -- Exp Font Color Change
+--[[
 local function SetFontStringColor(fontString, red, green, blue, alpha)
     fontString:SetTextColor(red, green, blue, alpha)
 end
@@ -809,6 +816,7 @@ local fontString = _G[fontStringName]
 	    print("FontString not found: " .. fontStringName)
 	end
 end)
+--]]
 --------------------------------------------
 local _G = _G
 local levelString 			= _G["LEVEL"]

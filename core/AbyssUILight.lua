@@ -39,39 +39,45 @@ f:SetScript("OnEvent", function(self, event, ...)
   end
 end)
 -- Fontfication
-local function AbyssUILight_Fontification(globalFont, subFont, damageFont)
+local function AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 local locale = GetLocale()
 local fontName, fontHeight, fontFlags = MinimapZoneText:GetFont()
 local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
-  if ( locale == "zhCN") then
-    globalFont  = mediaFolder.."zhCN-TW\\senty.ttf"
-    subFont   = mediaFolder.."zhCN-TW\\senty.ttf"
-    damageFont  = mediaFolder.."zhCN-TW\\senty.ttf"
-  elseif ( locale == "zhTW" ) then
-    globalFont  = mediaFolder.."zhCN-TW\\senty.ttf"
-    subFont   = mediaFolder.."zhCN-TW\\senty.ttf"
-    damageFont  = mediaFolder.."zhCN-TW\\senty.ttf"
-  elseif ( locale == "ruRU" ) then
-    globalFont  = mediaFolder.."ruRU\\dejavu.ttf"
-    subFont   = mediaFolder.."ruRU\\dejavu.ttf"
-    damageFont  = mediaFolder.."ruRU\\dejavu.ttf"
-  elseif ( locale == "koKR" ) then
-    globalFont  = mediaFolder.."koKR\\dxlbab.ttf"
-    subFont   = mediaFolder.."koKR\\dxlbab.ttf"
-    damageFont  = mediaFolder.."koKR\\dxlbab.ttf"
-  elseif ( locale == "frFR" or locale == "deDE" or locale == "enGB" or locale == "enUS" or locale == "itIT" or
-    locale == "esES" or locale == "esMX" or locale == "ptBR") then
-    globalFont  = mediaFolder.."global.ttf"
-    subFont   = mediaFolder.."npcfont.ttf"
-    damageFont  = mediaFolder.."damagefont_classic.ttf"
-  else
-    globalFont  = fontName
-    subFont   = fontName
-    damageFont  = fontName
-  end
-  return globalFont, subFont, damageFont
+	if ( locale == "zhCN") then
+		globalFont	= mediaFolder.."zhCN-TW\\senty.ttf"
+		subFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
+		damageFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
+		oldglobalFont = mediaFolder.."zhCN-TW\\senty.ttf"
+	elseif ( locale == "zhTW" ) then
+		globalFont	= mediaFolder.."zhCN-TW\\senty.ttf"
+		subFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
+		damageFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
+		oldglobalFont = mediaFolder.."zhCN-TW\\senty.ttf"
+	elseif ( locale == "ruRU" ) then
+		globalFont	= mediaFolder.."ruRU\\dejavu.ttf"
+		subFont 	= mediaFolder.."ruRU\\dejavu.ttf"
+		damageFont 	= mediaFolder.."ruRU\\dejavu.ttf"
+		oldglobalFont = mediaFolder.."ruRU\\dejavu.ttf"
+	elseif ( locale == "koKR" ) then
+		globalFont	= mediaFolder.."koKR\\dxlbab.ttf"
+		subFont 	= mediaFolder.."koKR\\dxlbab.ttf"
+		damageFont 	= mediaFolder.."koKR\\dxlbab.ttf"
+		oldglobalFont = mediaFolder.."koKR\\dxlbab.ttf"
+	elseif ( locale == "frFR" or locale == "deDE" or locale == "enGB" or locale == "enUS" or locale == "itIT" or
+		locale == "esES" or locale == "esMX" or locale == "ptBR") then
+		globalFont	= mediaFolder.."global.tff"
+		subFont 	= mediaFolder.."damagefont_classic.ttf"
+		damageFont 	= mediaFolder.."damagefont_classic.ttf"
+		oldglobalFont = mediaFolder .. "damagefont_classic.ttf"
+	else
+		globalFont	= fontName
+		subFont 	= fontName
+		damageFont 	= fontName
+		oldglobalFont = fontName
+	end
+	return globalFont, subFont, damageFont, oldglobalFont
 end
-local globalFont, subFont, damageFont = AbyssUILight_Fontification(globalFont, subFont, damageFont)
+local globalFont, subFont, damageFont, oldglobalFont = AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 local function AbyssUILight_ColorizationFrameFunction(...)
 	local v = ...
 	if AbyssUILightAddonSettings.UIVertexColorFrames01 == true then
@@ -878,6 +884,7 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 			if (GetWoWVersion <= 90500) then
 				for i, v in pairs({	
 					CastingBarFrame.Border,
+					MirrorTimer1Border,
 					TargetFrameSpellBar.Border,
 				TargetFrameSpellBar.BorderShield, }) do
 					if AbyssUILightAddonSettings ~= nil then

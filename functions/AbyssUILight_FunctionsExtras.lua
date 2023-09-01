@@ -41,7 +41,7 @@ f:SetScript("OnEvent", function(self, event, ...)
   end
 end)
 -- Fontfication
-local function AbyssUILight_Fontification(globalFont, subFont, damageFont)
+local function AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 local locale = GetLocale()
 local fontName, fontHeight, fontFlags = MinimapZoneText:GetFont()
 local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
@@ -49,31 +49,37 @@ local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
 		globalFont	= mediaFolder.."zhCN-TW\\senty.ttf"
 		subFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
 		damageFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
+		oldglobalFont = mediaFolder.."zhCN-TW\\senty.ttf"
 	elseif ( locale == "zhTW" ) then
 		globalFont	= mediaFolder.."zhCN-TW\\senty.ttf"
 		subFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
 		damageFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
+		oldglobalFont = mediaFolder.."zhCN-TW\\senty.ttf"
 	elseif ( locale == "ruRU" ) then
 		globalFont	= mediaFolder.."ruRU\\dejavu.ttf"
 		subFont 	= mediaFolder.."ruRU\\dejavu.ttf"
 		damageFont 	= mediaFolder.."ruRU\\dejavu.ttf"
+		oldglobalFont = mediaFolder.."ruRU\\dejavu.ttf"
 	elseif ( locale == "koKR" ) then
 		globalFont	= mediaFolder.."koKR\\dxlbab.ttf"
 		subFont 	= mediaFolder.."koKR\\dxlbab.ttf"
 		damageFont 	= mediaFolder.."koKR\\dxlbab.ttf"
+		oldglobalFont = mediaFolder.."koKR\\dxlbab.ttf"
 	elseif ( locale == "frFR" or locale == "deDE" or locale == "enGB" or locale == "enUS" or locale == "itIT" or
 		locale == "esES" or locale == "esMX" or locale == "ptBR") then
-		globalFont	= mediaFolder.."global.ttf"
-		subFont 	= mediaFolder.."npcfont.ttf"
-		damageFont 	= mediaFolder.."damagefont_classic.ttf"
+		globalFont	= mediaFolder.."global.tff"
+		subFont 	= mediaFolder.."damagefont_classic.ttf"
+		damageFont 	= mediaFolder.."damagefont.ttf"
+		oldglobalFont = mediaFolder .. "damagefont_classic.ttf"
 	else
 		globalFont	= fontName
 		subFont 	= fontName
 		damageFont 	= fontName
+		oldglobalFont = fontName
 	end
-	return globalFont, subFont, damageFont
+	return globalFont, subFont, damageFont, oldglobalFont
 end
-local globalFont, subFont, damageFont = AbyssUILight_Fontification(globalFont, subFont, damageFont)
+local globalFont, subFont, damageFont, oldglobalFont = AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 -- RegionList
 local function AbyssUILight_RegionListSize(self, width, height)
 	local regionList = { 
@@ -94,7 +100,6 @@ local function AbyssUILight_FrameSize(self, width, height)
 end
 ----------------------------------------------------
 local _G = _G
---------------------------------------------------------------
 -- Fonts
 ----------------------------------------------------
 local AbyssUILight_FontString = CreateFrame("Frame", "$parentAbyssUILight_FontString", nil)
@@ -103,17 +108,16 @@ AbyssUILight_FontString:RegisterEvent("PLAYER_LOGOUT")
 AbyssUILight_FontString:SetScript("OnEvent", function(self, event, arg1)
 	if ( event == "ADDON_LOADED" and arg1 == "AbyssUILight" )  then
 		STANDARD_TEXT_FONT          = globalFont
-		DAMAGE_TEXT_FONT          	= damageFont
-		UNIT_NAME_FONT              = subFont
-		NAMEPLATE_FONT              = subFont
-		NAMEPLATE_SPELLCAST_FONT    = subFont
+    DAMAGE_TEXT_FONT 						= oldglobalFont
+    COMBAT_TEXT_CRIT_MAXHEIGHT	= 24
+		UNIT_NAME_FONT              = oldglobalFont
+		NAMEPLATE_FONT              = oldglobalFont
+		NAMEPLATE_SPELLCAST_FONT    = oldglobalFont
 		
 		-- XML changes
 		local ForcedFontSize = {10, 14, 20, 64, 64}
+		local ForcedFontSizeBig = {14, 18, 24, 64, 64}
 		local BlizFontObjects = {
-			-- These five fonts use the fixedSize argument, causing an incorrent font size return, so input our own sizes (ForcedFontSize)
-			SystemFont_NamePlateCastBar, SystemFont_NamePlateFixed, SystemFont_LargeNamePlateFixed, SystemFont_World, SystemFont_World_ThickOutline,
-			
 			SystemFont_Outline_Small, SystemFont_Outline, SystemFont_InverseShadow_Small, SystemFont_Med2, SystemFont_Med3, SystemFont_Shadow_Med3,
 			SystemFont_Huge1, SystemFont_Huge1_Outline, SystemFont_OutlineThick_Huge2, SystemFont_OutlineThick_Huge4, SystemFont_OutlineThick_WTF,
 			NumberFont_GameNormal, NumberFont_Shadow_Small, NumberFont_OutlineThick_Mono_Small, NumberFont_Shadow_Med, NumberFont_Normal_Med, 
@@ -122,27 +126,78 @@ AbyssUILight_FontString:SetScript("OnEvent", function(self, event, arg1)
 			Game15Font, Game18Font, Game20Font, Game24Font, Game27Font, Game30Font, Game32Font, Game36Font, Game48Font, Game48FontShadow,
 			Game60Font, Game72Font, Game11Font_o1, Game12Font_o1, Game13Font_o1, Game15Font_o1, QuestFont_Enormous, DestinyFontLarge,
 			CoreAbilityFont, DestinyFontHuge, QuestFont_Shadow_Small, MailFont_Large, SpellFont_Small, InvoiceFont_Med, InvoiceFont_Small,
-			Tooltip_Med, Tooltip_Small, AchievementFont_Small, ReputationDetailFont, FriendsFont_Normal, FriendsFont_Small, FriendsFont_Large,
+			AchievementFont_Small, ReputationDetailFont, FriendsFont_Normal, FriendsFont_Small, FriendsFont_Large,
 			FriendsFont_UserText, GameFont_Gigantic, ChatBubbleFont, Fancy16Font, Fancy18Font, Fancy20Font, Fancy24Font, Fancy27Font, Fancy30Font,
-			Fancy32Font, Fancy48Font, SystemFont_NamePlate, SystemFont_LargeNamePlate,
-			
-			-- SharedFonts.xml
-			
+			Fancy32Font, Fancy48Font,
+		}
+		local NamePlateFonts = {
+			-- These five fonts use the fixedSize argument, causing an incorrent font size return, so input our own sizes (ForcedFontSize)
+			SystemFont_NamePlateCastBar, SystemFont_NamePlateFixed, SystemFont_LargeNamePlateFixed, SystemFont_World, SystemFont_World_ThickOutline,
+			SystemFont_NamePlate, SystemFont_LargeNamePlate,
+		}
+		--SharedFonts.xml
+		local SharedFonts = {
 			SystemFont_Tiny2, SystemFont_Tiny, SystemFont_Shadow_Small, SystemFont_Small, SystemFont_Small2, SystemFont_Shadow_Small2, SystemFont_Shadow_Med1_Outline,
 			SystemFont_Shadow_Med1, QuestFont_Large, SystemFont_Large, SystemFont_Shadow_Large_Outline, SystemFont_Shadow_Med2, SystemFont_Shadow_Large, 
 			SystemFont_Shadow_Large2, SystemFont_Shadow_Huge1, SystemFont_Huge2, SystemFont_Shadow_Huge2, SystemFont_Shadow_Huge3, SystemFont_Shadow_Outline_Huge3,
-			SystemFont_Shadow_Outline_Huge2, SystemFont_Med1, SystemFont_WTF2, SystemFont_Outline_WTF2, 
-			GameTooltipHeader, System_IME,
+			SystemFont_Shadow_Outline_Huge2, SystemFont_Med1, SystemFont_WTF2, SystemFont_Outline_WTF2, System_IME,
 		}
-
+		local ExtrasFromShared = { 
+			GameTooltipHeader, Tooltip_Med, Tooltip_Small, NumberFontNormalRightYellow, NumberFontNormalYellow,
+		}
+		-- Global
 		for i, FontObject in pairs(BlizFontObjects) do
+			local _, oldSize, oldStyle  = FontObject:GetFont()
+			FontObject:SetFont(oldglobalFont, ForcedFontSize[i] or oldSize, oldStyle)
+		end
+		-- Nameplates
+		for i, FontObject in pairs(NamePlateFonts) do
+			local _, oldSize, oldStyle  = FontObject:GetFont()
+			FontObject:SetFont(oldglobalFont, ForcedFontSize[i] or oldSize, oldStyle)
+		end
+		-- SharedFonts.xml
+		for i, FontObject in pairs(SharedFonts) do
 			local _, oldSize, oldStyle  = FontObject:GetFont()
 			FontObject:SetFont(globalFont, ForcedFontSize[i] or oldSize, oldStyle)
 		end
-		
+		-- Extras from SharedFonts.xml
+		for i, FontObject in pairs(ExtrasFromShared) do
+			local _, oldSize, oldStyle  = FontObject:GetFont()
+			FontObject:SetFont(globalFont, ForcedFontSizeBig[i] or oldSize, oldStyle)
+		end
+		-- Returns
 		BlizFontObjects = nil
+		NamePlateFonts = nil
+		SharedFonts = nil
+		ExtrasFromShared = nil
 	end
 end)
+-- Damage font hook
+--[[
+local function DamageFontHook()
+	-- IDK why this need to be hooked to work... but it is what it is
+  DAMAGE_TEXT_FONT = globalFont
+  COMBAT_TEXT_CRIT_MAXHEIGHT = 24 -- Adjust the maximum height for critical damage text
+end
+local function DamageFontOnLoad()
+  -- Hook the custom font function to the PLAYER_LOGIN event
+  local frame = CreateFrame("Frame")
+  frame:RegisterEvent("PLAYER_LOGIN")
+  frame:SetScript("OnEvent", DamageFontHook)
+end
+-- Call the OnLoad function when the addon is loaded
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("ADDON_LOADED")
+frame:SetScript("OnEvent", function(self, event, addonName)
+  if addonName == "AbyssUILight" then
+    DamageFontOnLoad()
+  end
+end)
+-- Register for the "PLAYER_LOGIN" event to apply the custom font when the player logs in
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_LOGIN")
+frame:SetScript("OnEvent", ApplyCustomDamageFont)
+--]]
 -- Change yellow fonts text color
 local f, _ = CreateFrame("frame")
 f:RegisterEvent("PLAYER_LOGIN")
@@ -325,7 +380,7 @@ hooksecurefunc("CompactUnitFrame_UpdateStatusText", function(frame)
 			if not frame.healthBar.percent then
 				frame.healthBar.percent = frame.healthBar:CreateFontString(nil,"OVERLAY")
 				frame.healthBar.percent:SetPoint("LEFT", frame.healthBar)
-				frame.healthBar.percent:SetFont("Interface\\AddOns\\AbyssUILight\\Textures\\font\\damagefont_classic.ttf", 10)
+				frame.healthBar.percent:SetFont(damageFont, 10, "THINOUTLINE")
 				--frame.healthBar.percent:SetFont(damageFont, 10)
 				frame.healthBar.percent:SetShadowColor(0, 0, 0)
 				frame.healthBar.percent:SetShadowOffset(1, -0.25)
