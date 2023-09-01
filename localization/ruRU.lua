@@ -1,4 +1,4 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("AbyssUILight", "ruRU")
+local L = LibStub("AceLocale-3.0"):NewLocale("AbyssUIClassic", "ruRU")
 if not L then return end 
 -- Переводчик: Нужен переводчик
 -- Пример

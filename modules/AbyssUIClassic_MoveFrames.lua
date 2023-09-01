@@ -5,7 +5,7 @@
 --
 -- Hope you like my addOn ^^
 --
--- Simple frame mover for AbyssUILight
+-- Simple frame mover for AbyssUIClassic
 --------------------------------------------------------------------------------
 -- Frame Stuff
 -- Thanks to Fizz for part of this
@@ -17,7 +17,7 @@ checkAddon:SetScript("OnEvent", function(self, event, addon)
     if ( addon == "ModernQuestWatch" ) then
         table.remove(Moveframes, 1)
         C_Timer.After(5, function()
-            print("|cfffc160aAbyssUILight found that ModernQuestWatch is enabled, making changes to avoid conflicts...|r")
+            print("|cfffc160aAbyssUIClassic found that ModernQuestWatch is enabled, making changes to avoid conflicts...|r")
         end)
     else
         return nil
@@ -57,7 +57,7 @@ C_Timer.After(1, function()
         f.Movetex.text:Hide()
     end
 end)
-local function AbyssUILightMoveFrames_Function(show)
+local function AbyssUIClassicMoveFrames_Function(show)
     for i , v in pairs (Moveframes) do
         local f = v
         f.Movetex:SetShown(show)
@@ -71,7 +71,7 @@ local function AbyssUILightMoveFrames_Function(show)
     end
 end
 -- Reset
-local function AbyssUILightMoveFrames_Reset()
+local function AbyssUIClassicMoveFrames_Reset()
     for i , v in pairs (Moveframes) do
         local f = v
         f:ClearAllPoints()
@@ -87,21 +87,21 @@ local function AbyssUILightMoveFrames_Reset()
 end
 -- Slash Commands
 -- Handler
-local function AbyssUILightMoveFrames_Slashhandler()
-    print("|cfff2dc7fAbyssUILight Command List|r")
+local function AbyssUIClassicMoveFrames_Slashhandler()
+    print("|cfff2dc7fAbyssUIClassic Command List|r")
     print("|cfff2dc7fType /abyssui |r|cffffcc00'command name'|r")
     print("/abyssui |cffffcc00config|r ~configuration panel")
     print("/abyssui |cffffcc00setup|r ~show the setup frame")
     print("/abyssui |cffffcc00reset|r ~reset UI frames to default positions")
-    print("/abyssui |cffffcc00daily|r ~AbyssUILight daily info")
+    print("/abyssui |cffffcc00daily|r ~AbyssUIClassic daily info")
     print("/abyssui |cffffcc00reload|r ~Reload the UI")
     print("/abyssui |cffffcc00more|r ~For more commands")
 end
 -- DailyInfo Function (For Slash)
-local function AbyssUILightDailyInfo_Slash()
-    local AddonVersion = GetAddOnMetadata("AbyssUILight", "Version")
-    print("|cfff2dc7f~ AbyssUILight Daily Info ~|r")
-    if ( AbyssUILightAddonSettings.ExtraFunctionAmericanClock == true ) then
+local function AbyssUIClassicDailyInfo_Slash()
+    local AddonVersion = GetAddOnMetadata("AbyssUIClassic", "Version")
+    print("|cfff2dc7f~ AbyssUIClassic Daily Info ~|r")
+    if ( AbyssUIClassicAddonSettings.ExtraFunctionAmericanClock == true ) then
         print("|cfff2dc7fDate:|r " .. date("%H:%M |cffffcc00%m/%d/%y|r "))
     else
         print("|cfff2dc7fDate:|r " .. date("%H:%M |cffffcc00%d/%m/%y|r "))
@@ -109,21 +109,21 @@ local function AbyssUILightDailyInfo_Slash()
     --print("|cfff2dc7fHonor Level: |r|cffffcc00" .. HonorLevel .. "|r")
     --print("|cfff2dc7fLocation: |r" .. GetMinimapZoneText() .. "|cffffcc00, " .. GetZoneText() .. "|r")
     print("|cfff2dc7fWoW Version: |r|cffffcc00" .. select(1, GetBuildInfo()) .. "|r")
-    print("|cfff2dc7fAbyssUILight Version: |r|cffffcc00" .. AddonVersion .. "|r")
+    print("|cfff2dc7fAbyssUIClassic Version: |r|cffffcc00" .. AddonVersion .. "|r")
 end
 -- Function
-local function AbyssUILightMoveFrames_Slash(msg)
+local function AbyssUIClassicMoveFrames_Slash(msg)
     if ( msg ~= "" ) then
         if ( msg == "config" ) then
             InterfaceOptionsFrame_Show()
-            InterfaceOptionsFrame_OpenToCategory("AbyssUI|cff0d75d4Light|r")
-            InterfaceOptionsFrame_OpenToCategory("AbyssUI|cff0d75d4Light|r")
+            InterfaceOptionsFrame_OpenToCategory("AbyssUI|cff0d75d4Classic|r")
+            InterfaceOptionsFrame_OpenToCategory("AbyssUI|cff0d75d4Classic|r")
         elseif (msg == "setup") then
-            AbyssUILightSecondFrame:Show()
+            AbyssUIClassicSecondFrame:Show()
         elseif (msg == "reset") then
-            AbyssUILightMoveFrames_Reset()
+            AbyssUIClassicMoveFrames_Reset()
         elseif (msg == "daily") then
-            AbyssUILightDailyInfo_Slash()
+            AbyssUIClassicDailyInfo_Slash()
         elseif (msg == "reload") then
             ReloadUI()
         elseif (msg == "more") then
@@ -134,9 +134,9 @@ local function AbyssUILightMoveFrames_Slash(msg)
             print("/abyssui |cffffcc00unlock|r ~unlock UI frames")
             print("/abyssui |cffffcc00lock|r ~lock UI frames that was changed")
         elseif (msg == "unlock") then
-            AbyssUILightMoveFrames_Function(true)
+            AbyssUIClassicMoveFrames_Function(true)
         elseif (msg == "lock") then
-            AbyssUILightMoveFrames_Function(false)
+            AbyssUIClassicMoveFrames_Function(false)
             print("|cfff2dc7fConsider reload the UI to make sure frames are locked|r '|cffffcc00/reload|r'")
         elseif (msg == "clc") then
             CombatLogClearEntries()
@@ -150,12 +150,12 @@ local function AbyssUILightMoveFrames_Slash(msg)
             return nil
         end
     else 
-        return AbyssUILightMoveFrames_Slashhandler()
+        return AbyssUIClassicMoveFrames_Slashhandler()
     end
 end
 -- Slash
 SLASH_ABUI1 = '/abyssui'
 function SlashCmdList.ABUI(msg, editbox)
-    AbyssUILightMoveFrames_Slash(msg)
+    AbyssUIClassicMoveFrames_Slash(msg)
 end
 --End

@@ -1,4 +1,4 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("AbyssUILight", "zhCN")
+local L = LibStub("AceLocale-3.0"):NewLocale("AbyssUIClassic", "zhCN")
 if not L then return end 
 -- Simplified
 --翻译：Wallrained (I have no idea if it's correcly, so any error please report to me)

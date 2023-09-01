@@ -4,30 +4,30 @@
 --
 -- Hope you like my addOn ^^
 --
--- Functions for AbyssUILight
+-- Functions for AbyssUIClassic
 ----------------------------------------------------
 -- Init - Tables - Saves
 local addonName, addonTable = ...
-local L = LibStub("AceLocale-3.0"):GetLocale("AbyssUILight")
+local L = LibStub("AceLocale-3.0"):GetLocale("AbyssUIClassic")
 local GetWoWVersion = ((select(4, GetBuildInfo())))
-local f = CreateFrame("Frame", "AbyssUILight_Config", UIParent)
+local f = CreateFrame("Frame", "AbyssUIClassic_Config", UIParent)
 f:SetSize(50, 50)
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function(self, event, ...)
   character = UnitName("player").."-"..GetRealmName()
   -- Config/Panel
-  if not AbyssUILight_Config then
-    local AbyssUILight_Config = {}
+  if not AbyssUIClassic_Config then
+    local AbyssUIClassic_Config = {}
   end
     if not AbyssUI_Config then
     local AbyssUI_Config = {}
   end
   -- AddonSettings
-  if not AbyssUILightAddonSettings then
-    AbyssUILightAddonSettings = {}
+  if not AbyssUIClassicAddonSettings then
+    AbyssUIClassicAddonSettings = {}
   end
-  if not AbyssUILightAddonSettings[character] then
-    AbyssUILightAddonSettings[character] = {}
+  if not AbyssUIClassicAddonSettings[character] then
+    AbyssUIClassicAddonSettings[character] = {}
   end
   -- Color Init
   if not COLOR_MY_UI then
@@ -41,10 +41,10 @@ f:SetScript("OnEvent", function(self, event, ...)
   end
 end)
 -- Fontfication
-local function AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
+local function AbyssUIClassic_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 local locale = GetLocale()
 local fontName, fontHeight, fontFlags = MinimapZoneText:GetFont()
-local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
+local mediaFolder = "Interface\\AddOns\\AbyssUIClassic\\Textures\\font\\"
 	if ( locale == "zhCN") then
 		globalFont	= mediaFolder.."zhCN-TW\\senty.ttf"
 		subFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
@@ -79,9 +79,9 @@ local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
 	end
 	return globalFont, subFont, damageFont, oldglobalFont
 end
-local globalFont, subFont, damageFont, oldglobalFont = AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
+local globalFont, subFont, damageFont, oldglobalFont = AbyssUIClassic_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 -- RegionList
-local function AbyssUILight_RegionListSize(self, width, height)
+local function AbyssUIClassic_RegionListSize(self, width, height)
 	local regionList = { 
 		self:GetRegions() } 
 	for i, self in ipairs(regionList) do 
@@ -94,7 +94,7 @@ local function AbyssUILight_RegionListSize(self, width, height)
 	end
 end
 -- FrameSize
-local function AbyssUILight_FrameSize(self, width, height)
+local function AbyssUIClassic_FrameSize(self, width, height)
 	self:SetWidth(width)
 	self:SetHeight(height)
 end
@@ -104,72 +104,72 @@ hooksecurefunc("UnitFramePortrait_Update", function(self)
 	if self.portrait then
 		if UnitIsPlayer(self.unit) then
 			local t = CLASS_ICON_TCOORDS[select(2, UnitClass(self.unit))]
-			if t and AbyssUILightAddonSettings.UIClassCircles01 ~= true and 
-				AbyssUILightAddonSettings.UIClassCircles02 ~= true and 
-				AbyssUILightAddonSettings.UIClassCircles03 ~= true and 
-				AbyssUILightAddonSettings.UIClassCircles04 ~= true and 
-				AbyssUILightAddonSettings.UIClassCircles05 ~= true and 
-				AbyssUILightAddonSettings.UIClassCircles06 ~= true and 
-				AbyssUILightAddonSettings.UIClassCircles07 ~= true and 
-				AbyssUILightAddonSettings.UIClassCircles08 ~= true and 
-				AbyssUILightAddonSettings.UIClassCircles09 ~= true and 
-				AbyssUILightAddonSettings.UIClassCircles10 ~= true and 
-				AbyssUILightAddonSettings.UIClassCircles11 ~= true and 
-				AbyssUILightAddonSettings.UIClassCircles12 ~= true and
-				AbyssUILightAddonSettings.UIClassCircles13 ~= true and
-				AbyssUILightAddonSettings.UIClassCircles14 ~= true and
-				AbyssUILightAddonSettings.UIClassCircles15 ~= true and
-				AbyssUILightAddonSettings.UIClassCircles16 ~= true then
+			if t and AbyssUIClassicAddonSettings.UIClassCircles01 ~= true and 
+				AbyssUIClassicAddonSettings.UIClassCircles02 ~= true and 
+				AbyssUIClassicAddonSettings.UIClassCircles03 ~= true and 
+				AbyssUIClassicAddonSettings.UIClassCircles04 ~= true and 
+				AbyssUIClassicAddonSettings.UIClassCircles05 ~= true and 
+				AbyssUIClassicAddonSettings.UIClassCircles06 ~= true and 
+				AbyssUIClassicAddonSettings.UIClassCircles07 ~= true and 
+				AbyssUIClassicAddonSettings.UIClassCircles08 ~= true and 
+				AbyssUIClassicAddonSettings.UIClassCircles09 ~= true and 
+				AbyssUIClassicAddonSettings.UIClassCircles10 ~= true and 
+				AbyssUIClassicAddonSettings.UIClassCircles11 ~= true and 
+				AbyssUIClassicAddonSettings.UIClassCircles12 ~= true and
+				AbyssUIClassicAddonSettings.UIClassCircles13 ~= true and
+				AbyssUIClassicAddonSettings.UIClassCircles14 ~= true and
+				AbyssUIClassicAddonSettings.UIClassCircles15 ~= true and
+				AbyssUIClassicAddonSettings.UIClassCircles16 ~= true then
 				self.portrait:SetTexCoord(0, 1, 0, 1)
 			else
 				self.portrait:SetTexCoord(0, 1, 0, 1)
 			end
-			if t and AbyssUILightAddonSettings.UIClassCircles01 == true then
+			if t and AbyssUIClassicAddonSettings.UIClassCircles01 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_ARTISTIC01")
 				self.portrait:SetTexCoord(unpack(t))
-			elseif t and AbyssUILightAddonSettings.UIClassCircles02 == true then
+			elseif t and AbyssUIClassicAddonSettings.UIClassCircles02 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_BRIGHT")
 				self.portrait:SetTexCoord(unpack(t))
-			elseif t and AbyssUILightAddonSettings.UIClassCircles03 == true then
+			elseif t and AbyssUIClassicAddonSettings.UIClassCircles03 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_CLASSIC")
 				self.portrait:SetTexCoord(unpack(t))
-			elseif t and AbyssUILightAddonSettings.UIClassCircles04 == true then
+			elseif t and AbyssUIClassicAddonSettings.UIClassCircles04 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_ARTISTIC02")
 				self.portrait:SetTexCoord(unpack(t))
-			elseif t and AbyssUILightAddonSettings.UIClassCircles05 == true then
+			elseif t and AbyssUIClassicAddonSettings.UIClassCircles05 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_DARK")
 				self.portrait:SetTexCoord(unpack(t))
-			elseif t and AbyssUILightAddonSettings.UIClassCircles06 == true then
+			elseif t and AbyssUIClassicAddonSettings.UIClassCircles06 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_DARK_GRAY")
 				self.portrait:SetTexCoord(unpack(t))
-			elseif t and AbyssUILightAddonSettings.UIClassCircles07 == true then
+			elseif t and AbyssUIClassicAddonSettings.UIClassCircles07 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_DARK_V2")
 				self.portrait:SetTexCoord(unpack(t))
-			elseif t and AbyssUILightAddonSettings.UIClassCircles08 == true then
+			elseif t and AbyssUIClassicAddonSettings.UIClassCircles08 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_GRAYSCALE")
 				self.portrait:SetTexCoord(unpack(t))
-			elseif t and AbyssUILightAddonSettings.UIClassCircles09 == true then
+			elseif t and AbyssUIClassicAddonSettings.UIClassCircles09 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_LIGHT_GRAY")
 				self.portrait:SetTexCoord(unpack(t))
-			elseif t and AbyssUILightAddonSettings.UIClassCircles10 == true then
+			elseif t and AbyssUIClassicAddonSettings.UIClassCircles10 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_MEDIUM_GRAY")
 				self.portrait:SetTexCoord(unpack(t))
-			elseif t and AbyssUILightAddonSettings.UIClassCircles11 == true then
+			elseif t and AbyssUIClassicAddonSettings.UIClassCircles11 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_MINIMAL_BLUE")
 				self.portrait:SetTexCoord(unpack(t))
-			elseif t and AbyssUILightAddonSettings.UIClassCircles12 == true then
+			elseif t and AbyssUIClassicAddonSettings.UIClassCircles12 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_MINIMAL_RED")
 				self.portrait:SetTexCoord(unpack(t))
-			elseif t and AbyssUILightAddonSettings.UIClassCircles13 == true then
+			elseif t and AbyssUIClassicAddonSettings.UIClassCircles13 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_MUTED")
 				self.portrait:SetTexCoord(unpack(t))
-			elseif t and AbyssUILightAddonSettings.UIClassCircles14 == true then
+			elseif t and AbyssUIClassicAddonSettings.UIClassCircles14 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_PSYCHEDELIC")
 				self.portrait:SetTexCoord(unpack(t))
-			elseif t and AbyssUILightAddonSettings.UIClassCircles15 == true then
+			elseif t and AbyssUIClassicAddonSettings.UIClassCircles15 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_RETRO")
 				self.portrait:SetTexCoord(unpack(t))
-			elseif t and AbyssUILightAddonSettings.UIClassCircles16 == true then
+			elseif t and AbyssUIClassicAddonSettings.UIClassCircles16 == true then
 				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-CLASSES-CIRCLES_VIBRANT")
 				self.portrait:SetTexCoord(unpack(t))
 			else
@@ -182,13 +182,13 @@ hooksecurefunc("UnitFramePortrait_Update", function(self)
 end)
 -- Class HP Colours
 local function colour(statusbar, unit)
-	if( AbyssUILightAddonSettings.ExtraFunctionFriendlyHealthGreen ~= true ) then
+	if( AbyssUIClassicAddonSettings.ExtraFunctionFriendlyHealthGreen ~= true ) then
 		local _, class, c
 		if UnitIsPlayer(unit) and UnitIsConnected(unit) and unit == statusbar.unit and UnitClass(unit) then
 			_, class = UnitClass(unit)
 			c = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
 			statusbar:SetStatusBarColor(c.r, c.g, c.b)
-			if ( class == "SHAMAN" and AbyssUILightAddonSettings.ExtraFunctionShamanPink ~= true) then
+			if ( class == "SHAMAN" and AbyssUIClassicAddonSettings.ExtraFunctionShamanPink ~= true) then
 				statusbar:SetStatusBarColor(0/255, 112/255, 222/255)
 			 else 
 			 	statusbar:SetStatusBarColor(c.r, c.g, c.b)
@@ -212,13 +212,13 @@ frame:RegisterEvent("UNIT_FACTION")
 frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 local function eventHandler(self, event, ...)
 	--Thanks to Tz for the player background
-	if ( AbyssUILightAddonSettings.ExtraFunctionTransparentName ~= true ) then
-		if ( AbyssUILightAddonSettings.ExtraFunctionHideBackgroundClassColor ~= true ) then
+	if ( AbyssUIClassicAddonSettings.ExtraFunctionTransparentName ~= true ) then
+		if ( AbyssUIClassicAddonSettings.ExtraFunctionHideBackgroundClassColor ~= true ) then
 			if UnitIsPlayer("target") then
 				local _, class2 = UnitClass("target")
 				c = RAID_CLASS_COLORS[select(2, UnitClass("target"))]
 				TargetFrameNameBackground:SetVertexColor(c.r, c.g, c.b)
-				if ( class2 == "SHAMAN" and AbyssUILightAddonSettings.ExtraFunctionShamanPink ~= true ) then
+				if ( class2 == "SHAMAN" and AbyssUIClassicAddonSettings.ExtraFunctionShamanPink ~= true ) then
 					TargetFrameNameBackground:SetVertexColor(0/255, 112/255, 222/255)
 				 else 
 				 	TargetFrameNameBackground:SetVertexColor(c.r,c.g,c.b)
@@ -319,7 +319,7 @@ end
 GameTooltip:HookScript("OnUpdate", function(self, elapsed)
 	local _, unit = self:GetUnit()
 	if unit == nil then return end
-	if (AbyssUILightAddonSettings ~= nil and AbyssUILightAddonSettings.DisableTooltipHealth ~= true) then
+	if (AbyssUIClassicAddonSettings ~= nil and AbyssUIClassicAddonSettings.DisableTooltipHealth ~= true) then
 		GameTooltipStatusBar:SetAlpha(1)
 		if UnitIsPlayer(unit) then
 			local _, class = UnitClass(unit)
@@ -449,7 +449,7 @@ CF:SetScript("OnEvent", function(self, event)
 		StatsFrame.text:SetShadowColor(0, 0, 0)
 	end
 	local _, class = UnitClass("player")
-	if ( class == "SHAMAN" and AbyssUILightAddonSettings.ExtraFunctionShamanPink ~= true ) then
+	if ( class == "SHAMAN" and AbyssUIClassicAddonSettings.ExtraFunctionShamanPink ~= true ) then
 		StatsFrame.text:SetTextColor(0/255, 112/255, 222/255)
 	else
 		StatsFrame.text:SetTextColor(color.r, color.g, color.b)
@@ -469,7 +469,7 @@ CF:SetScript("OnEvent", function(self, event)
 			self:SetHeight(StatsFrame.text:GetStringHeight())
 		end
 	end
-	if ( AbyssUILightAddonSettings.DisableSquareMinimap == true ) then
+	if ( AbyssUIClassicAddonSettings.DisableSquareMinimap == true ) then
 		StatsFrame:SetScript("OnUpdate", update)
 	else
 		return nil
@@ -478,7 +478,7 @@ end)
 local StatsFrameCheck_ = CreateFrame("CheckButton", "$parentStatsFrameCheck_", UIParent, "ChatConfigCheckButtonTemplate")
 StatsFrameCheck_:RegisterEvent("PLAYER_ENTERING_WORLD")
 StatsFrameCheck_:SetScript("OnEvent", function(self, event, ...)
-	if ( AbyssUILightAddonSettings.HideFPSMSFrame == true or AbyssUILightAddonSettings.FadeUI == true ) then
+	if ( AbyssUIClassicAddonSettings.HideFPSMSFrame == true or AbyssUIClassicAddonSettings.FadeUI == true ) then
 		StatsFrame:Hide()
 	else
 		StatsFrame:Show()
@@ -486,10 +486,10 @@ StatsFrameCheck_:SetScript("OnEvent", function(self, event, ...)
 end)
 ----------------------------------------------------
 -- Auto Repair/Sell Grey
-local AbyssUILight_AutoSell = CreateFrame("Frame", "$parentparentAbyssUILight_AutoSell", nil)
-AbyssUILight_AutoSell:RegisterEvent("MERCHANT_SHOW")
-AbyssUILight_AutoSell:SetScript("OnEvent", function()
-	if ( AbyssUILightAddonSettings.ExtraFunctionSellGray == true ) then
+local AbyssUIClassic_AutoSell = CreateFrame("Frame", "$parentparentAbyssUIClassic_AutoSell", nil)
+AbyssUIClassic_AutoSell:RegisterEvent("MERCHANT_SHOW")
+AbyssUIClassic_AutoSell:SetScript("OnEvent", function()
+	if ( AbyssUIClassicAddonSettings.ExtraFunctionSellGray == true ) then
 		local bag, slot
 		for bag = 0, 4 do
 	    	for slot = 0, C_Container.GetContainerNumSlots(bag) do
@@ -520,7 +520,7 @@ end)
 local frame = CreateFrame("Frame", "$parentFrame", nil)
 frame:RegisterEvent("PLAYER_TARGET_CHANGED")
 local function eventHandler(self, event, ...)
-	if ( AbyssUILightAddonSettings.UnitFrameImproved ~= true ) then
+	if ( AbyssUIClassicAddonSettings.UnitFrameImproved ~= true ) then
 		if ( event == "PLAYER_TARGET_CHANGED" ) then
 			if ( UnitReaction("player", "target") ~= nil ) then
 				local target = UnitReaction("player", "target")
@@ -553,7 +553,7 @@ end
 ----------------------------------------------------
 -- Keep the color when health changes
 hooksecurefunc("HealthBar_OnValueChanged", function()
-	if ( AbyssUILightAddonSettings.UnitFrameImproved ~= true ) then
+	if ( AbyssUIClassicAddonSettings.UnitFrameImproved ~= true ) then
 		if ( UnitReaction("player", "target") ~= nil ) then
 			local target = UnitReaction("player", "target")
 			local utarget = UnitIsPlayer("target")
@@ -581,7 +581,7 @@ local ScaleElements = CreateFrame("Frame", "$parentScaleElements", nil)
 ScaleElements:RegisterEvent("ADDON_LOADED")
 ScaleElements:RegisterEvent("PLAYER_LOGOUT")
 ScaleElements:SetScript("OnEvent", function(self, event, arg1)
-	if ( event == "ADDON_LOADED" and arg1 == "AbyssUILight" ) then
+	if ( event == "ADDON_LOADED" and arg1 == "AbyssUIClassic" ) then
 		CastingBarFrame:SetScale(1.05)
 	else 
 		return nil
@@ -602,7 +602,7 @@ local function ColorPicker_Changed(self)
     COLOR_MY_UI[character].Color = color
 end
 -- Global Color Function
-function AbyssUILight_ShowColorPicker()
+function AbyssUIClassic_ShowColorPicker()
 	if ColorPickerFrame:IsShown() then return end
 	ColorPickerFrame.previousValues = COLOR_MY_UI[character].Color
 	ColorPickerFrame.cancelFunc = ColorPicker_Cancelled
@@ -630,14 +630,14 @@ f:SetScript("OnEvent", function(self, event)
 end)
 ----------------------------------------------------
 -- ConfirmPopUps
-local AbyssUILight_ConfirmPopUps = CreateFrame("Button", '$parentAbyssUILight_ConfirmPopUps', nil)
-AbyssUILight_ConfirmPopUps:RegisterForClicks("AnyDown")
-AbyssUILight_ConfirmPopUps:SetScript("OnEvent", function()
-	SetBindingClick("CTRL-'", AbyssUILight_ConfirmPopUps:GetName())
+local AbyssUIClassic_ConfirmPopUps = CreateFrame("Button", '$parentAbyssUIClassic_ConfirmPopUps', nil)
+AbyssUIClassic_ConfirmPopUps:RegisterForClicks("AnyDown")
+AbyssUIClassic_ConfirmPopUps:SetScript("OnEvent", function()
+	SetBindingClick("CTRL-'", AbyssUIClassic_ConfirmPopUps:GetName())
 end)
-AbyssUILight_ConfirmPopUps:RegisterEvent("PLAYER_LOGIN")
-AbyssUILight_ConfirmPopUps:SetScript("OnClick", function()
-	if ( AbyssUILightAddonSettings.ExtraFunctionConfirmPopUps == true ) then
+AbyssUIClassic_ConfirmPopUps:RegisterEvent("PLAYER_LOGIN")
+AbyssUIClassic_ConfirmPopUps:SetScript("OnClick", function()
+	if ( AbyssUIClassicAddonSettings.ExtraFunctionConfirmPopUps == true ) then
 		StaticPopup1Button1:Click()
 		StaticPopup2Button1:Click()
 		StaticPopup3Button1:Click()
@@ -660,9 +660,9 @@ objectiveFrame1:RegisterEvent("PLAYER_REGEN_ENABLED")
 objectiveFrame1:SetScript("OnEvent", function(self, event, ...)
 	local isPVPMap = C_PvP.IsPVPMap()
 	local inInstance, instanceType = IsInInstance()
-	if ( event == "PLAYER_REGEN_DISABLED" and AbyssUILightAddonSettings.ExtraFunctionHideInCombat == true and isPVPMap == false and (instanceType == "none" or instanceType == "party")) then
+	if ( event == "PLAYER_REGEN_DISABLED" and AbyssUIClassicAddonSettings.ExtraFunctionHideInCombat == true and isPVPMap == false and (instanceType == "none" or instanceType == "party")) then
 		UIFrameFadeIn(QuestWatchFrame, 1, 1, 0)
-	elseif ( event == "PLAYER_REGEN_ENABLED" and AbyssUILightAddonSettings.ExtraFunctionHideInCombat == true and isPVPMap == false and (instanceType == "none" or instanceType == "party")) then
+	elseif ( event == "PLAYER_REGEN_ENABLED" and AbyssUIClassicAddonSettings.ExtraFunctionHideInCombat == true and isPVPMap == false and (instanceType == "none" or instanceType == "party")) then
 		UIFrameFadeIn(QuestWatchFrame, 1, 0, 1)
 	else 
 		return nil
@@ -677,21 +677,21 @@ objectiveFrame2:SetScript("OnEvent", function(self, event, ...)
 	--local isBattleground = C_PvP.IsBattleground() 
 	--local isRatedMap = C_PvP.IsRatedMap() 
 	--or isArena == true or isBattleground == true or isRatedMap == true
-	if ( event == "PLAYER_ENTERING_WORLD" and AbyssUILightAddonSettings.ExtraFunctionHideInCombat == true and isPVPMap == true) then
+	if ( event == "PLAYER_ENTERING_WORLD" and AbyssUIClassicAddonSettings.ExtraFunctionHideInCombat == true and isPVPMap == true) then
 		UIFrameFadeIn(QuestWatchFrame, 1, 1, 0)		
 	else 
 		UIFrameFadeIn(QuestWatchFrame, 1, 0, 1)
 	end
 end)
 -- Inspect Target
-local AbyssUILight_InspectTarget = CreateFrame("Button", '$parentAbyssUILight_InspectTarget', nil)
-AbyssUILight_InspectTarget:RegisterForClicks("AnyDown")
-AbyssUILight_InspectTarget:SetScript("OnEvent", function()
-	SetBindingClick("SHIFT-'", AbyssUILight_InspectTarget:GetName())
+local AbyssUIClassic_InspectTarget = CreateFrame("Button", '$parentAbyssUIClassic_InspectTarget', nil)
+AbyssUIClassic_InspectTarget:RegisterForClicks("AnyDown")
+AbyssUIClassic_InspectTarget:SetScript("OnEvent", function()
+	SetBindingClick("SHIFT-'", AbyssUIClassic_InspectTarget:GetName())
 end)
-AbyssUILight_InspectTarget:RegisterEvent("PLAYER_LOGIN")
-AbyssUILight_InspectTarget:SetScript("OnClick", function()
-    if AbyssUILightAddonSettings.ExtraFunctionInspectTarget == true then
+AbyssUIClassic_InspectTarget:RegisterEvent("PLAYER_LOGIN")
+AbyssUIClassic_InspectTarget:SetScript("OnClick", function()
+    if AbyssUIClassicAddonSettings.ExtraFunctionInspectTarget == true then
     	if ( UnitPlayerControlled("target") and not UnitIsUnit("player", "target") ) then
 			InspectUnit("target")
 		elseif ( UnitPlayerControlled("mouseover") and not UnitIsUnit("player", "mouseover") ) then
@@ -702,21 +702,21 @@ AbyssUILight_InspectTarget:SetScript("OnClick", function()
     end
 end)
 -- Auto Screenshot
-local AbyssUILight_ScreenshotLevelUp = CreateFrame("Button", '$parentAbyssUILight_ScreenshotLevelUp', nil)
-AbyssUILight_ScreenshotLevelUp:RegisterEvent("PLAYER_LEVEL_UP")
-AbyssUILight_ScreenshotLevelUp:SetScript("OnEvent", function(self, event, ...)
-    if AbyssUILightAddonSettings.ExtraFunctionScreenshotLevelUp == true then
+local AbyssUIClassic_ScreenshotLevelUp = CreateFrame("Button", '$parentAbyssUIClassic_ScreenshotLevelUp', nil)
+AbyssUIClassic_ScreenshotLevelUp:RegisterEvent("PLAYER_LEVEL_UP")
+AbyssUIClassic_ScreenshotLevelUp:SetScript("OnEvent", function(self, event, ...)
+    if AbyssUIClassicAddonSettings.ExtraFunctionScreenshotLevelUp == true then
     	 C_Timer.After(1, function ()
     	 	Screenshot()
     	 end)
     end
 end)
 -- Minimal Action Bar
-local AbyssUILight_MinimalActionBar = CreateFrame("Button", '$parentAbyssUILight_MinimalActionBar', nil)
-AbyssUILight_MinimalActionBar:RegisterEvent("PLAYER_ENTERING_WORLD")
-AbyssUILight_MinimalActionBar:SetScript("OnEvent", function(self, event, ...)
-	if ( AbyssUILightAddonSettings.HideMicroMenu ~= true or AbyssUILightAddonSettings.HideGryphons ~= true  ) then
-	    if AbyssUILightAddonSettings.MinimalActionBar == true then
+local AbyssUIClassic_MinimalActionBar = CreateFrame("Button", '$parentAbyssUIClassic_MinimalActionBar', nil)
+AbyssUIClassic_MinimalActionBar:RegisterEvent("PLAYER_ENTERING_WORLD")
+AbyssUIClassic_MinimalActionBar:SetScript("OnEvent", function(self, event, ...)
+	if ( AbyssUIClassicAddonSettings.HideMicroMenu ~= true or AbyssUIClassicAddonSettings.HideGryphons ~= true  ) then
+	    if AbyssUIClassicAddonSettings.MinimalActionBar == true then
 	    	C_Timer.After(1, function()
 	    		for i, v in pairs ({
 		    		MainMenuBarLeftEndCap,
@@ -759,41 +759,41 @@ AbyssUILight_MinimalActionBar:SetScript("OnEvent", function(self, event, ...)
 end)
 -- Elite Portrait
 --[[
-local AbyssUILight_ElitePortrait = CreateFrame("Button", '$parentAbyssUILight_ElitePortrait', nil)
-AbyssUILight_ElitePortrait:RegisterEvent("PLAYER_ENTERING_WORLD")
-AbyssUILight_ElitePortrait:SetScript("OnEvent", function(self, event, ...)
-    if ( AbyssUILightAddonSettings.ElitePortrait == true and AbyssUILightAddonSettings.UnitFrameImproved ~= true ) then
+local AbyssUIClassic_ElitePortrait = CreateFrame("Button", '$parentAbyssUIClassic_ElitePortrait', nil)
+AbyssUIClassic_ElitePortrait:RegisterEvent("PLAYER_ENTERING_WORLD")
+AbyssUIClassic_ElitePortrait:SetScript("OnEvent", function(self, event, ...)
+    if ( AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved ~= true ) then
     	PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Elite")
     	TargetFrameTextureFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-RareMob")
     	--FocusFrameTextureFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-RareMob")
-	elseif ( AbyssUILightAddonSettings.ElitePortrait == true and AbyssUILightAddonSettings.UnitFrameImproved == true ) then
-		PlayerFrameTexture:SetTexture("Interface\\AddOns\\AbyssUILight\\Textures\\UI-TargetingFrame-Elite")
-	    TargetFrameTextureFrameTexture:SetTexture("Interface\\AddOns\\AbyssUILight\\Textures\\UI-TargetingFrame-Rare")
-	    --FocusFrameTextureFrameTexture:SetTexture("Interface\\AddOns\\AbyssUILight\\Textures\\UI-TargetingFrame-Rare")
+	elseif ( AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
+		PlayerFrameTexture:SetTexture("Interface\\AddOns\\AbyssUIClassic\\Textures\\UI-TargetingFrame-Elite")
+	    TargetFrameTextureFrameTexture:SetTexture("Interface\\AddOns\\AbyssUIClassic\\Textures\\UI-TargetingFrame-Rare")
+	    --FocusFrameTextureFrameTexture:SetTexture("Interface\\AddOns\\AbyssUIClassic\\Textures\\UI-TargetingFrame-Rare")
 	else
 		return nil
 	end
 end)
 --]]
 -- Elite Portrait
-local AbyssUILight_ElitePortrait = CreateFrame("Button", '$parentAbyssUILight_ElitePortrait', nil)
-AbyssUILight_ElitePortrait:RegisterEvent("PLAYER_ENTERING_WORLD")
-AbyssUILight_ElitePortrait:SetScript("OnEvent", function(self, event, ...)
-	if (AbyssUILightAddonSettings.UnitFrameImprovedDefaultTexture ~= true) then
-    if (AbyssUILightAddonSettings.ElitePortrait == true and AbyssUILightAddonSettings.UnitFrameImproved == true) then
-      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\UI-TargetingFrame-Elite")
-    elseif(AbyssUILightAddonSettings.ElitePortrait == true and AbyssUILightAddonSettings.UnitFrameImproved ~= true) then
-    	PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\backup\\UI-TargetingFrame-Rare-Elite-Normal")
+local AbyssUIClassic_ElitePortrait = CreateFrame("Button", '$parentAbyssUIClassic_ElitePortrait', nil)
+AbyssUIClassic_ElitePortrait:RegisterEvent("PLAYER_ENTERING_WORLD")
+AbyssUIClassic_ElitePortrait:SetScript("OnEvent", function(self, event, ...)
+	if (AbyssUIClassicAddonSettings.UnitFrameImprovedDefaultTexture ~= true) then
+    if (AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved == true) then
+      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\UI-TargetingFrame-Elite")
+    elseif(AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
+    	PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Rare-Elite-Normal")
     else 
-      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\UI-TargetingFrame")
+      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\UI-TargetingFrame")
     end
   else
-    if (AbyssUILightAddonSettings.ElitePortrait == true and AbyssUILightAddonSettings.UnitFrameImproved == true) then
-      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\backup\\UI-TargetingFrame-Elite")
-    elseif(AbyssUILightAddonSettings.ElitePortrait == true and AbyssUILightAddonSettings.UnitFrameImproved ~= true) then
-    	PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\backup\\UI-TargetingFrame-Rare-Elite-Normal")
+    if (AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved == true) then
+      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Elite")
+    elseif(AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
+    	PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Rare-Elite-Normal")
     else 
-      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\backup\\UI-TargetingFrame-Normal")
+      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Normal")
     end
   end
 end)
@@ -803,9 +803,9 @@ local function SetFontStringColor(fontString, red, green, blue, alpha)
     fontString:SetTextColor(red, green, blue, alpha)
 end
 -- Event update
-local AbyssUILight_XPColor = CreateFrame("FRAME", '$parentAbyssUILight_XPColor', nil)
-AbyssUILight_XPColor:RegisterEvent("PLAYER_XP_UPDATE")
-AbyssUILight_XPColor:SetScript("OnEvent", function(self, event, ...)
+local AbyssUIClassic_XPColor = CreateFrame("FRAME", '$parentAbyssUIClassic_XPColor', nil)
+AbyssUIClassic_XPColor:RegisterEvent("PLAYER_XP_UPDATE")
+AbyssUIClassic_XPColor:SetScript("OnEvent", function(self, event, ...)
 -- Find and change the color of "NumberFontNormalLarge"
 local fontStringName = "NumberFontNormalLarge"
 local fontString = _G[fontStringName]
@@ -824,17 +824,17 @@ local versionString 		= _G["GAME_VERSION_LABEL"]
 local latestString     	= _G["KBASE_RECENTLY_UPDATED"] 
 local timeStringLabel 	= _G["TIME_LABEL"]
 -- DailyInfo Function
-local AbyssUILightDailyInfo = CreateFrame("Frame")
-AbyssUILightDailyInfo:RegisterEvent("PLAYER_LOGIN")
-AbyssUILightDailyInfo:SetScript("OnEvent", function(self, event, arg1)
+local AbyssUIClassicDailyInfo = CreateFrame("Frame")
+AbyssUIClassicDailyInfo:RegisterEvent("PLAYER_LOGIN")
+AbyssUIClassicDailyInfo:SetScript("OnEvent", function(self, event, arg1)
 	C_Timer.After(3, function()
-		print("Thank you for choosing |cff0d75d4AbyssUILight|r")
+		print("Thank you for choosing |cff0d75d4AbyssUIClassic|r")
 		print("The improved World of Warcraft user interface.")
 	end)
 	C_Timer.After(4, function()
-		local AddonVersion = GetAddOnMetadata("AbyssUILight", "Version")
+		local AddonVersion = GetAddOnMetadata("AbyssUIClassic", "Version")
 		print("|cfff2dc7f~ AbyssUI Daily Info ~|r")
-		if ( AbyssUILightAddonSettings.ExtraFunctionAmericanClock == true ) then
+		if ( AbyssUIClassicAddonSettings.ExtraFunctionAmericanClock == true ) then
 			print("|cfff2dc7f"..timeStringLabel.."|r " .. date("%H:%M |cffffcc00%m/%d/%y|r "))
 		else
 			print("|cfff2dc7f"..timeStringLabel.."|r " .. date("%H:%M |cffffcc00%d/%m/%y|r "))
@@ -842,8 +842,8 @@ AbyssUILightDailyInfo:SetScript("OnEvent", function(self, event, arg1)
 		print("|cfff2dc7fWoW "..versionString..": |r|cffffcc00" .. select(1, GetBuildInfo()) .. "|r")
 		print("|cfff2dc7fAbyssUI "..versionString..": |r|cffffcc00" .. AddonVersion .. "|r")
    		--print("|cfff2dc7f"..latestString.." TexturePack: |r|cffffcc001.0.1.1 (26/09/20)|r")
-		if ( AbyssUILightProfile ~= nil) then 
-			local name, elapsed = UnitName("player"), time() - AbyssUILightProfile
+		if ( AbyssUIClassicProfile ~= nil) then 
+			local name, elapsed = UnitName("player"), time() - AbyssUIClassicProfile
 			print("|cfff2dc7fTime since last login: |r" .. name .. " you were gone for |cffffcc00" .. SecondsToTime(elapsed) .. "|r")
 			print("Type |cffffcc00/abyssui|r for a list of commands")
 		end

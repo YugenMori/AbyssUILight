@@ -8,26 +8,26 @@
 --------------------------------------------------------------------------------
 -- Init - Tables - Saves
 local addonName, addonTable = ...
-local L = LibStub("AceLocale-3.0"):GetLocale("AbyssUILight")
+local L = LibStub("AceLocale-3.0"):GetLocale("AbyssUIClassic")
 local GetWoWVersion = ((select(4, GetBuildInfo())))
-local f = CreateFrame("Frame", "AbyssUILight_Config", UIParent)
+local f = CreateFrame("Frame", "AbyssUIClassic_Config", UIParent)
 f:SetSize(50, 50)
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function(self, event, ...)
   character = UnitName("player").."-"..GetRealmName()
   -- Config/Panel
-  if not AbyssUILight_Config then
-    local AbyssUILight_Config = {}
+  if not AbyssUIClassic_Config then
+    local AbyssUIClassic_Config = {}
   end
     if not AbyssUI_Config then
     local AbyssUI_Config = {}
   end
   -- AddonSettings
-  if not AbyssUILightAddonSettings then
-    AbyssUILightAddonSettings = {}
+  if not AbyssUIClassicAddonSettings then
+    AbyssUIClassicAddonSettings = {}
   end
-  if not AbyssUILightAddonSettings[character] then
-    AbyssUILightAddonSettings[character] = {}
+  if not AbyssUIClassicAddonSettings[character] then
+    AbyssUIClassicAddonSettings[character] = {}
   end
   -- Color Init
   if not COLOR_MY_UI then
@@ -41,10 +41,10 @@ f:SetScript("OnEvent", function(self, event, ...)
   end
 end)
 -- Fontfication
-local function AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
+local function AbyssUIClassic_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 local locale = GetLocale()
 local fontName, fontHeight, fontFlags = MinimapZoneText:GetFont()
-local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
+local mediaFolder = "Interface\\AddOns\\AbyssUIClassic\\Textures\\font\\"
 	if ( locale == "zhCN") then
 		globalFont	= mediaFolder.."zhCN-TW\\senty.ttf"
 		subFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
@@ -79,9 +79,9 @@ local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
 	end
 	return globalFont, subFont, damageFont, oldglobalFont
 end
-local globalFont, subFont, damageFont, oldglobalFont = AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
+local globalFont, subFont, damageFont, oldglobalFont = AbyssUIClassic_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 -- RegionList
-local function AbyssUILight_RegionListSize(self, width, height)
+local function AbyssUIClassic_RegionListSize(self, width, height)
 	local regionList = { 
 		self:GetRegions() } 
 	for i, self in ipairs(regionList) do 
@@ -94,7 +94,7 @@ local function AbyssUILight_RegionListSize(self, width, height)
 	end
 end
 -- FrameSize
-local function AbyssUILight_FrameSize(self, width, height)
+local function AbyssUIClassic_FrameSize(self, width, height)
 	self:SetWidth(width)
 	self:SetHeight(height)
 end
@@ -102,11 +102,11 @@ end
 local _G = _G
 -- Fonts
 ----------------------------------------------------
-local AbyssUILight_FontString = CreateFrame("Frame", "$parentAbyssUILight_FontString", nil)
-AbyssUILight_FontString:RegisterEvent("ADDON_LOADED")
-AbyssUILight_FontString:RegisterEvent("PLAYER_LOGOUT")
-AbyssUILight_FontString:SetScript("OnEvent", function(self, event, arg1)
-	if ( event == "ADDON_LOADED" and arg1 == "AbyssUILight" )  then
+local AbyssUIClassic_FontString = CreateFrame("Frame", "$parentAbyssUIClassic_FontString", nil)
+AbyssUIClassic_FontString:RegisterEvent("ADDON_LOADED")
+AbyssUIClassic_FontString:RegisterEvent("PLAYER_LOGOUT")
+AbyssUIClassic_FontString:SetScript("OnEvent", function(self, event, arg1)
+	if ( event == "ADDON_LOADED" and arg1 == "AbyssUIClassic" )  then
 		STANDARD_TEXT_FONT          = globalFont
     DAMAGE_TEXT_FONT 						= oldglobalFont
     COMBAT_TEXT_CRIT_MAXHEIGHT	= 24
@@ -189,7 +189,7 @@ end
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("ADDON_LOADED")
 frame:SetScript("OnEvent", function(self, event, addonName)
-  if addonName == "AbyssUILight" then
+  if addonName == "AbyssUIClassic" then
     DamageFontOnLoad()
   end
 end)
@@ -225,7 +225,7 @@ f:SetScript("OnEvent", function(self, event)
     "QuestTitleFontBlackShadow",
     "SplashHeaderFont",
   }
-  if ( AbyssUILightAddonSettings.ExtraFunctionDisableFontWhiteText ~= true ) then
+  if ( AbyssUIClassicAddonSettings.ExtraFunctionDisableFontWhiteText ~= true ) then
     for _, v in next, f.yellow do 
       _G[v]:SetTextColor(229/255, 229/255, 229/255)
     end
@@ -236,7 +236,7 @@ end)
 -- UnitColor
 local UnitColor
 local function UnitColor(unit)
-  if ( AbyssUILightAddonSettings.UnitFrameImproved == true ) then
+  if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
     local r, g, b
     if ( ( not UnitIsPlayer(unit) ) and ( ( not UnitIsConnected(unit) ) or ( UnitIsDeadOrGhost(unit) ) ) ) then
       --Color it gray
@@ -266,7 +266,7 @@ end
 local f = CreateFrame("CheckButton", "$parentFrame", UIParent, "ChatConfigCheckButtonTemplate")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self, event, ...)
-	if ( AbyssUILightAddonSettings.ExtraFunctionDefaultNameplate ~= true ) then
+	if ( AbyssUIClassicAddonSettings.ExtraFunctionDefaultNameplate ~= true ) then
 		SetCVar("nameplateMaxDistance", "8e1")
 	else 
 		SetCVar("nameplateMaxDistance", "4e1")
@@ -277,7 +277,7 @@ local FadeUIFirstHide = CreateFrame("CheckButton", "$parentFadeUIFirstHide", UIP
 FadeUIFirstHide:RegisterEvent("PLAYER_ENTERING_WORLD")
 local _G = _G
 FadeUIFirstHide:SetScript("OnEvent", function(self, event, ...)
-	if ( AbyssUILightAddonSettings.FadeUI == true ) then
+	if ( AbyssUIClassicAddonSettings.FadeUI == true ) then
 		C_Timer.After(1, function() 
 			for i, v in pairs ({
 				BuffFrame,
@@ -303,7 +303,7 @@ local FadeUI = CreateFrame("CheckButton", "$parentFadeUI", UIParent, "ChatConfig
 FadeUI:RegisterEvent("PLAYER_REGEN_DISABLED")
 FadeUI:RegisterEvent("PLAYER_REGEN_ENABLED")
 FadeUI:SetScript("OnEvent", function(self, event, ...)
-	if ( AbyssUILightAddonSettings.FadeUI == true ) then
+	if ( AbyssUIClassicAddonSettings.FadeUI == true ) then
 		if ( event == "PLAYER_REGEN_DISABLED" ) then
 			for i, v in pairs ({
 				BuffFrame,
@@ -344,7 +344,7 @@ FadeUI_MouseOver:SetScript("OnEvent", function()
 	SetBindingClick("ALT-CTRL-P", FadeUI_MouseOver:GetName())
 end)
 FadeUI_MouseOver:SetScript("OnClick", function()
-	if ( AbyssUILightAddonSettings.FadeUI == true ) then
+	if ( AbyssUIClassicAddonSettings.FadeUI == true ) then
 		for i, v in pairs ({
 			BuffFrame,
 			QuestWatchFrame,
@@ -366,7 +366,7 @@ end)
 ----------------------------------------------
 --  Remove realm names
 hooksecurefunc("CompactUnitFrame_UpdateName", function(frame)
-	if ( not frame:IsForbidden() and AbyssUILightAddonSettings.ExtraFunctionNameplateChanges ~= true ) then
+	if ( not frame:IsForbidden() and AbyssUIClassicAddonSettings.ExtraFunctionNameplateChanges ~= true ) then
 	    if ShouldShowName(frame) then
 	        frame.name:SetVertexColor(1,1,1) -- Fixes tapped mobs permanently setting the nametag gray
 	        frame.name:SetText(GetUnitName(frame.unit))
@@ -375,7 +375,7 @@ hooksecurefunc("CompactUnitFrame_UpdateName", function(frame)
 end)
 -- Nameplate Health Percent
 hooksecurefunc("CompactUnitFrame_UpdateStatusText", function(frame)
-	if ( AbyssUILightAddonSettings.ExtraFunctionNameplateChanges ~= true ) then
+	if ( AbyssUIClassicAddonSettings.ExtraFunctionNameplateChanges ~= true ) then
 			if frame:IsForbidden() or ( UnitIsFriend("player", frame.displayedUnit) and not UnitIsUnit(frame.displayedUnit, "player") ) then return end
 			if not frame.healthBar.percent then
 				frame.healthBar.percent = frame.healthBar:CreateFontString(nil,"OVERLAY")
@@ -394,7 +394,7 @@ end)
 -- Nameplate colorization
 -- Player
 hooksecurefunc("CompactUnitFrame_UpdateHealthColor", function(self)
-	if ( not self:IsForbidden() and AbyssUILightAddonSettings.ExtraFunctionNameplateChanges ~= true ) then
+	if ( not self:IsForbidden() and AbyssUIClassicAddonSettings.ExtraFunctionNameplateChanges ~= true ) then
     local _, class = UnitClass('player')
     local color = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
 		local unitIsPlayer = UnitIsPlayer('player')
@@ -420,7 +420,7 @@ hooksecurefunc("CompactUnitFrame_UpdateHealthColor", function(self)
 end)
 -- Target
 hooksecurefunc("CompactUnitFrame_UpdateHealthColor", function(self)
-	if ( not self:IsForbidden() and AbyssUILightAddonSettings.ExtraFunctionNameplateChanges ~= true ) then
+	if ( not self:IsForbidden() and AbyssUIClassicAddonSettings.ExtraFunctionNameplateChanges ~= true ) then
 		local unitTarget = UnitIsPlayer("target")
 		local reaction = UnitReaction("player", "target") or 4
 		if self.optionTable.colorNameBySelection and not self:IsForbidden() then
@@ -449,7 +449,7 @@ end)
 local ChatBubbleColorization = CreateFrame("CheckButton", "$parentChatBubbleColorization", UIParent, "ChatConfigCheckButtonTemplate")
 ChatBubbleColorization:RegisterEvent("PLAYER_ENTERING_WORLD")
 ChatBubbleColorization:SetScript("OnEvent", function(self, event, ...)
-if ( AbyssUILightAddonSettings.ExtraFunctionChatBubbleChanges ~= true ) then
+if ( AbyssUIClassicAddonSettings.ExtraFunctionChatBubbleChanges ~= true ) then
 	if ( event == "PLAYER_ENTERING_WORLD" ) then
 	    local reaction = UnitReaction("target", "player")
 	    local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
@@ -573,7 +573,7 @@ SquareMinimap_:RegisterEvent("PLAYER_ENTERING_WORLD")
 SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 	
 	-- minimap default position - you can move it ingame by holding down ALT!
-	if ( AbyssUILightAddonSettings.DisableSquareMinimap ~= true and AbyssUILightAddonSettings.HideMinimap ~= true and GetWoWVersion >= 30500 ) then
+	if ( AbyssUIClassicAddonSettings.DisableSquareMinimap ~= true and AbyssUIClassicAddonSettings.HideMinimap ~= true and GetWoWVersion >= 30500 ) then
 		local position = "TOPRIGHT"     	
 		local position_x = -11          		
 		local position_y = -5     
@@ -590,7 +590,7 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 		local showclock = false			
 		local AddonNumb = 30			
 
-		local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\minimap\\"
+		local mediaFolder = "Interface\\AddOns\\AbyssUIClassic\\Textures\\minimap\\"
 		local texture = "Interface\\Buttons\\WHITE8x8"
 		--local backdrop = {bgFile = texture, edgeFile = texture, edgeSize = 1, insets = { left = -1, right = -1, top = -1, bottom = -1}}
 		local backdrop = {edgeFile = texture, edgeSize = 1}
@@ -641,10 +641,10 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 		if not classColoredBorder then
 			BorderFrame:SetBackdropBorderColor(unpack(brdcolor))
 		else
-			if ( AbyssUILightAddonSettings.UIVertexColorFramesColorPicker ~= true ) then
-				if ( AbyssUILightAddonSettings.KeepUnitDark == true and AbyssUILightAddonSettings.UIVertexColorFrames02 ~= true ) then
+			if ( AbyssUIClassicAddonSettings.UIVertexColorFramesColorPicker ~= true ) then
+				if ( AbyssUIClassicAddonSettings.KeepUnitDark == true and AbyssUIClassicAddonSettings.UIVertexColorFrames02 ~= true ) then
 					BorderFrame:SetBackdropBorderColor(unpack(brdcolor))
-				elseif ( AbyssUILightAddonSettings.UIVertexColorFrames02 == true and AbyssUILightAddonSettings.KeepUnitDark ~= true ) then
+				elseif ( AbyssUIClassicAddonSettings.UIVertexColorFrames02 == true and AbyssUIClassicAddonSettings.KeepUnitDark ~= true ) then
 					BorderFrame:SetBackdropBorderColor(unpack(brdcolor))
 				else
 					BorderFrame:SetBackdropBorderColor(color.r, color.g, color.b)
@@ -669,10 +669,10 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 			if not classColoredBorder then
 				FLMframe:SetBackdropBorderColor(unpack(brdcolor))
 			else
-				if ( AbyssUILightAddonSettings.UIVertexColorFramesColorPicker ~= true ) then
-					if ( AbyssUILightAddonSettings.KeepUnitDark == true and AbyssUILightAddonSettings.UIVertexColorFrames02 ~= true ) then
+				if ( AbyssUIClassicAddonSettings.UIVertexColorFramesColorPicker ~= true ) then
+					if ( AbyssUIClassicAddonSettings.KeepUnitDark == true and AbyssUIClassicAddonSettings.UIVertexColorFrames02 ~= true ) then
 						FLMframe:SetBackdropBorderColor(unpack(brdcolor))
-					elseif ( AbyssUILightAddonSettings.UIVertexColorFrames02 == true and AbyssUILightAddonSettings.KeepUnitDark ~= true ) then
+					elseif ( AbyssUIClassicAddonSettings.UIVertexColorFrames02 == true and AbyssUIClassicAddonSettings.KeepUnitDark ~= true ) then
 						FLMframe:SetBackdropBorderColor(unpack(brdcolor))
 					else
 						FLMframe:SetBackdropBorderColor(color.r, color.g, color.b)
@@ -696,7 +696,7 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 			text:SetPoint("CENTER", FLMframe, 4, 0)
 			text:SetFont(font, fontSize, fontFlag)
 			text:SetShadowOffset(1, -1)
-			if ( AbyssUILightAddonSettings.UIVertexColorFramesColorPicker ~= true ) then
+			if ( AbyssUIClassicAddonSettings.UIVertexColorFramesColorPicker ~= true ) then
 				text:SetTextColor(color.r, color.g, color.b)
 			else
 				local character = UnitName("player").."-"..GetRealmName()
@@ -793,7 +793,7 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 				local latencycolor = ColorizeLatency(select(3, GetNetStats()))
 				local fpscolor = ColorizeFramerate(GetFramerate())
 				
-				if ( AbyssUILightAddonSettings.UIVertexColorFramesColorPicker ~= true ) then
+				if ( AbyssUIClassicAddonSettings.UIVertexColorFramesColorPicker ~= true ) then
 					GameTooltip:AddLine(date("%A, %d %B, %Y"), 1, 1, 1)
 					GameTooltip:AddDoubleLine(fpsStringLabel, format("%.1f fps", GetFramerate()), color.r, color.g, color.b, fpscolor.r, fpscolor.g, fpscolor.b)
 					GameTooltip:AddDoubleLine(latencyStringLabel..":", format("%d ms", select(3, GetNetStats())), color.r, color.g, color.b, latencycolor.r, latencycolor.g, latencycolor.b)
@@ -833,7 +833,7 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 				end
 
 				local cr, cg, cb = ColorGradient((entry.memory / 800), 0, 1, 0, 1, 1, 0, 1, 0, 0) 
-				if ( AbyssUILightAddonSettings.UIVertexColorFramesColorPicker ~= true ) then
+				if ( AbyssUIClassicAddonSettings.UIVertexColorFramesColorPicker ~= true ) then
 					GameTooltip:AddDoubleLine(". . . . . . . . . . .", ". . . . . . . . . . .", 1, 1, 1, 1, 1, 1)
 					GameTooltip:AddDoubleLine(totalStringLabel..":", MemFormat(total), color.r, color.g, color.b, cr, cg, cb)
 					GameTooltip:AddDoubleLine("+ Blizzard:", MemFormat(collectgarbage("count")), color.r, color.g, color.b, cr, cg, cb)
@@ -985,7 +985,7 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 			BBorderFrame:SetFrameLevel(6)		
 		end)
 	else
-		Minimap:SetMaskTexture("Interface\\AddOns\\AbyssUILight\\Textures\\minimap\\round")
+		Minimap:SetMaskTexture("Interface\\AddOns\\AbyssUIClassic\\Textures\\minimap\\round")
 	end
 end)
 ----------------------------------------------------
@@ -1000,7 +1000,7 @@ KillAnouncerFrame:SetClampedToScreen(true)
 KillAnouncerFrame:SetPoint("CENTER", 120, 5)
 KillAnouncerFrame:Hide()
 local t = KillAnouncerFrame:CreateTexture(nil, "BACKGROUND")
-t:SetTexture("Interface\\Addons\\AbyssUILight\\Textures\\extra\\bloodtexture")
+t:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\extra\\bloodtexture")
 t:SetAllPoints(KillAnouncerFrame)
 KillAnouncerFrame.texture = t
 -- Text
@@ -1118,7 +1118,7 @@ local KillAnouncer = CreateFrame("FRAME", "$parentKillAnouncer")
 local name = GetUnitName("player")
 KillAnouncer:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 KillAnouncer:SetScript("OnEvent", function(self)
-	if ( AbyssUILightAddonSettings.DisableKillAnnouncer ~= true ) then
+	if ( AbyssUIClassicAddonSettings.DisableKillAnnouncer ~= true ) then
 	    local timeStamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, prefixParam1, prefixParam2, dummyparam, suffixParam1, suffixParam2 = CombatLogGetCurrentEventInfo()
 	    if ( event == "SPELL_DAMAGE" or event == "SPELL_PERIODIC_DAMAGE" or event == "RANGE_DAMAGE" ) and suffixParam2 > 0 then
 			if ( suffixParam2 ~= nil ) then
@@ -1126,7 +1126,7 @@ KillAnouncer:SetScript("OnEvent", function(self)
 					if ( string.find(destGUID, "Player") ) then
 						KillAnouncerFrame:Hide()
 						KillAnouncerFrame.text:SetText("|cfff2f2f2"..destName.."|r")
-						if ( AbyssUILightAddonSettings.SilenceKillAnnouncer ~= true ) then
+						if ( AbyssUIClassicAddonSettings.SilenceKillAnnouncer ~= true ) then
 							PlaySoundRandom()
 						end
 						UIFrameFadeIn(KillAnouncerFrame, 4, 1, 0)
@@ -1139,7 +1139,7 @@ KillAnouncer:SetScript("OnEvent", function(self)
 					if ( string.find(destGUID, "Player") ) then
 						KillAnouncerFrame:Hide()
 						KillAnouncerFrame.text:SetText("|cfff2f2f2"..destName.."|r")
-						if ( AbyssUILightAddonSettings.SilenceKillAnnouncer ~= true ) then
+						if ( AbyssUIClassicAddonSettings.SilenceKillAnnouncer ~= true ) then
 							PlaySoundRandom()
 						end
 						UIFrameFadeIn(KillAnouncerFrame, 4, 1, 0)
@@ -1163,7 +1163,7 @@ end
 local TooltipOnCursor = CreateFrame("Frame", nil)
 TooltipOnCursor:RegisterEvent("PLAYER_ENTERING_WORLD")
 TooltipOnCursor:SetScript("OnEvent", function()
-	if ( AbyssUILightAddonSettings.TooltipOnCursor == true ) then
+	if ( AbyssUIClassicAddonSettings.TooltipOnCursor == true ) then
 		hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
 			if GetMouseFocus() ~= WorldFrame then return end
 			tooltip:SetOwner(parent, "ANCHOR_CURSOR")

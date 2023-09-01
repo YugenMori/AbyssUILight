@@ -2,30 +2,30 @@
 --
 -- Classic
 --
--- UnitFrameImproved for AbyssUILight.
+-- UnitFrameImproved for AbyssUIClassic.
 --------------------------------------------------------------------------------
 -- Init - Tables - Saves
 local addonName, addonTable = ...
-local L = LibStub("AceLocale-3.0"):GetLocale("AbyssUILight")
+local L = LibStub("AceLocale-3.0"):GetLocale("AbyssUIClassic")
 local GetWoWVersion = ((select(4, GetBuildInfo())))
-local f = CreateFrame("Frame", "AbyssUILight_Config", UIParent)
+local f = CreateFrame("Frame", "AbyssUIClassic_Config", UIParent)
 f:SetSize(50, 50)
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function(self, event, ...)
   character = UnitName("player").."-"..GetRealmName()
   -- Config/Panel
-  if not AbyssUILight_Config then
-    local AbyssUILight_Config = {}
+  if not AbyssUIClassic_Config then
+    local AbyssUIClassic_Config = {}
   end
     if not AbyssUI_Config then
     local AbyssUI_Config = {}
   end
   -- AddonSettings
-  if not AbyssUILightAddonSettings then
-    AbyssUILightAddonSettings = {}
+  if not AbyssUIClassicAddonSettings then
+    AbyssUIClassicAddonSettings = {}
   end
-  if not AbyssUILightAddonSettings[character] then
-    AbyssUILightAddonSettings[character] = {}
+  if not AbyssUIClassicAddonSettings[character] then
+    AbyssUIClassicAddonSettings[character] = {}
   end
   -- Color Init
   if not COLOR_MY_UI then
@@ -39,10 +39,10 @@ f:SetScript("OnEvent", function(self, event, ...)
   end
 end)
 -- Fontfication
-local function AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
+local function AbyssUIClassic_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 local locale = GetLocale()
 local fontName, fontHeight, fontFlags = MinimapZoneText:GetFont()
-local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
+local mediaFolder = "Interface\\AddOns\\AbyssUIClassic\\Textures\\font\\"
 	if ( locale == "zhCN") then
 		globalFont	= mediaFolder.."zhCN-TW\\senty.ttf"
 		subFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
@@ -77,9 +77,9 @@ local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
 	end
 	return globalFont, subFont, damageFont, oldglobalFont
 end
-local globalFont, subFont, damageFont, oldglobalFont = AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
+local globalFont, subFont, damageFont, oldglobalFont = AbyssUIClassic_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 -- RegionList
-local function AbyssUILight_RegionListSize(self, width, height)
+local function AbyssUIClassic_RegionListSize(self, width, height)
 	local regionList = { 
 		self:GetRegions() } 
 	for i, self in ipairs(regionList) do 
@@ -92,22 +92,22 @@ local function AbyssUILight_RegionListSize(self, width, height)
 	end
 end
 -- FrameSize
-local function AbyssUILight_FrameSize(self, width, height)
+local function AbyssUIClassic_FrameSize(self, width, height)
 	self:SetWidth(width)
 	self:SetHeight(height)
 end
 ----------------------------------------------------
 -- UnitFrameImproved
-local AbyssUILight_UnitFrame = CreateFrame("Frame", "$parentAbyssUILight_UnitFrame", nil)
-AbyssUILight_UnitFrame:RegisterEvent("ADDON_LOADED")
-AbyssUILight_UnitFrame:RegisterEvent("PLAYER_LOGIN")
-AbyssUILight_UnitFrame:RegisterEvent("PLAYER_LOGOUT")
-AbyssUILight_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
-	if ( event == "ADDON_LOADED" and arg1 == "AbyssUILight" )  then		
+local AbyssUIClassic_UnitFrame = CreateFrame("Frame", "$parentAbyssUIClassic_UnitFrame", nil)
+AbyssUIClassic_UnitFrame:RegisterEvent("ADDON_LOADED")
+AbyssUIClassic_UnitFrame:RegisterEvent("PLAYER_LOGIN")
+AbyssUIClassic_UnitFrame:RegisterEvent("PLAYER_LOGOUT")
+AbyssUIClassic_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
+	if ( event == "ADDON_LOADED" and arg1 == "AbyssUIClassic" )  then		
 		-- UnitColor
 		local UnitColor
 		local function UnitColor(unit)
-			if ( AbyssUILightAddonSettings.UnitFrameImproved == true ) then
+			if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
 				local r, g, b
 				if ( ( not UnitIsPlayer(unit) ) and ( ( not UnitIsConnected(unit) ) or ( UnitIsDeadOrGhost(unit) ) ) ) then
 					--Color it gray
@@ -135,7 +135,7 @@ AbyssUILight_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 		end
 		-- PlayerFrameStyle
 	    local function UnitFramesImproved_Style_PlayerFrame()
-	      if ( AbyssUILightAddonSettings.UnitFrameImproved == true ) then
+	      if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
 	        if not InCombatLockdown() then 
 	          PlayerFrameHealthBar.lockColor = true
 	          PlayerFrameHealthBar.capNumericDisplay = true
@@ -144,21 +144,21 @@ AbyssUILight_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 	          PlayerFrameHealthBar:SetPoint("TOPLEFT", 106, -22)
 	          PlayerFrameHealthBarText:SetPoint("CENTER", 50, 6)
 	        end
-	        if ( AbyssUILightAddonSettings.UnitFrameImprovedDefaultTexture ~= true ) then
-	          if ( AbyssUILightAddonSettings.ElitePortrait == true and AbyssUILightAddonSettings.UnitFrameImproved == true ) then
-	            PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\Textures\\UI-TargetingFrame-Elite")
+	        if ( AbyssUIClassicAddonSettings.UnitFrameImprovedDefaultTexture ~= true ) then
+	          if ( AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
+	            PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\UI-TargetingFrame-Elite")
 	          else 
-	            PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\Textures\\UI-TargetingFrame")
+	            PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\UI-TargetingFrame")
 	          end
-	          PlayerStatusTexture:SetTexture("Interface\\Addons\\AbyssUILight\\Textures\\UI-Player-Status")
+	          PlayerStatusTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\UI-Player-Status")
 	          PlayerFrameHealthBar:SetStatusBarColor(UnitColor("player"))
 	        else
-	          if ( AbyssUILightAddonSettings.ElitePortrait == true and AbyssUILightAddonSettings.UnitFrameImproved == true ) then
-	            PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\Textures\\backup\\UI-TargetingFrame-Elite")
+	          if ( AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
+	            PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\backup\\UI-TargetingFrame-Elite")
 	          else 
-	            PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\Textures\\backup\\UI-TargetingFrame")
+	            PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\backup\\UI-TargetingFrame")
 	          end
-	          PlayerStatusTexture:SetTexture("Interface\\Addons\\AbyssUILight\\Textures\\backup\\UI-Player-Status")
+	          PlayerStatusTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\backup\\UI-Player-Status")
 	          PlayerFrameHealthBar:SetStatusBarColor(UnitColor("player"))
 	        end
 	      else
@@ -167,7 +167,7 @@ AbyssUILight_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 	    end
 	    -- PlayerArt
 	    local function UnitFramesImproved_PlayerFrame_ToPlayerArt(self)
-	      if ( AbyssUILightAddonSettings.UnitFrameImproved == true ) then
+	      if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
 	        if not InCombatLockdown() then
 	          UnitFramesImproved_Style_PlayerFrame()
 	        end
@@ -177,7 +177,7 @@ AbyssUILight_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 	    end
 		-- TargetFrameStyle
 		local function UnitFramesImproved_Style_TargetFrame(self)
-			if ( AbyssUILightAddonSettings.UnitFrameImproved == true ) then
+			if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
 				if not InCombatLockdown() then
 					local classification = UnitClassification(self.unit)
 					if (classification == "minus") then
@@ -208,11 +208,11 @@ AbyssUILight_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 		end
 		-- BossStyle
 		local function UnitFramesImproved_BossTargetFrame_Style(self)
-			if ( AbyssUILightAddonSettings.UnitFrameImproved == true ) then
-				if ( AbyssUILightAddonSettings.UnitFrameImprovedDefaultTexture ~= true ) then
-					self.borderTexture:SetTexture("Interface\\Addons\\AbyssUILight\\Textures\\UI-UnitFrame-Boss")
+			if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
+				if ( AbyssUIClassicAddonSettings.UnitFrameImprovedDefaultTexture ~= true ) then
+					self.borderTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\UI-UnitFrame-Boss")
 				else
-					self.borderTexture:SetTexture("Interface\\Addons\\AbyssUILight\\Textures\\backup\\UI-UnitFrame-Boss")
+					self.borderTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\backup\\UI-UnitFrame-Boss")
 				end
 				UnitFramesImproved_Style_TargetFrame(self)
 			else 
@@ -221,7 +221,7 @@ AbyssUILight_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 		end
 		-- Utility functions
 		local function UnitFramesImproved_AbbreviateLargeNumbers(value)
-			if ( AbyssUILightAddonSettings.UnitFrameImproved == true ) then
+			if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
 				local strLen = strlen(value)
 				local retString = value
 				if ( strLen >= 10 ) then
@@ -238,7 +238,7 @@ AbyssUILight_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 		end
 		-- UpdateTextString Values
 		local function UnitFramesImproved_TextStatusBar_UpdateTextStringWithValues(statusFrame, textString, value, valueMin, valueMax)
-			if ( AbyssUILightAddonSettings.UnitFrameImproved == true ) then
+			if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
 				if( statusFrame.LeftText and statusFrame.RightText ) then
 					statusFrame.LeftText:SetText("")
 					statusFrame.RightText:SetText("")
@@ -297,7 +297,7 @@ AbyssUILight_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 		end
 		-- VehicleArt
 		local function UnitFramesImproved_PlayerFrame_ToVehicleArt(self)
-			if ( AbyssUILightAddonSettings.UnitFrameImproved == true ) then
+			if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
 				if not InCombatLockdown() then
 					PlayerFrameHealthBar:SetHeight(12)
 					--PlayerFrameHealthBarText:SetPoint("CENTER", 50, 3)
@@ -308,7 +308,7 @@ AbyssUILight_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 		end
 		-- Unit Name
 		local function UnitFramesImproved_UnitName_Color(self)
-			if ( AbyssUILightAddonSettings.UnitFrameImproved == true ) then
+			if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
 				if not InCombatLockdown() then
 					-- names
 					for i, v in pairs({
@@ -343,7 +343,7 @@ AbyssUILight_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 		end
 		-- TargetUpdate
 		local function UnitFramesImproved_TargetFrame_Update(self)
-			if ( AbyssUILightAddonSettings.UnitFrameImproved == true ) then
+			if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
 				-- Set back color of health bar
 				if ( not UnitPlayerControlled(self.unit) and UnitIsTapDenied(self.unit) ) then
 					-- Gray if npc is tapped by other player
@@ -389,22 +389,22 @@ AbyssUILight_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 		end
 		-- CheckClassification
 		local function UnitFramesImproved_TargetFrame_CheckClassification(self, forceNormalTexture)
-			if ( AbyssUILightAddonSettings.UnitFrameImprovedDefaultTexture ~= true ) then
-				if ( AbyssUILightAddonSettings.UnitFrameImproved == true ) then
+			if ( AbyssUIClassicAddonSettings.UnitFrameImprovedDefaultTexture ~= true ) then
+				if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
 					local texture
 					local classification = UnitClassification(self.unit)
 					if ( classification == "worldboss" or classification == "elite" ) then
-						texture = "Interface\\Addons\\AbyssUILight\\Textures\\UI-TargetingFrame-Elite"
+						texture = "Interface\\Addons\\AbyssUIClassic\\Textures\\UI-TargetingFrame-Elite"
 					elseif ( classification == "rareelite" ) then
-						texture = "Interface\\Addons\\AbyssUILight\\Textures\\UI-TargetingFrame-Rare-Elite"
+						texture = "Interface\\Addons\\AbyssUIClassic\\Textures\\UI-TargetingFrame-Rare-Elite"
 					elseif ( classification == "rare" ) then
-						texture = "Interface\\Addons\\AbyssUILight\\Textures\\UI-TargetingFrame-Rare"
+						texture = "Interface\\Addons\\AbyssUIClassic\\Textures\\UI-TargetingFrame-Rare"
 					end
 					if ( texture and not forceNormalTexture) then
 						self.borderTexture:SetTexture(texture)
 					else
 						if ( not (classification == "minus") ) then
-							self.borderTexture:SetTexture("Interface\\Addons\\AbyssUILight\\Textures\\UI-TargetingFrame")
+							self.borderTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\UI-TargetingFrame")
 						end
 					end
 					self.nameBackground:Hide()
@@ -412,21 +412,21 @@ AbyssUILight_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 					return nil
 				end
 			else
-				if ( AbyssUILightAddonSettings.UnitFrameImproved == true ) then
+				if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
 					local texture
 					local classification = UnitClassification(self.unit)
 					if ( classification == "worldboss" or classification == "elite" ) then
-						texture = "Interface\\Addons\\AbyssUILight\\Textures\\backup\\UI-TargetingFrame-Elite"
+						texture = "Interface\\Addons\\AbyssUIClassic\\Textures\\backup\\UI-TargetingFrame-Elite"
 					elseif ( classification == "rareelite" ) then
-						texture = "Interface\\Addons\\AbyssUILight\\Textures\\backup\\UI-TargetingFrame-Rare-Elite"
+						texture = "Interface\\Addons\\AbyssUIClassic\\Textures\\backup\\UI-TargetingFrame-Rare-Elite"
 					elseif ( classification == "rare" ) then
-						texture = "Interface\\Addons\\AbyssUILight\\Textures\\backup\\UI-TargetingFrame-Rare"
+						texture = "Interface\\Addons\\AbyssUIClassic\\Textures\\backup\\UI-TargetingFrame-Rare"
 					end
 					if ( texture and not forceNormalTexture) then
 						self.borderTexture:SetTexture(texture)
 					else
 						if ( not (classification == "minus") ) then
-							self.borderTexture:SetTexture("Interface\\Addons\\AbyssUILight\\Textures\\backup\\UI-TargetingFrame")
+							self.borderTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\backup\\UI-TargetingFrame")
 						end
 					end
 					self.nameBackground:Hide()
@@ -442,21 +442,21 @@ AbyssUILight_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 			if ( creatureType == "Humanoid" or UnitIsPlayer(self.unit) ) then
 				if ( UnitIsPVPFreeForAll(self.unit) ) then
 					--self.pvpIcon:SetTexture("Interface\\TargetingFrame\\UI-PVP-FFA")
-					if ( AbyssUILightAddonSettings.HideUnitImprovedFaction ~= true ) then
+					if ( AbyssUIClassicAddonSettings.HideUnitImprovedFaction ~= true ) then
 						self.pvpIcon:Show()
 					else
 						self.pvpIcon:Hide()
 					end
 				elseif ( factionGroup and UnitIsPVP(self.unit) and UnitIsEnemy("player", self.unit) ) then
 					--self.pvpIcon:SetTexture("Interface\\TargetingFrame\\UI-PVP-FFA")
-					if ( AbyssUILightAddonSettings.HideUnitImprovedFaction ~= true ) then
+					if ( AbyssUIClassicAddonSettings.HideUnitImprovedFaction ~= true ) then
 						self.pvpIcon:Show()
 					else
 						self.pvpIcon:Hide()
 					end
 				elseif ( factionGroup == "Alliance" or factionGroup == "Horde" ) then
 					--self.pvpIcon:SetTexture("Interface\\TargetingFrame\\UI-PVP-"..factionGroup)
-					if ( AbyssUILightAddonSettings.HideUnitImprovedFaction ~= true ) then
+					if ( AbyssUIClassicAddonSettings.HideUnitImprovedFaction ~= true ) then
 						self.pvpIcon:Show()
 					else
 						self.pvpIcon:Hide()
@@ -476,7 +476,7 @@ AbyssUILight_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 		end
 		--StatusBarTextString
 		local function CreateStatusBarText(name, parentName, parent, point, x, y)
-			if ( AbyssUILightAddonSettings.UnitFrameImproved == true ) then
+			if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
 				local fontString = parent:CreateFontString(parentName..name, nil, "TextStatusBarText")
 				fontString:SetPoint(point, parent, point, x, y)
 				return fontString

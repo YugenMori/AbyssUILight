@@ -1,5 +1,5 @@
-## Interface: 11404
-## Title: AbyssUI|cffbcb3f8Light|r
+## Interface: 30402
+## Title: AbyssUI|cffbcb3f8Classic|r
 ## Version: 10.1.5.4_Classic_Dragonflight
 ## Author: Yugen
 ## Notes-enUS: Minimalist UI for World of Warcraft
@@ -16,8 +16,8 @@
 ## Notes-ruRU: Минималистичный интерфейс для World of Warcraft
 ## Notes-zhCN: 魔兽世界的简约UI
 ## Notes-zhTW: 魔獸世界的簡約UI
-## SavedVariablesPerCharacter: AbyssUILightProfile, AbyssUILightAddonSettings, COLOR_MY_UI
-## IconTexture: Interface\AddOns\AbyssUILight\textures\extra\logo\abyssuilogo
+## SavedVariablesPerCharacter: AbyssUIClassicProfile, AbyssUIClassicAddonSettings, COLOR_MY_UI
+## IconTexture: Interface\AddOns\AbyssUIClassic\textures\extra\logo\abyssuilogo
 # Wow Versions: Classic - 11404 | LichKingClassic - 30402 | DragonFlight - 100105
 
 # Libs
@@ -47,15 +47,15 @@ localization\ruRU.lua
 localization\zhCN.lua
 localization\zhTW.lua
 
-# AbyssUILight
-core\AbyssUILight.lua
-core\AbyssUILight_Frames.lua
-core\AbyssUILight_Config.lua
+# AbyssUIClassic
+core\AbyssUIClassic.lua
+core\AbyssUIClassic_Frames.lua
+core\AbyssUIClassic_Config.lua
 
-functions\AbyssUILight_Functions.lua
-functions\AbyssUILight_FunctionsExtras.lua
+functions\AbyssUIClassic_Functions.lua
+functions\AbyssUIClassic_FunctionsExtras.lua
 
-modules\AbyssUILight_IconStyle.lua
-modules\AbyssUILight_Inventory.lua
-modules\AbyssUILight_MoveFrames.lua
-modules\AbyssUILight_UnitFrame.lua
+modules\AbyssUIClassic_IconStyle.lua
+modules\AbyssUIClassic_Inventory.lua
+modules\AbyssUIClassic_MoveFrames.lua
+modules\AbyssUIClassic_UnitFrame.lua

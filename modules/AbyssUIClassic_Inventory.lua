@@ -5,12 +5,12 @@
 --
 -- Hope you like my addOn ^^
 --
--- Functions for AbyssUILight
+-- Functions for AbyssUIClassic
 ----------------------------------------------------
 
-local addonName = 'AbyssUILight';
+local addonName = 'AbyssUIClassic';
 local version = '1.1';
-local addon = CreateFrame('Button', AbyssUILight);
+local addon = CreateFrame('Button', AbyssUIClassic);
 
 local defaultSlotWidth, defaultSlotHeight = 68, 68;
 

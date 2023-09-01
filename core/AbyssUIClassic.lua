@@ -2,30 +2,30 @@
 --
 -- Supports any version of wow
 --
--- Classic module for AbyssUILight
+-- Classic module for AbyssUIClassic
 --------------------------------------------------------------
 -- Init - Tables - Saves
 local addonName, addonTable = ...
-local L = LibStub("AceLocale-3.0"):GetLocale("AbyssUILight")
+local L = LibStub("AceLocale-3.0"):GetLocale("AbyssUIClassic")
 local GetWoWVersion = ((select(4, GetBuildInfo())))
-local f = CreateFrame("Frame", "AbyssUILight_Config", UIParent)
+local f = CreateFrame("Frame", "AbyssUIClassic_Config", UIParent)
 f:SetSize(50, 50)
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function(self, event, ...)
   character = UnitName("player").."-"..GetRealmName()
   -- Config/Panel
-  if not AbyssUILight_Config then
-    local AbyssUILight_Config = {}
+  if not AbyssUIClassic_Config then
+    local AbyssUIClassic_Config = {}
   end
     if not AbyssUI_Config then
     local AbyssUI_Config = {}
   end
   -- AddonSettings
-  if not AbyssUILightAddonSettings then
-    AbyssUILightAddonSettings = {}
+  if not AbyssUIClassicAddonSettings then
+    AbyssUIClassicAddonSettings = {}
   end
-  if not AbyssUILightAddonSettings[character] then
-    AbyssUILightAddonSettings[character] = {}
+  if not AbyssUIClassicAddonSettings[character] then
+    AbyssUIClassicAddonSettings[character] = {}
   end
   -- Color Init
   if not COLOR_MY_UI then
@@ -39,10 +39,10 @@ f:SetScript("OnEvent", function(self, event, ...)
   end
 end)
 -- Fontfication
-local function AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
+local function AbyssUIClassic_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 local locale = GetLocale()
 local fontName, fontHeight, fontFlags = MinimapZoneText:GetFont()
-local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
+local mediaFolder = "Interface\\AddOns\\AbyssUIClassic\\Textures\\font\\"
 	if ( locale == "zhCN") then
 		globalFont	= mediaFolder.."zhCN-TW\\senty.ttf"
 		subFont 	= mediaFolder.."zhCN-TW\\senty.ttf"
@@ -77,42 +77,42 @@ local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
 	end
 	return globalFont, subFont, damageFont, oldglobalFont
 end
-local globalFont, subFont, damageFont, oldglobalFont = AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
-local function AbyssUILight_ColorizationFrameFunction(...)
+local globalFont, subFont, damageFont, oldglobalFont = AbyssUIClassic_Fontification(globalFont, subFont, damageFont, oldglobalFont)
+local function AbyssUIClassic_ColorizationFrameFunction(...)
 	local v = ...
-	if AbyssUILightAddonSettings.UIVertexColorFrames01 == true then
+	if AbyssUIClassicAddonSettings.UIVertexColorFrames01 == true then
 		v:SetVertexColor(1, 1, 1)
-	elseif AbyssUILightAddonSettings.UIVertexColorFrames02 == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames02 == true then
 		v:SetVertexColor(.2, .2, .2)
-	elseif AbyssUILightAddonSettings.UIVertexColorFrames03 == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames03 == true then
 		v:SetVertexColor(182/255, 42/255, 37/255)
-	elseif AbyssUILightAddonSettings.UIVertexColorFrames04 == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames04 == true then
 		v:SetVertexColor(236/255, 193/255, 60/255)
-	elseif AbyssUILightAddonSettings.UIVertexColorFrames05 == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames05 == true then
 		v:SetVertexColor(196/255, 31/255, 59/255)
-	elseif AbyssUILightAddonSettings.UIVertexColorFrames06 == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames06 == true then
 		v:SetVertexColor(163/255, 48/255, 201/255)
-	elseif AbyssUILightAddonSettings.UIVertexColorFrames07 == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames07 == true then
 		v:SetVertexColor(252/255, 163/255, 85/255)
-	elseif AbyssUILightAddonSettings.UIVertexColorFrames08 == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames08 == true then
 		v:SetVertexColor(190/255, 221/255, 115/255)
-	elseif AbyssUILightAddonSettings.UIVertexColorFrames09 == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames09 == true then
 		v:SetVertexColor(64/255, 220/255, 255/255)
-	elseif AbyssUILightAddonSettings.UIVertexColorFrames10 == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames10 == true then
 		v:SetVertexColor(86/255, 255/255, 184/255)
-	elseif AbyssUILightAddonSettings.UIVertexColorFrames11 == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames11 == true then
 		v:SetVertexColor(255/255, 155/255, 195/255)
-	elseif AbyssUILightAddonSettings.UIVertexColorFrames12 == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames12 == true then
 		v:SetVertexColor(23/255, 28/255, 99/255)
-	elseif AbyssUILightAddonSettings.UIVertexColorFrames13 == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames13 == true then
 		v:SetVertexColor(255/255, 255/255, 0/255)
-	elseif AbyssUILightAddonSettings.UIVertexColorFrames14 == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames14 == true then
 		v:SetVertexColor(0/255, 112/255, 222/255)
-	elseif AbyssUILightAddonSettings.UIVertexColorFrames15 == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames15 == true then
 		v:SetVertexColor(135/255, 135/255, 237/255)
-	elseif AbyssUILightAddonSettings.UIVertexColorFrames16 == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames16 == true then
 		v:SetVertexColor(199/255, 156/255, 110/255)
-	elseif AbyssUILightAddonSettings.UIVertexColorFramesColorPicker == true then
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFramesColorPicker == true then
 		local character = UnitName("player").."-"..GetRealmName()
 		v:SetVertexColor(COLOR_MY_UI[character].Color.r, COLOR_MY_UI[character].Color.g, COLOR_MY_UI[character].Color.b)	
 	else
@@ -124,7 +124,7 @@ end
 local BasicFrames = CreateFrame("Frame")
 BasicFrames:RegisterEvent("ADDON_LOADED")
 BasicFrames:SetScript("OnEvent", function(self, event, addon)
-	if (addon == "AbyssUILight") then
+	if (addon == "AbyssUIClassic") then
 		for i, v in pairs({	PlayerFrameTexture,
 			TargetFrameTextureFrameTexture,
 			PetFrameTexture,
@@ -163,8 +163,8 @@ BasicFrames:SetScript("OnEvent", function(self, event, addon)
 			MiniMapMailBorder,
 			MiniMapBorderTop, }) do
 			MiniMapWorldMapButton:SetAlpha(0.3)
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -177,7 +177,7 @@ end)
 local DarkException = CreateFrame("Frame")
 DarkException:RegisterEvent("ADDON_LOADED")
 DarkException:SetScript("OnEvent", function(self, event, addon)
-	if (addon == "AbyssUILight") then
+	if (addon == "AbyssUIClassic") then
 		for i, v in pairs({
 			PlayerFrameTexture,
 			TargetFrameTextureFrameTexture,
@@ -198,10 +198,10 @@ DarkException:SetScript("OnEvent", function(self, event, addon)
 			MiniMapLFGFrameBorder,
 			MiniMapBattlefieldBorder,
 			MiniMapMailBorder, }) do
-			if AbyssUILightAddonSettings ~= nil then
-				if AbyssUILightAddonSettings.KeepUnitDark == true then
+			if AbyssUIClassicAddonSettings ~= nil then
+				if AbyssUIClassicAddonSettings.KeepUnitDark == true then
 					v:SetVertexColor(.4, .4, .4)
-				elseif AbyssUILightAddonSettings.KeepUnitBlizzard == true then
+				elseif AbyssUIClassicAddonSettings.KeepUnitBlizzard == true then
 					v:SetVertexColor(1, 1, 1)
 				else
 					return nil
@@ -217,11 +217,11 @@ end)
 local NewFrames = CreateFrame("Frame")
 NewFrames:RegisterEvent("ADDON_LOADED")
 NewFrames:SetScript("OnEvent", function(self, event, addon)
-	if (addon == "AbyssUILight") then
+	if (addon == "AbyssUIClassic") then
 		for i, v in pairs({ MainMenuBarLeftEndCap,
 			MainMenuBarRightEndCap, }) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -248,8 +248,8 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 			ChatFrame7EditBoxLeft,
 			ChatFrame7EditBoxRight,
 			ChatFrame7EditBoxMid,	}) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -263,8 +263,8 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 			ReputationWatchBar.StatusBar.WatchBarTexture1,
 			ReputationWatchBar.StatusBar.WatchBarTexture2,
 			ReputationWatchBar.StatusBar.WatchBarTexture3, }) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -273,8 +273,8 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 		for i, v in pairs({ StanceBarLeft,
 			StanceBarMiddle,
 			StanceBarRight, }) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -299,8 +299,8 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 			HelpFrameHeaderBottomLeftCorner,
 			HelpFrameHeaderLeftBorder,
 			HelpFrameHeaderTopLeftCorner, }) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -316,8 +316,8 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 			ChannelFrameBtnCornerLeft,
 			ChannelFrameLeftBorder,
 			ChannelFramePortraitFrame,	}) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -333,8 +333,8 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 			FriendsFrameBtnCornerLeft,
 			FriendsFrameLeftBorder,
 			FriendsFramePortraitFrame,	}) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -350,8 +350,8 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 			MerchantFrameBtnCornerLeft,
 			MerchantFrameLeftBorder,
 			MerchantFramePortraitFrame,	}) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -367,8 +367,8 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 			LootFrameBtnCornerLeft,
 			LootFrameLeftBorder,
 			LootFramePortraitFrame,	}) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -384,8 +384,8 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 			MailFrameBtnCornerLeft,
 			MailFrameLeftBorder,
 			MailFramePortraitFrame,	}) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -395,40 +395,40 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 		for i, v in pairs({ PaperDollFrame, 
 			QuestLogFrame,
 			SpellBookFrame, }) do
-			if AbyssUILightAddonSettings ~= nil then
-				if AbyssUILightAddonSettings.UIVertexColorFrames01 == true then
+			if AbyssUIClassicAddonSettings ~= nil then
+				if AbyssUIClassicAddonSettings.UIVertexColorFrames01 == true then
 					v:SetVertexColor(1, 1, 1)
-				elseif AbyssUILightAddonSettings.UIVertexColorFrames02 == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames02 == true then
 					v:SetVertexColor(.2, .2, .2)
-				elseif AbyssUILightAddonSettings.UIVertexColorFrames03 == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames03 == true then
 					v:SetVertexColor(182/255, 42/255, 37/255)
-				elseif AbyssUILightAddonSettings.UIVertexColorFrames04 == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames04 == true then
 					v:SetVertexColor(236/255, 193/255, 60/255)
-				elseif AbyssUILightAddonSettings.UIVertexColorFrames05 == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames05 == true then
 					v:SetVertexColor(196/255, 31/255, 59/255)
-				elseif AbyssUILightAddonSettings.UIVertexColorFrames06 == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames06 == true then
 					v:SetVertexColor(163/255, 48/255, 201/255)
-				elseif AbyssUILightAddonSettings.UIVertexColorFrames07 == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames07 == true then
 					v:SetVertexColor(252/255, 163/255, 85/255)
-				elseif AbyssUILightAddonSettings.UIVertexColorFrames08 == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames08 == true then
 					v:SetVertexColor(190/255, 221/255, 115/255)
-				elseif AbyssUILightAddonSettings.UIVertexColorFrames09 == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames09 == true then
 					v:SetVertexColor(64/255, 220/255, 255/255)
-				elseif AbyssUILightAddonSettings.UIVertexColorFrames10 == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames10 == true then
 					v:SetVertexColor(86/255, 255/255, 184/255)
-				elseif AbyssUILightAddonSettings.UIVertexColorFrames11 == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames11 == true then
 					v:SetVertexColor(255/255, 155/255, 195/255)
-				elseif AbyssUILightAddonSettings.UIVertexColorFrames12 == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames12 == true then
 					v:SetVertexColor(23/255, 28/255, 99/255)
-				elseif AbyssUILightAddonSettings.UIVertexColorFrames13 == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames13 == true then
 					v:SetVertexColor(255/255, 255/255, 0/255)
-				elseif AbyssUILightAddonSettings.UIVertexColorFrames14 == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames14 == true then
 					v:SetVertexColor(0/255, 112/255, 222/255)
-				elseif AbyssUILightAddonSettings.UIVertexColorFrames15 == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames15 == true then
 					v:SetVertexColor(135/255, 135/255, 237/255)
-				elseif AbyssUILightAddonSettings.UIVertexColorFrames16 == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames16 == true then
 					v:SetVertexColor(199/255, 156/255, 110/255)
-				elseif AbyssUILightAddonSettings.UIVertexColorFramesColorPicker == true then
+				elseif AbyssUIClassicAddonSettings.UIVertexColorFramesColorPicker == true then
 					local character = UnitName("player").."-"..GetRealmName()
 					v:SetVertexColor(COLOR_MY_UI[character].Color.r, COLOR_MY_UI[character].Color.g, COLOR_MY_UI[character].Color.b)
 				else
@@ -456,8 +456,8 @@ f:SetScript("OnEvent", function(self, event, name)
 			AuctionFrameBot, 
 			AuctionFrameBotLeft, 
 			AuctionFrameBotRight, }) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -479,8 +479,8 @@ f:SetScript("OnEvent", function(self, event, name)
 			MacroFrameBtnCornerLeft,
 			MacroFrameLeftBorder,
 			MacroFramePortraitFrame, }) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -491,7 +491,7 @@ end)
 -- UnitColor
 local UnitColor
 local function UnitColor(unit)
-  if (AbyssUILightAddonSettings.UnitFrameImproved == true) then
+  if (AbyssUIClassicAddonSettings.UnitFrameImproved == true) then
     local r, g, b, a
     if ((not UnitIsPlayer(unit)) and ((not UnitIsConnected(unit)) or (UnitIsDeadOrGhost(unit)))) then
       --Color it gray
@@ -500,7 +500,7 @@ local function UnitColor(unit)
       --Try to color it by class.
       local localizedClass, englishClass = UnitClass(unit)
       local classColor = RAID_CLASS_COLORS[englishClass]
-      if (classColor and not AbyssUILightAddonSettings.GreenHealth) then
+      if (classColor and not AbyssUIClassicAddonSettings.GreenHealth) then
         r, g, b, a = classColor.r, classColor.g, classColor.b, classColor.a
       else
         if (UnitIsFriend("player", unit)) then
@@ -519,7 +519,7 @@ end
 local ClassicFrames = CreateFrame("Frame")
 ClassicFrames:RegisterEvent("ADDON_LOADED")
 ClassicFrames:SetScript("OnEvent", function(self, event, addon)
-	if (addon == "AbyssUILight") then
+	if (addon == "AbyssUIClassic") then
 		if GetWoWVersion <= 30600 then
 			-- General
 			for i, v in pairs({ 
@@ -537,8 +537,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				ChatFrame1EditBoxMid,
 				ChatFrame1EditBoxRight,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
-					AbyssUILight_ColorizationFrameFunction(v)
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
 			--GameMenuFrame
@@ -553,9 +553,9 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				GameMenuFrame.TopRightCorner,
 				GameMenuFrameHeader,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
+				if AbyssUIClassicAddonSettings ~= nil then
 					if GetWoWVersion > 10000 then
-						AbyssUILight_ColorizationFrameFunction(v)
+						AbyssUIClassic_ColorizationFrameFunction(v)
 					end
 				end
 			end
@@ -572,8 +572,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				HelpFrameBtnCornerLeft,
 				HelpFrameBtnCornerRight,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
-					AbyssUILight_ColorizationFrameFunction(v)
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
 			-- InterfaceOptionsFrame
@@ -589,8 +589,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				InterfaceOptionsFrame.TopRightCorner,
 				InterfaceOptionsFrameHeader,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
-					AbyssUILight_ColorizationFrameFunction(v)
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
 			-- VideoOptionsFrame
@@ -606,8 +606,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				VideoOptionsFrame.TopRightCorner,
 				VideoOptionsFrameHeader,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
-					AbyssUILight_ColorizationFrameFunction(v)
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
 			-- AddonList
@@ -624,8 +624,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				AddonListBtnCornerLeft,
 				AddonListBtnCornerRight,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
-					AbyssUILight_ColorizationFrameFunction(v)
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
 			-- ContainerFrame1
@@ -637,8 +637,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				ContainerFrame1BackgroundTop,
 				ContainerFrame1BackgroundPortrait,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
-					AbyssUILight_ColorizationFrameFunction(v)
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
 			-- ContainerFrame2
@@ -650,8 +650,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				ContainerFrame2BackgroundTop,
 				ContainerFrame2BackgroundPortrait,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
-					AbyssUILight_ColorizationFrameFunction(v)
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
 			-- ContainerFrame3
@@ -663,8 +663,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				ContainerFrame3BackgroundTop,
 				ContainerFrame3BackgroundPortrait,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
-					AbyssUILight_ColorizationFrameFunction(v)
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
 			-- ContainerFrame4
@@ -676,8 +676,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				ContainerFrame4BackgroundTop,
 				ContainerFrame4BackgroundPortrait,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
-					AbyssUILight_ColorizationFrameFunction(v)
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
 			-- ContainerFrame5
@@ -689,8 +689,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				ContainerFrame5BackgroundTop,
 				ContainerFrame5BackgroundPortrait,
 		 	 }) do
-				if AbyssUILightAddonSettings ~= nil then
-					AbyssUILight_ColorizationFrameFunction(v)
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
 			-- StaticPopUp ("LogoutFrame")
@@ -714,9 +714,9 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				StaticPopup2.TopLeftCorner,
 				StaticPopup2.TopRightCorner,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
+				if AbyssUIClassicAddonSettings ~= nil then
 					if (not InCombatLockdown()) then
-						AbyssUILight_ColorizationFrameFunction(v)
+						AbyssUIClassic_ColorizationFrameFunction(v)
 					end
 				end
 			end
@@ -777,8 +777,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				DropDownList1Backdrop.TopLeftCorner,
 				DropDownList1Backdrop.TopRightCorner,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
-					AbyssUILight_ColorizationFrameFunction(v)
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
 			-- MerchantFrame
@@ -808,8 +808,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				MerchantFrameTab2Right,
 				MerchantFrameTab2RightDisabled,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
-					AbyssUILight_ColorizationFrameFunction(v)
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
 			-- CharacterFrame
@@ -845,8 +845,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				CharacterFrameTab5Right,
 				CharacterFrameTab5RightDisabled,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
-					AbyssUILight_ColorizationFrameFunction(v)
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
 			-- MailFrame
@@ -876,8 +876,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				MailFrameTab2Right,
 			MailFrameTab2RightDisabled,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
-					AbyssUILight_ColorizationFrameFunction(v)
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
 			-- CastBarBorder
@@ -887,8 +887,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 					MirrorTimer1Border,
 					TargetFrameSpellBar.Border,
 				TargetFrameSpellBar.BorderShield, }) do
-					if AbyssUILightAddonSettings ~= nil then
-						AbyssUILight_ColorizationFrameFunction(v)
+					if AbyssUIClassicAddonSettings ~= nil then
+						AbyssUIClassic_ColorizationFrameFunction(v)
 					else
 						return nil
 					end
@@ -909,8 +909,8 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				TradeFramePlayerPortrait,
 				TradeFrameRecipientPortrait,
 			 }) do
-				if AbyssUILightAddonSettings ~= nil then
-					AbyssUILight_ColorizationFrameFunction(v)
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
 		-- End
@@ -936,8 +936,8 @@ f:SetScript("OnEvent", function(self, event, name)
 			KeyBindingFrame.TopLeftCorner,
 			KeyBindingFrame.TopRightCorner,
 			KeyBindingFrameHeader, }) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -962,8 +962,8 @@ f:SetScript("OnEvent", function(self, event, name)
 			MacroFrameButtonBottomBorder,
 			MacroFrameBtnCornerLeft,
 			MacroFrameBtnCornerRight, }) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -988,8 +988,8 @@ f:SetScript("OnEvent", function(self, event, name)
 			TimeManagerFrameBtnCornerLeft,
 			TimeManagerFrameBtnCornerRight,
 			TimeManagerFramePortraitFrame, }) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -1027,8 +1027,8 @@ f:SetScript("OnEvent", function(self, event, name)
 			AuctionFrameTab3MiddleDisabled,
 			AuctionFrameTab3Right,
 			AuctionFrameTab3RightDisabled, }) do
-			if AbyssUILightAddonSettings ~= nil then
-				AbyssUILight_ColorizationFrameFunction(v)
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
 				return nil
 			end
@@ -1044,7 +1044,7 @@ f:SetScript("OnEvent", function(self, event, name)
     local ChildRegions = { PlayerTalentFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
     for i, v in pairs({ 
     	PlayerTalentFrameTab1Left,
@@ -1065,7 +1065,7 @@ f:SetScript("OnEvent", function(self, event, name)
 		PlayerTalentFrameTab32MiddleDisabled,
 		PlayerTalentFrameTab3Right,
 		PlayerTalentFrameTab3RightDisabled,	}) do
-		AbyssUILight_ColorizationFrameFunction(v)
+		AbyssUIClassic_ColorizationFrameFunction(v)
     end
 	end
 end)
@@ -1078,7 +1078,7 @@ f:SetScript("OnEvent", function(self, event, name)
     local ChildRegions = { ClassTrainerFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
 	end
 end)
@@ -1091,7 +1091,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { PaperDollFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
 end)
@@ -1104,7 +1104,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { ReputationFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
 end)
@@ -1117,7 +1117,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { SkillFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
 end)
@@ -1130,7 +1130,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { PVPFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
 end)
@@ -1143,7 +1143,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { HonorFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
 end)
@@ -1156,7 +1156,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { GameMenuFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
 end)
@@ -1170,7 +1170,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { SpellBookFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
     for i, v in pairs({
     	SpellButton1SubSpellName,
@@ -1197,12 +1197,12 @@ local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self)
 	if GetWoWVersion <= 30600 then
-		if (AbyssUILightAddonSettings.ExtraFunctionDisableQuestFrame ~= true) then
+		if (AbyssUIClassicAddonSettings.ExtraFunctionDisableQuestFrame ~= true) then
 	    self:UnregisterAllEvents()
 	    local ChildRegions = { QuestLogFrame:GetRegions(), QuestFrameDetailPanel:GetRegions() }
 	    local fs = {}
 	    for k, v in pairs(ChildRegions) do
-	    	AbyssUILight_ColorizationFrameFunction(v)
+	    	AbyssUIClassic_ColorizationFrameFunction(v)
 	    end
 	    for i, v in pairs({ 
 	    	QuestLogQuestTitle,
@@ -1224,7 +1224,7 @@ local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self)
 	if GetWoWVersion <= 30600 and GetWoWVersion >= 12000 then
-		if (AbyssUILightAddonSettings.ExtraFunctionDisableQuestFrame ~= true) then
+		if (AbyssUIClassicAddonSettings.ExtraFunctionDisableQuestFrame ~= true) then
 	    self:UnregisterAllEvents()
 	    local ChildRegions = { 
 	    	QuestFrame:GetRegions(), 
@@ -1246,7 +1246,7 @@ f:SetScript("OnEvent", function(self)
 	    }
 	    local fs = {}
 	    for k, v in pairs(ChildRegions) do
-	    	AbyssUILight_ColorizationFrameFunction(v)
+	    	AbyssUIClassic_ColorizationFrameFunction(v)
 	    end
 	    for k, v in pairs(ScrollRegions) do
 	    	v:SetVertexColor(219/255, 222/255, 231/255)
@@ -1268,7 +1268,7 @@ f:SetScript("OnEvent", function(self)
      	GossipGreetingScrollChildFrame:GetRegions(),  }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
     for k, v in pairs(ScrollRegions) do
     	v:SetVertexColor(219/255, 222/255, 231/255)
@@ -1285,7 +1285,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { BankFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
     for i, v in pairs({
 	    BankFrameTab1Left,
@@ -1301,7 +1301,7 @@ f:SetScript("OnEvent", function(self)
 			BankFrameTab2Right,
 			BankFrameTab2RightDisabled, 
 	 	}) do
-	 		AbyssUILight_ColorizationFrameFunction(v)
+	 		AbyssUIClassic_ColorizationFrameFunction(v)
 		end
   end
 end)
@@ -1314,7 +1314,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { TaxiFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
 end)
@@ -1327,7 +1327,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { TabardFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
 end)
@@ -1342,7 +1342,7 @@ f:SetScript("OnEvent", function(self)
 	    local ChildRegions = { WorldMapFrame.BorderFrame:GetRegions() }
 	    local fs = {}
 	    for k, v in pairs(ChildRegions) do
-	    	AbyssUILight_ColorizationFrameFunction(v)
+	    	AbyssUIClassic_ColorizationFrameFunction(v)
 	    end
 	  end
   end
@@ -1356,7 +1356,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { LFGParentFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
    	for i, v in pairs({
 	    LFGParentFrameTab1Left,
@@ -1372,7 +1372,7 @@ f:SetScript("OnEvent", function(self)
 			LFGParentFrameTab2Right,
 			LFGParentFrameTab2RightDisabled, 
 	 	}) do
-	 		AbyssUILight_ColorizationFrameFunction(v)
+	 		AbyssUIClassic_ColorizationFrameFunction(v)
 		end
   end
 end)
@@ -1385,7 +1385,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { ArenaFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
 end)
@@ -1398,7 +1398,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { InterfaceOptionsFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
 end)
@@ -1411,7 +1411,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { VideoOptionsFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
 end)
@@ -1424,7 +1424,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { HonorFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
 end)
@@ -1439,15 +1439,15 @@ f:SetScript("OnEvent", function(self, event, name)
 			LoadAddOn('Blizzard_TimeManager')
 		end
 		local showclock = true
-		if (showclock and not AbyssUILightAddonSettings.AlwaysShowClock) then
+		if (showclock and not AbyssUIClassicAddonSettings.AlwaysShowClock) then
 			local clockFrame, clockTime = TimeManagerClockButton:GetRegions()
 			clockFrame:Hide()
 			TimeManagerClockButton:SetPoint("BOTTOM", Minimap, 0, -2)
-			if (AbyssUILightAddonSettings.AlwaysShowClock ~= true) then
+			if (AbyssUIClassicAddonSettings.AlwaysShowClock ~= true) then
 				clockTime:Show()
 				TimeManagerClockButton:SetAlpha(0)
 			end
-		elseif (showclock and AbyssUILightAddonSettings.AlwaysShowClock) then
+		elseif (showclock and AbyssUIClassicAddonSettings.AlwaysShowClock) then
 			LoadAddOn('Blizzard_TimeManager')
 			local clockFrame, clockTime = TimeManagerClockButton:GetRegions()
 			clockFrame:Hide()
@@ -1467,7 +1467,7 @@ f:SetScript("OnEvent", function(self, event, name)
 		  TimeManagerClockButton:SetAlpha(1)
 		end)
 		Minimap:HookScript("OnLeave", function()
-			if (not AbyssUILightAddonSettings.AlwaysShowClock) then
+			if (not AbyssUIClassicAddonSettings.AlwaysShowClock) then
 		  	TimeManagerClockButton:SetAlpha(0)
 			end
 		end)
@@ -1482,7 +1482,7 @@ f:SetScript("OnEvent", function(self, event, name)
     local ChildRegions = { KeyBindingFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
 	end
 end)
@@ -1495,7 +1495,7 @@ f:SetScript("OnEvent", function(self, event, name)
     local ChildRegions = { PlayerTalentFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
 	end
 end)
@@ -1508,7 +1508,7 @@ f:SetScript("OnEvent", function(self, event, name)
     local ChildRegions = { InspectPaperDollFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
 	end
 end)
@@ -1522,7 +1522,7 @@ local function ChatHiderFunc()
 	ChatHideFrame.t:SetTexture("Interface\\CHATFRAME\\UI-ChatIcon-Minimize-Up.blp")
 	ChatHideFrame.t:SetAllPoints(ChatHideFrame)
 	ChatHideFrame:SetPoint("BOTTOM","ChatFrame1ButtonFrame","BOTTOM", 0, -35)
-	if ( AbyssUILightAddonSettings.FadeUI ~= true ) then
+	if ( AbyssUIClassicAddonSettings.FadeUI ~= true ) then
 	  ChatHideFrame:Show()
 	else
 	  ChatHideFrame:Hide()
@@ -1610,7 +1610,7 @@ f:SetScript("OnEvent", function(self, event, name)
     local ChildRegions = { GlyphFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
 	end
 end)
@@ -1623,7 +1623,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { PetPaperDollFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
 end)
@@ -1635,13 +1635,13 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { LFGListingFrame:GetRegions(), LFGBrowseFrame:GetRegions(), }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
     for i, v in pairs({
     	LFGListingFrameFrameBackgroundTop,
 			LFGListingFrameFrameBackgroundBottom,
     }) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
 end)
@@ -1655,7 +1655,7 @@ f:SetScript("OnEvent", function(self)
     local ChildRegions = { GameTimeFrame:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
-    	AbyssUILight_ColorizationFrameFunction(v)
+    	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
 end)
@@ -1665,10 +1665,10 @@ end)
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(self, event, name)
-	if not AbyssUILightAddonSettings then
-    AbyssUILightAddonSettings = {}
+	if not AbyssUIClassicAddonSettings then
+    AbyssUIClassicAddonSettings = {}
   end
-	if name == "AbyssUILight" and AbyssUILightAddonSettings.DisableCharacterText ~= true then
+	if name == "AbyssUIClassic" and AbyssUIClassicAddonSettings.DisableCharacterText ~= true then
 		local localizedClass, englishClass = UnitClass("player")
     local classColor = RAID_CLASS_COLORS[englishClass]
     if (classColor) then
@@ -1686,9 +1686,9 @@ end)
 local function TargetFramePortraitChecker()
 local classification = UnitClassification("target")
 	if (classification == "normal") then
-		TargetFrameTextureFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\targetingframe\\UI-TargetingFrame")
+		TargetFrameTextureFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\targetingframe\\UI-TargetingFrame")
 	elseif (classification == "elite") then
-		TargetFrameTextureFrameTexture:SetTexture("Interface\\Addons\\AbyssUILight\\textures\\targetingframe\\UI-TargetingFrame-Elite")
+		TargetFrameTextureFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\targetingframe\\UI-TargetingFrame-Elite")
 	else
 		return nil
 	end
@@ -1697,7 +1697,7 @@ end
 local frame = CreateFrame("Frame", "$parentFrame", nil)
 frame:RegisterEvent("PLAYER_TARGET_CHANGED")
 local function eventHandler(self, event, ...)
-	if ( AbyssUILightAddonSettings.UnitFrameImproved ~= true ) then
+	if ( AbyssUIClassicAddonSettings.UnitFrameImproved ~= true ) then
 		if GetWoWVersion <= 30600 then
 			if ( event == "PLAYER_TARGET_CHANGED" ) then
 				TargetFramePortraitChecker()
@@ -1729,7 +1729,7 @@ end
 local frame = CreateFrame("Frame", "$parentFrameHealthBarSize", nil)
 frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 local function eventHandler(self, event, ...)
-	if ( AbyssUILightAddonSettings.UnitFrameImproved ~= true ) then
+	if ( AbyssUIClassicAddonSettings.UnitFrameImproved ~= true ) then
 		if GetWoWVersion <= 30600 then
 			if not InCombatLockdown() then 
 			  PlayerFrameHealthBar.lockColor = true
@@ -1748,7 +1748,7 @@ frame:SetScript("OnEvent", eventHandler)
 -- Keep the color when health changes
 hooksecurefunc("HealthBar_OnValueChanged", function()
 	if GetWoWVersion <= 30600 then
-		if ( AbyssUILightAddonSettings.UnitFrameImproved ~= true ) then
+		if ( AbyssUIClassicAddonSettings.UnitFrameImproved ~= true ) then
 			if ( UnitReaction("player", "target") ~= nil ) then
 				local target = UnitReaction("player", "target")
 				local utarget = UnitIsPlayer("target")
@@ -1771,8 +1771,8 @@ end)
 local f = CreateFrame("Frame", nil)
 f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(self, event, name)
-	if name == "AbyssUILight" and GetWoWVersion <= 30600 and AbyssUILightAddonSettings ~= nil then
-		local TEXTURE = "Interface\\AddOns\\AbyssUILight\\textures\\Raid-Bar-Hp-Fill"
+	if name == "AbyssUIClassic" and GetWoWVersion <= 30600 and AbyssUIClassicAddonSettings ~= nil then
+		local TEXTURE = "Interface\\AddOns\\AbyssUIClassic\\textures\\Raid-Bar-Hp-Fill"
 		local UnitFrames = {
 		  PlayerFrame,
 		  PetFrame,
@@ -1801,7 +1801,7 @@ f:SetScript("OnEvent", function(self, event, name)
 		  MirrorTimer2StatusBar,
 		  MirrorTimer3StatusBar,
 		}
-		if (AbyssUILightAddonSettings.FlatHealth == true) then
+		if (AbyssUIClassicAddonSettings.FlatHealth == true) then
 			for _, frame in next, UnitFrames do
 		    for _, region in next, UnitFrameRegions do
 		      local bar = frame[region]

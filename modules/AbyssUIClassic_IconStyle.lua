@@ -4,9 +4,9 @@
 --
 -- Icon Style Module
 --
--- This module is inpired in LortiUI, so many users of AbyssUILight have requested this section to be implemented, so I did,
--- this module is basically a revamp of LortiUI with modifications to better fit AbyssUILight. Thanks to the creator of LortiUI for this amazing
--- code compilation and to make AbyssUILight even better, please check his work!
+-- This module is inpired in LortiUI, so many users of AbyssUIClassic have requested this section to be implemented, so I did,
+-- this module is basically a revamp of LortiUI with modifications to better fit AbyssUIClassic. Thanks to the creator of LortiUI for this amazing
+-- code compilation and to make AbyssUIClassic even better, please check his work!
 -- Also check suicidalkatt icons pack at wowinterface, mostly icon borders are inspired in his work.
 --------------------------------------------------------------
 -- Init - Tables - Saves
@@ -14,10 +14,10 @@ local addon, ns = ...
 local Abconfig = CreateFrame("Frame")
 local GetWoWVersion = ((select(4, GetBuildInfo())))
 -- Fontfication
-local function AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
+local function AbyssUIClassic_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 local locale = GetLocale()
 local fontName, fontHeight, fontFlags = MinimapZoneText:GetFont()
-local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
+local mediaFolder = "Interface\\AddOns\\AbyssUIClassic\\Textures\\font\\"
   if ( locale == "zhCN") then
     globalFont  = mediaFolder.."zhCN-TW\\senty.ttf"
     subFont   = mediaFolder.."zhCN-TW\\senty.ttf"
@@ -52,19 +52,19 @@ local mediaFolder = "Interface\\AddOns\\AbyssUILight\\Textures\\font\\"
   end
   return globalFont, subFont, damageFont, oldglobalFont
 end
-local globalFont, subFont, damageFont, oldglobalFont = AbyssUILight_Fontification(globalFont, subFont, damageFont, oldglobalFont)
+local globalFont, subFont, damageFont, oldglobalFont = AbyssUIClassic_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 local function GlossTheme()
   Abconfig.textures = {
-    normal            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\gloss",
-    bags              = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\gloss",
-    flash             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\flash",
-    hover             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\hover",
-    pushed            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\pushed",
-    checked           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\checked",
-    equipped          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\gloss_grey",
-    buttonback        = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background",
-    buttonbackflat    = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background_flat",
-    outer_shadow      = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+    normal            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss",
+    bags              = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss",
+    flash             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\flash",
+    hover             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\hover",
+    pushed            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\pushed",
+    checked           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\checked",
+    equipped          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss_grey",
+    buttonback        = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background",
+    buttonbackflat    = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background_flat",
+    outer_shadow      = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
   }
 
   Abconfig.background = {
@@ -134,13 +134,13 @@ local function GlossTheme()
       padding           = -1,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\gloss",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss",
       color             = { r = 0.4, g = 0.35, b = 0.35, },
       classcolored      = false,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.8},
       classcolored      = false,
       inset             = 6,
@@ -179,13 +179,13 @@ local function GlossTheme()
       padding           = -2,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\gloss",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss",
       color             = { r = 0.4, g = 0.35, b = 0.35, },
       classcolored      = false,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.9},
       classcolored      = false,
       inset             = 6,
@@ -206,16 +206,16 @@ end
 
 local function ClassColor() 
   Abconfig.textures = {
-    normal            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\classcolor",
-    bags              = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\classcolor",
-    flash             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\flash",
-    hover             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\hover",
-    pushed            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\pushed",
-    checked           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\checked",
-    equipped          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\gloss_grey",
-    buttonback        = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background",
-    buttonbackflat    = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background_flat",
-    outer_shadow      = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+    normal            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\classcolor",
+    bags              = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\classcolor",
+    flash             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\flash",
+    hover             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\hover",
+    pushed            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\pushed",
+    checked           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\checked",
+    equipped          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss_grey",
+    buttonback        = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background",
+    buttonbackflat    = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background_flat",
+    outer_shadow      = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
   }
 
   Abconfig.background = {
@@ -285,13 +285,13 @@ local function ClassColor()
       padding           = -2,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\classcolor",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\classcolor",
       color             = { r = 0.4, g = 0.35, b = 0.35, },
       classcolored      = true,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.9},
       classcolored      = true,
       inset             = 6,
@@ -330,13 +330,13 @@ local function ClassColor()
       padding           = -2,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\classcolor",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\classcolor",
       color             = { r = 1, g = 1, b = 1, },
       classcolored      = true,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0.3, g = 0.3, b = 0.3, a = 0.8},
       classcolored      = true,
       inset             = 6,
@@ -357,16 +357,16 @@ end
 
 local function CrispTheme() 
   Abconfig.textures = {
-    normal            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\crisp",
-    bags              = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\crisp",
-    flash             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\flash",
-    hover             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\hover",
-    pushed            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\pushed",
-    checked           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\checked",
-    equipped          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\gloss_grey",
-    buttonback        = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background",
-    buttonbackflat    = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background_flat",
-    outer_shadow      = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+    normal            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\crisp",
+    bags              = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\crisp",
+    flash             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\flash",
+    hover             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\hover",
+    pushed            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\pushed",
+    checked           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\checked",
+    equipped          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss_grey",
+    buttonback        = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background",
+    buttonbackflat    = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background_flat",
+    outer_shadow      = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
   }
 
   Abconfig.background = {
@@ -436,13 +436,13 @@ local function CrispTheme()
       padding           = -2,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\crisp",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\crisp",
       color             = { r = 0.77, g = 0.7, b = 0.7, },
       classcolored      = false,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.8},
       classcolored      = false,
       inset             = 6,
@@ -481,13 +481,13 @@ local function CrispTheme()
       padding           = -2,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\crisp",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\crisp",
       color             = { r = 0.77, g = 0.7, b = 0.7, },
       classcolored      = false,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.8},
       classcolored      = false,
       inset             = 6,
@@ -508,16 +508,16 @@ end
 
 local function OriginalTheme() 
   Abconfig.textures = {
-    normal            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\original",
-    bags              = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\original",
-    flash             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\flash",
-    hover             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\hover",
-    pushed            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\pushed",
-    checked           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\checked",
-    equipped          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\gloss_grey",
-    buttonback        = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background",
-    buttonbackflat    = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background_flat",
-    outer_shadow      = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+    normal            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\original",
+    bags              = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\original",
+    flash             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\flash",
+    hover             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\hover",
+    pushed            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\pushed",
+    checked           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\checked",
+    equipped          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss_grey",
+    buttonback        = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background",
+    buttonbackflat    = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background_flat",
+    outer_shadow      = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
   }
 
   Abconfig.background = {
@@ -587,13 +587,13 @@ local function OriginalTheme()
       padding           = -2,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\original",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\original",
       color             = { r = 0.77, g = 0.7, b = 0.7, },
       classcolored      = false,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.9},
       classcolored      = false,
       inset             = 6,
@@ -632,13 +632,13 @@ local function OriginalTheme()
       padding           = -2,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\original",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\original",
       color             = { r = 0.77, g = 0.7, b = 0.7, },
       classcolored      = false,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.9},
       classcolored      = false,
       inset             = 6,
@@ -659,16 +659,16 @@ end
 
 local function SquareTheme() 
 Abconfig.textures = {
-    normal            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\square",
-    bags              = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\square",
-    flash             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\flash",
-    hover             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\hover",
-    pushed            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\pushed",
-    checked           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\checked",
-    equipped          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\gloss_grey",
-    buttonback        = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background",
-    buttonbackflat    = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background_flat",
-    outer_shadow      = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+    normal            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\square",
+    bags              = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\square",
+    flash             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\flash",
+    hover             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\hover",
+    pushed            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\pushed",
+    checked           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\checked",
+    equipped          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss_grey",
+    buttonback        = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background",
+    buttonbackflat    = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background_flat",
+    outer_shadow      = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
   }
 
   Abconfig.background = {
@@ -738,13 +738,13 @@ Abconfig.textures = {
       padding           = -2,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\square",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\square",
       color             = { r = 0.7, g = 0.7, b = 0.7, },
       classcolored      = false,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.9},
       classcolored      = false,
       inset             = 6,
@@ -783,13 +783,13 @@ Abconfig.textures = {
       padding           = -2,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\square",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\square",
       color             = { r = 0.4, g = 0.35, b = 0.35, },
       classcolored      = false,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.9},
       classcolored      = false,
       inset             = 6,
@@ -810,16 +810,16 @@ end
 
 local function ThinTheme() 
   Abconfig.textures = {
-    normal            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\thin",
-    bags              = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\thin",
-    flash             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\flash",
-    hover             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\hover",
-    pushed            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\pushed",
-    checked           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\checked",
-    equipped          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\gloss_grey",
-    buttonback        = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background",
-    buttonbackflat    = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background_flat",
-    outer_shadow      = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+    normal            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\thin",
+    bags              = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\thin",
+    flash             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\flash",
+    hover             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\hover",
+    pushed            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\pushed",
+    checked           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\checked",
+    equipped          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss_grey",
+    buttonback        = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background",
+    buttonbackflat    = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background_flat",
+    outer_shadow      = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
   }
 
   Abconfig.background = {
@@ -889,13 +889,13 @@ local function ThinTheme()
       padding           = -2,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\thin",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\thin",
       color             = { r = 0.4, g = 0.35, b = 0.35, },
       classcolored      = false,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.9},
       classcolored      = false,
       inset             = 6,
@@ -934,13 +934,13 @@ local function ThinTheme()
       padding           = -2,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\thin",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\thin",
       color             = { r = 0.4, g = 0.35, b = 0.35, },
       classcolored      = false,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.9},
       classcolored      = false,
       inset             = 6,
@@ -961,16 +961,16 @@ end
 
 local function GlassTheme() 
   Abconfig.textures = {
-    normal            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\glass",
-    bags              = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\glass",
-    flash             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\flash",
-    hover             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\hover",
-    pushed            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\pushed",
-    checked           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\checked",
-    equipped          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\gloss_grey",
-    buttonback        = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background",
-    buttonbackflat    = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background_flat",
-    outer_shadow      = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+    normal            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\glass",
+    bags              = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\glass",
+    flash             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\flash",
+    hover             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\hover",
+    pushed            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\pushed",
+    checked           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\checked",
+    equipped          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss_grey",
+    buttonback        = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background",
+    buttonbackflat    = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background_flat",
+    outer_shadow      = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
   }
 
   Abconfig.background = {
@@ -1040,13 +1040,13 @@ local function GlassTheme()
       padding           = -2,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\glass",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\glass",
       color             = { r = 1, g = 1, b = 1, 0.8},
       classcolored      = false,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.8},
       classcolored      = false,
       inset             = 6,
@@ -1085,13 +1085,13 @@ local function GlassTheme()
       padding           = -2,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\glass",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\glass",
       color             = { r = 1, g = 1, b = 1, 0.8},
       classcolored      = false,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.8},
       classcolored      = false,
       inset             = 6,
@@ -1112,16 +1112,16 @@ end
 
 local function ClassicTheme() 
     Abconfig.textures = {
-    normal            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\original",
-    bags              = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\original",
-    flash             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\flash",
-    hover             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\hover",
-    pushed            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\pushed",
-    checked           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\checked",
-    equipped          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\gloss_grey",
-    buttonback        = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background",
-    buttonbackflat    = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background_flat",
-    outer_shadow      = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+    normal            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\original",
+    bags              = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\original",
+    flash             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\flash",
+    hover             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\hover",
+    pushed            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\pushed",
+    checked           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\checked",
+    equipped          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss_grey",
+    buttonback        = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background",
+    buttonbackflat    = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background_flat",
+    outer_shadow      = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
   }
 
   Abconfig.background = {
@@ -1191,13 +1191,13 @@ local function ClassicTheme()
       padding           = -2,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\classic",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\classic",
       color             = { r = 0.5, g = 0.5, b = 0.5, },
       classcolored      = false,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.8},
       classcolored      = false,
       inset             = 4,
@@ -1236,13 +1236,13 @@ local function ClassicTheme()
       padding           = -2,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\classic",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\classic",
       color             = { r = 1, g = 1, b = 1, },
       classcolored      = false,
     },
     background = {
       show              = true,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.8},
       classcolored      = false,
       inset             = 4,
@@ -1263,16 +1263,16 @@ end
 
 local function OldSchoolTheme() 
     Abconfig.textures = {
-    normal            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\oldschool",
-    bags              = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\oldschool",
-    flash             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\flash",
-    hover             = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\hover",
-    pushed            = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\pushed",
-    checked           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\checked",
-    equipped          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\gloss_grey",
-    buttonback        = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background",
-    buttonbackflat    = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\button_background_flat",
-    outer_shadow      = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+    normal            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\oldschool",
+    bags              = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\oldschool",
+    flash             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\flash",
+    hover             = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\hover",
+    pushed            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\pushed",
+    checked           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\checked",
+    equipped          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss_grey",
+    buttonback        = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background",
+    buttonbackflat    = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\button_background_flat",
+    outer_shadow      = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
   }
 
   Abconfig.background = {
@@ -1342,13 +1342,13 @@ local function OldSchoolTheme()
       padding           = -1,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\oldschool",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\oldschool",
       color             = { r = 0.5, g = 0.5, b = 0.5, },
       classcolored      = false,
     },
     background = {
       show              = false,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0.2, g = 0.2, b = 0.2, a = 0.9},
       classcolored      = false,
       inset             = 4,
@@ -1387,13 +1387,13 @@ local function OldSchoolTheme()
       padding           = -1,
     },
     border = {
-      texture           = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\oldschool",
+      texture           = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\oldschool",
       color             = { r = 1, g = 1, b = 1, },
       classcolored      = false,
     },
     background = {
       show              = false,   --show backdrop
-      edgeFile          = "Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\outer_shadow",
+      edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
       color             = { r = 0, g = 0, b = 0, a = 0.9},
       classcolored      = false,
       inset             = 6,
@@ -1415,53 +1415,53 @@ end
 -- Textures and borders
 -- action bars settings
 local function IconThemeInit()
-  if (AbyssUILightAddonSettings.DefaultIconBorder ~= true) then
-    if (AbyssUILightAddonSettings.GlossIconBorder   ~= true and 
-      AbyssUILightAddonSettings.CrispIconBorder     ~= true and
-      AbyssUILightAddonSettings.OriginalIconBorder  ~= true and 
-      AbyssUILightAddonSettings.SquareIconBorder    ~= true and
-      AbyssUILightAddonSettings.ThinIconBorder      ~= true and 
-      AbyssUILightAddonSettings.GlassIconBorder     ~= true and 
-      AbyssUILightAddonSettings.ClassicIconBorder   ~= true and
-      AbyssUILightAddonSettings.OldSchoolIconBorder ~= true) then
+  if (AbyssUIClassicAddonSettings.DefaultIconBorder ~= true) then
+    if (AbyssUIClassicAddonSettings.GlossIconBorder   ~= true and 
+      AbyssUIClassicAddonSettings.CrispIconBorder     ~= true and
+      AbyssUIClassicAddonSettings.OriginalIconBorder  ~= true and 
+      AbyssUIClassicAddonSettings.SquareIconBorder    ~= true and
+      AbyssUIClassicAddonSettings.ThinIconBorder      ~= true and 
+      AbyssUIClassicAddonSettings.GlassIconBorder     ~= true and 
+      AbyssUIClassicAddonSettings.ClassicIconBorder   ~= true and
+      AbyssUIClassicAddonSettings.OldSchoolIconBorder ~= true) then
       GlossTheme()
     end
-    if AbyssUILightAddonSettings.GlossIconBorder then 
+    if AbyssUIClassicAddonSettings.GlossIconBorder then 
       ClassColor()
       --if Abconfig.background.showshadow then edgefile = Abconfig.textures.classcolor end
     end
-    if AbyssUILightAddonSettings.CrispIconBorder then
+    if AbyssUIClassicAddonSettings.CrispIconBorder then
       CrispTheme()
       --if Abconfig.background.showshadow then edgefile = Abconfig.textures.crisp end
     end
-    if AbyssUILightAddonSettings.OriginalIconBorder then
+    if AbyssUIClassicAddonSettings.OriginalIconBorder then
       OriginalTheme()
       --if Abconfig.background.showshadow then edgefile = Abconfig.textures.original end
     end
-    if AbyssUILightAddonSettings.SquareIconBorder then
+    if AbyssUIClassicAddonSettings.SquareIconBorder then
       SquareTheme()
       --if Abconfig.background.showshadow then edgefile = Abconfig.textures.square end
     end
-    if AbyssUILightAddonSettings.ThinIconBorder then
+    if AbyssUIClassicAddonSettings.ThinIconBorder then
       ThinTheme()
       --if Abconfig.background.showshadow then edgefile = Abconfig.textures.thin end
     end
-    if AbyssUILightAddonSettings.GlassIconBorder then
+    if AbyssUIClassicAddonSettings.GlassIconBorder then
       GlassTheme()
       --if Abconfig.background.showshadow then edgefile = Abconfig.textures.glass end
     end
-    if AbyssUILightAddonSettings.ClassicIconBorder then
+    if AbyssUIClassicAddonSettings.ClassicIconBorder then
       ClassicTheme()
       --if Abconfig.background.showshadow then edgefile = Abconfig.textures.crisp end
     end
-    if AbyssUILightAddonSettings.OldSchoolIconBorder then
+    if AbyssUIClassicAddonSettings.OldSchoolIconBorder then
       OldSchoolTheme()
       --if Abconfig.background.showshadow then edgefile = Abconfig.textures.crisp end
     end
   end
 end
 local function IconBackInit()
-  if (AbyssUILightAddonSettings.DefaultIconBorder ~= true) then
+  if (AbyssUIClassicAddonSettings.DefaultIconBorder ~= true) then
     ns.Abconfig = Abconfig
     -- Action Bar
     --get the config values
@@ -1755,7 +1755,7 @@ local function IconBackInit()
         local nt  = _G[name.."NormalTexture"]
         nt:SetTexCoord(0, 1, 0, 1)
         nt:SetDrawLayer("BACKGROUND", -7)
-        if (AbyssUILightAddonSettings.OldSchoolIconBorder == true) then
+        if (AbyssUIClassicAddonSettings.OldSchoolIconBorder == true) then
           nt:SetVertexColor(0.3, 0.3, 0.3)
         else
           nt:SetVertexColor(0.4, 0.35, 0.35)
@@ -1870,26 +1870,26 @@ local function IconBackInit()
       b.icon = icon
       --border
       local border = _G[name.."Border"] or b:CreateTexture(name.."Border", "BACKGROUND", nil, -7)
-        if (AbyssUILightAddonSettings.GlossIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\gloss")
-        elseif (AbyssUILightAddonSettings.CrispIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\classcolor")
-        elseif (AbyssUILightAddonSettings.CrispIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\crisp")
-        elseif (AbyssUILightAddonSettings.OriginalIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\original")
-        elseif (AbyssUILightAddonSettings.SquareIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\square")
-        elseif (AbyssUILightAddonSettings.ThinIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\thin")
-        elseif (AbyssUILightAddonSettings.GlassIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\glass")
-        elseif (AbyssUILightAddonSettings.ClassicIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\classic")
-        elseif (AbyssUILightAddonSettings.OldSchoolIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\oldschool")
+        if (AbyssUIClassicAddonSettings.GlossIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss")
+        elseif (AbyssUIClassicAddonSettings.CrispIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\classcolor")
+        elseif (AbyssUIClassicAddonSettings.CrispIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\crisp")
+        elseif (AbyssUIClassicAddonSettings.OriginalIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\original")
+        elseif (AbyssUIClassicAddonSettings.SquareIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\square")
+        elseif (AbyssUIClassicAddonSettings.ThinIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\thin")
+        elseif (AbyssUIClassicAddonSettings.GlassIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\glass")
+        elseif (AbyssUIClassicAddonSettings.ClassicIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\classic")
+        elseif (AbyssUIClassicAddonSettings.OldSchoolIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\oldschool")
         else
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\classic")
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\classic")
         end
       border:SetTexCoord(0, 1, 0, 1)
       border:SetDrawLayer("BACKGROUND",- 7)
@@ -1925,26 +1925,26 @@ local function IconBackInit()
       b:SetTexCoord(0.1, 0.9, 0.1, 0.9)
       --border
       local border = frame:CreateTexture(nil, "BACKGROUND")
-        if (AbyssUILightAddonSettings.GlossIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\gloss")
-        elseif (AbyssUILightAddonSettings.CrispIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\classcolor")
-        elseif (AbyssUILightAddonSettings.CrispIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\crisp")
-        elseif (AbyssUILightAddonSettings.OriginalIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\original")
-        elseif (AbyssUILightAddonSettings.SquareIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\square")
-        elseif (AbyssUILightAddonSettings.ThinIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\thin")
-        elseif (AbyssUILightAddonSettings.GlassIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\glass")
-        elseif (AbyssUILightAddonSettings.ClassicIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\classic")
-        elseif (AbyssUILightAddonSettings.OldSchoolIconBorder) then
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\oldschool")
+        if (AbyssUIClassicAddonSettings.GlossIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss")
+        elseif (AbyssUIClassicAddonSettings.CrispIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\classcolor")
+        elseif (AbyssUIClassicAddonSettings.CrispIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\crisp")
+        elseif (AbyssUIClassicAddonSettings.OriginalIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\original")
+        elseif (AbyssUIClassicAddonSettings.SquareIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\square")
+        elseif (AbyssUIClassicAddonSettings.ThinIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\thin")
+        elseif (AbyssUIClassicAddonSettings.GlassIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\glass")
+        elseif (AbyssUIClassicAddonSettings.ClassicIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\classic")
+        elseif (AbyssUIClassicAddonSettings.OldSchoolIconBorder) then
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\oldschool")
         else
-          border:SetTexture("Interface\\AddOns\\AbyssUILight\\textures\\iconstyle\\classic")
+          border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\classic")
         end
       border:SetTexCoord(0, 1, 0, 1)
       border:SetDrawLayer("BACKGROUND",- 7)
@@ -2309,8 +2309,8 @@ local f = CreateFrame("Frame")
 f:SetSize(50, 50)
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function(self, event, ...)
-  if not AbyssUILightAddonSettings then
-    AbyssUILightAddonSettings = {}
+  if not AbyssUIClassicAddonSettings then
+    AbyssUIClassicAddonSettings = {}
   end
   IconThemeInit()
   IconBackInit()
