@@ -148,6 +148,7 @@ BasicFrames:SetScript("OnEvent", function(self, event, addon)
 			MainMenuBarTexture1,
 			MainMenuBarTexture2,
 			MainMenuBarTexture3,
+			MainMenuBarTextureExtender,
 			MainMenuMaxLevelBar0,
 			MainMenuMaxLevelBar1,
 			MainMenuMaxLevelBar2,
@@ -161,8 +162,10 @@ BasicFrames:SetScript("OnEvent", function(self, event, addon)
 			MiniMapLFGFrameBorder,
 			MiniMapBattlefieldBorder,
 			MiniMapMailBorder,
-			MiniMapBorderTop, }) do
-			MiniMapWorldMapButton:SetAlpha(0.3)
+			MiniMapBorderTop,
+			MiniMapWorldBorder,
+			GameTimeTexture, }) do
+			MiniMapWorldMapButton:SetAlpha(0.9)
 			if AbyssUIClassicAddonSettings ~= nil then
 				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
@@ -996,7 +999,64 @@ f:SetScript("OnEvent", function(self, event, name)
 		end
 	end
 end)
-
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+	if name == "Blizzard_Calendar" and GetWoWVersion >= 30000 then
+		for i, v in pairs({ 
+			CalendarFrameTopMiddleTexture,
+			CalendarFrameRightTopTexture,
+			CalendarFrameRightMiddleTexture,
+			CalendarFrameRightBottomTexture,
+			CalendarFrameBottomRightTexture,
+			CalendarFrameBottomMiddleTexture,
+			CalendarFrameBottomLeftTexture,
+			CalendarFrameLeftMiddleTexture,
+			CalendarFrameLeftTopTexture,
+			CalendarFrameLeftBottomTexture,
+			CalendarFrameTopLeftTexture,
+			CalendarFrameTopRightTexture,
+			CalendarCreateEventFrame.Header.CenterBG,
+			CalendarCreateEventFrame.Header.LeftBG,
+			CalendarCreateEventFrame.Header.RightBG,
+			CalendarCreateEventFrame.Border.TopEdge,
+			CalendarCreateEventFrame.Border.RightEdge,
+			CalendarCreateEventFrame.Border.BottomEdge,
+			CalendarCreateEventFrame.Border.LeftEdge,
+			CalendarCreateEventFrame.Border.TopRightCorner,
+			CalendarCreateEventFrame.Border.TopLeftCorner,
+			CalendarCreateEventFrame.Border.BottomLeftCorner,
+			CalendarCreateEventFrame.Border.BottomRightCorner,
+			CalendarViewHolidayFrame.Header.CenterBG,
+			CalendarViewHolidayFrame.Header.LeftBG,
+			CalendarViewHolidayFrame.Header.RightBG,
+			CalendarViewHolidayFrame.Border.TopEdge,
+			CalendarViewHolidayFrame.Border.RightEdge,
+			CalendarViewHolidayFrame.Border.BottomEdge,
+			CalendarViewHolidayFrame.Border.LeftEdge,
+			CalendarViewHolidayFrame.Border.TopRightCorner,
+			CalendarViewHolidayFrame.Border.TopLeftCorner,
+			CalendarViewHolidayFrame.Border.BottomLeftCorner,
+			CalendarViewHolidayFrame.Border.BottomRightCorner,
+			CalendarEventPickerFrame.Header.CenterBG,
+			CalendarEventPickerFrame.Header.LeftBG,
+			CalendarEventPickerFrame.Header.RightBG,
+			CalendarEventPickerFrame.Border.TopEdge,
+			CalendarEventPickerFrame.Border.RightEdge,
+			CalendarEventPickerFrame.Border.BottomEdge,
+			CalendarEventPickerFrame.Border.LeftEdge,
+			CalendarEventPickerFrame.Border.TopRightCorner,
+			CalendarEventPickerFrame.Border.TopLeftCorner,
+			CalendarEventPickerFrame.Border.BottomLeftCorner,
+		CalendarEventPickerFrame.Border.BottomRightCorner, }) do
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
+			else
+				return nil
+			end
+		end
+	end
+end)
 -- AuctionFrame
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
@@ -1133,6 +1193,50 @@ f:SetScript("OnEvent", function(self)
     	AbyssUIClassic_ColorizationFrameFunction(v)
     end
   end
+end)
+-- PVEFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 and GetWoWVersion >= 12000 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { PVEFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUIClassic_ColorizationFrameFunction(v)
+    end
+  end
+end)
+-- MicroMenuBorders
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+    if GetWoWVersion >= 30000 then
+        self:UnregisterAllEvents()
+
+        local buttonNames = {
+            "CharacterMicroButton",
+            "SpellbookMicroButton",
+            "TalentMicroButton",
+            "AchievementMicroButton",
+            "QuestLogMicroButton",
+            "SocialsMicroButton",
+            "CollectionsMicroButton",
+            "PVPMicroButton",
+            "LFGMicroButton",
+            "MainMenuMicroButton",
+            "HelpMicroButton",
+        }
+
+        for _, name in pairs(buttonNames) do
+            local button = _G[name]
+            local regions = { button:GetRegions() }
+            for _, v in pairs(regions) do
+                AbyssUIClassic_ColorizationFrameFunction(v)
+                v:SetGradient("VERTICAL", CreateColor(0.9, 0.9, 0.8, 0.9), CreateColor(0.9, 0.9, 0.8, 0.9))
+            end
+        end
+    end
 end)
 -- HonorFrame
 local f = CreateFrame("Frame")
@@ -1628,10 +1732,11 @@ f:SetScript("OnEvent", function(self)
   end
 end)
 -- LFGFrame
+--[[
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self)
-	if GetWoWVersion <= 30600 and GetWoWVersion >= 12000 then
+	if GetWoWVersion <= 30000 and GetWoWVersion >= 12000 then
     local ChildRegions = { LFGListingFrame:GetRegions(), LFGBrowseFrame:GetRegions(), }
     local fs = {}
     for k, v in pairs(ChildRegions) do
@@ -1645,6 +1750,7 @@ f:SetScript("OnEvent", function(self)
     end
   end
 end)
+--]]
 --[[
 -- GameTimeFrame
 local f = CreateFrame("Frame")
@@ -1676,6 +1782,7 @@ f:SetScript("OnEvent", function(self, event, name)
     end
     if GetWoWVersion <= 30600 then
     	CharacterNameText:SetVertexColor(r, g, b)
+    	CharacterLevelText:SetVertexColor(r, g, b)
     else
     	if GetWoWVersion > 40000 then
     		CharacterFrameTitleText:SetVertexColor(r, g, b)

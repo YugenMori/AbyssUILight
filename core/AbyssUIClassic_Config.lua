@@ -721,17 +721,19 @@ local function HideElementsInit()
   ObjTracker_CheckButton:SetChecked(AbyssUIClassicAddonSettings.HideObjectiveTracker)
   -- OnClick Function
   ObjTracker_CheckButton:SetScript("OnClick", function(self)
-    AbyssUIClassicAddonSettings.HideObjectiveTracker = self:GetChecked()
-    if AbyssUIClassicAddonSettings.HideObjectiveTracker == true then
-      QuestWatchFrame:Hide()
-    else
-      QuestWatchFrame:Show()
+    if (GetWoWVersion <= 30000) then
+      AbyssUIClassicAddonSettings.HideObjectiveTracker = self:GetChecked()
+      if AbyssUIClassicAddonSettings.HideObjectiveTracker == true then
+        QuestWatchFrame:Hide()
+      else
+        QuestWatchFrame:Show()
+      end
     end
   end)
   -- After Login/Reload
   ObjTracker_CheckButton:RegisterEvent("PLAYER_ENTERING_WORLD")
   ObjTracker_CheckButton:SetScript("OnEvent", function(self, event, ...)
-    if ( event == "PLAYER_ENTERING_WORLD" ) then
+    if ( event == "PLAYER_ENTERING_WORLD" and GetWoWVersion <= 30000) then
       if AbyssUIClassicAddonSettings.HideObjectiveTracker == true then
         QuestWatchFrame:Hide()
       else
@@ -1889,7 +1891,8 @@ local function IconsFonts ()
       AbyssUIClassicAddonSettings.GlassIconBorder     ~= true and
       AbyssUIClassicAddonSettings.ClassicIconBorder   ~= true and
       AbyssUIClassicAddonSettings.OldSchoolIconBorder ~= true and
-      AbyssUIClassicAddonSettings.DefaultIconBorder   ~= true and 
+      AbyssUIClassicAddonSettings.DefaultIconBorder   ~= true and
+      AbyssUIClassicAddonSettings.AbyssIconBorder     ~= true and
       AbyssUIClassicAddonSettings.ThinIconBorder      ~= true then 
       AbyssUIClassicAddonSettings.GlossIconBorder = self:GetChecked()
       AbyssUIClassic_ReloadFrame:Show()
@@ -1918,6 +1921,7 @@ local function IconsFonts ()
       AbyssUIClassicAddonSettings.ClassicIconBorder   ~= true and
       AbyssUIClassicAddonSettings.OldSchoolIconBorder ~= true and
       AbyssUIClassicAddonSettings.DefaultIconBorder   ~= true and  
+      AbyssUIClassicAddonSettings.AbyssIconBorder     ~= true and
       AbyssUIClassicAddonSettings.ThinIconBorder      ~= true then 
       AbyssUIClassicAddonSettings.CrispIconBorder = self:GetChecked()
       AbyssUIClassic_ReloadFrame:Show()
@@ -1945,7 +1949,8 @@ local function IconsFonts ()
       AbyssUIClassicAddonSettings.GlassIconBorder     ~= true and
       AbyssUIClassicAddonSettings.ClassicIconBorder   ~= true and
       AbyssUIClassicAddonSettings.OldSchoolIconBorder ~= true and
-      AbyssUIClassicAddonSettings.DefaultIconBorder   ~= true and 
+      AbyssUIClassicAddonSettings.DefaultIconBorder   ~= true and
+      AbyssUIClassicAddonSettings.AbyssIconBorder     ~= true and
       AbyssUIClassicAddonSettings.ThinIconBorder      ~= true then 
       AbyssUIClassicAddonSettings.OriginalIconBorder = self:GetChecked()
       AbyssUIClassic_ReloadFrame:Show()
@@ -1974,6 +1979,7 @@ local function IconsFonts ()
       AbyssUIClassicAddonSettings.ClassicIconBorder   ~= true and 
       AbyssUIClassicAddonSettings.OldSchoolIconBorder ~= true and
       AbyssUIClassicAddonSettings.DefaultIconBorder   ~= true and
+      AbyssUIClassicAddonSettings.AbyssIconBorder     ~= true and
       AbyssUIClassicAddonSettings.ThinIconBorder      ~= true then 
       AbyssUIClassicAddonSettings.SquareIconBorder = self:GetChecked()
       AbyssUIClassic_ReloadFrame:Show()
@@ -2002,6 +2008,7 @@ local function IconsFonts ()
       AbyssUIClassicAddonSettings.ClassicIconBorder   ~= true and
       AbyssUIClassicAddonSettings.OldSchoolIconBorder ~= true and
       AbyssUIClassicAddonSettings.DefaultIconBorder   ~= true and 
+      AbyssUIClassicAddonSettings.AbyssIconBorder     ~= true and
       AbyssUIClassicAddonSettings.GlossIconBorder     ~= true then 
       AbyssUIClassicAddonSettings.ThinIconBorder = self:GetChecked()
       AbyssUIClassic_ReloadFrame:Show()
@@ -2030,6 +2037,7 @@ local function IconsFonts ()
       AbyssUIClassicAddonSettings.ClassicIconBorder   ~= true and
       AbyssUIClassicAddonSettings.OldSchoolIconBorder ~= true and
       AbyssUIClassicAddonSettings.DefaultIconBorder   ~= true and
+      AbyssUIClassicAddonSettings.AbyssIconBorder     ~= true and
       AbyssUIClassicAddonSettings.ThinIconBorder      ~= true then 
       AbyssUIClassicAddonSettings.GlassIconBorder = self:GetChecked()
       AbyssUIClassic_ReloadFrame:Show()
@@ -2058,6 +2066,7 @@ local function IconsFonts ()
       AbyssUIClassicAddonSettings.GlassIconBorder     ~= true and
       AbyssUIClassicAddonSettings.OldSchoolIconBorder ~= true and
       AbyssUIClassicAddonSettings.DefaultIconBorder   ~= true and
+      AbyssUIClassicAddonSettings.AbyssIconBorder     ~= true and
       AbyssUIClassicAddonSettings.ThinIconBorder      ~= true then 
       AbyssUIClassicAddonSettings.ClassicIconBorder = self:GetChecked()
       AbyssUIClassic_ReloadFrame:Show()
@@ -2086,6 +2095,7 @@ local function IconsFonts ()
       AbyssUIClassicAddonSettings.GlassIconBorder     ~= true and 
       AbyssUIClassicAddonSettings.ThinIconBorder      ~= true and 
       AbyssUIClassicAddonSettings.OldSchoolIconBorder ~= true and
+      AbyssUIClassicAddonSettings.AbyssIconBorder     ~= true and
       AbyssUIClassicAddonSettings.ClassicIconBorder   ~= true then
       AbyssUIClassicAddonSettings.DefaultIconBorder = self:GetChecked()
       AbyssUIClassic_ReloadFrame:Show()
@@ -2097,7 +2107,7 @@ local function IconsFonts ()
   -- Oldschool Theme
   local OldSchoolIconBorder_CheckButton = CreateFrame("CheckButton", "$parentOldSchoolIconBorder_CheckButton", AbyssUIClassic_Config.childpanel7, "ChatConfigCheckButtonTemplate")
   OldSchoolIconBorder_CheckButton:SetPoint("TOPLEFT", 180, -170)
-  OldSchoolIconBorder_CheckButton.Text:SetText("|cff0d75d4Old School|r")
+  OldSchoolIconBorder_CheckButton.Text:SetText("Old School")
   local Frame = CreateFrame("Frame", nil, OldSchoolIconBorder_CheckButton)
   Frame:SetWidth(180)
   Frame:SetHeight(40)
@@ -2105,7 +2115,6 @@ local function IconsFonts ()
   OldSchoolIconBorder_CheckButton.Text:SetAllPoints(Frame)
   OldSchoolIconBorder_CheckButton.tooltip = "Old School"
   OldSchoolIconBorder_CheckButton:SetChecked(AbyssUIClassicAddonSettings.OldSchoolIconBorder)
-  addonTable.OldSchoolIconBorder = OldSchoolIconBorder_CheckButton
   -- OnClick Function
   OldSchoolIconBorder_CheckButton:SetScript("OnClick", function(self)
     if AbyssUIClassicAddonSettings.CrispIconBorder   ~= true and 
@@ -2115,6 +2124,7 @@ local function IconsFonts ()
       AbyssUIClassicAddonSettings.GlassIconBorder    ~= true and 
       AbyssUIClassicAddonSettings.ThinIconBorder     ~= true and 
       AbyssUIClassicAddonSettings.ClassicIconBorder  ~= true and
+      AbyssUIClassicAddonSettings.AbyssIconBorder    ~= true and
       AbyssUIClassicAddonSettings.DefaultIconBorder  ~= true then
       AbyssUIClassicAddonSettings.OldSchoolIconBorder = self:GetChecked()
       AbyssUIClassic_ReloadFrame:Show()
@@ -2123,6 +2133,36 @@ local function IconsFonts ()
       OldSchoolIconBorder_CheckButton:SetChecked(nil)
     end
   end)
+    -- Abyss Theme
+    local AbyssIconBorder_CheckButton = CreateFrame("CheckButton", "$parentAbyssIconBorder_CheckButton", AbyssUIClassic_Config.childpanel7, "ChatConfigCheckButtonTemplate")
+    AbyssIconBorder_CheckButton:SetPoint("TOPLEFT", 180, -200)
+    AbyssIconBorder_CheckButton.Text:SetText("|cff0d75d4".."AbyssUI Classic".."|r")
+    local Frame = CreateFrame("Frame", nil, AbyssIconBorder_CheckButton)
+    Frame:SetWidth(180)
+    Frame:SetHeight(40)
+    Frame:SetPoint("LEFT", 25, 0)
+    AbyssIconBorder_CheckButton.Text:SetAllPoints(Frame)
+    AbyssIconBorder_CheckButton.tooltip = "AbyssUI Classic icon borders, a Blizzard Default enchanced theme"
+    AbyssIconBorder_CheckButton:SetChecked(AbyssUIClassicAddonSettings.AbyssIconBorder)
+    addonTable.AbyssIconBorder = AbyssIconBorder_CheckButton
+    -- OnClick Function
+    AbyssIconBorder_CheckButton:SetScript("OnClick", function(self)
+      if AbyssUIClassicAddonSettings.CrispIconBorder    ~= true and 
+        AbyssUIClassicAddonSettings.OriginalIconBorder  ~= true and 
+        AbyssUIClassicAddonSettings.SquareIconBorder    ~= true and 
+        AbyssUIClassicAddonSettings.GlossIconBorder     ~= true and
+        AbyssUIClassicAddonSettings.GlassIconBorder     ~= true and 
+        AbyssUIClassicAddonSettings.ThinIconBorder      ~= true and 
+        AbyssUIClassicAddonSettings.ClassicIconBorder   ~= true and
+        AbyssUIClassicAddonSettings.OldSchoolIconBorder ~= true and
+        AbyssUIClassicAddonSettings.DefaultIconBorder   ~= true then
+        AbyssUIClassicAddonSettings.AbyssIconBorder = self:GetChecked()
+        AbyssUIClassic_ReloadFrame:Show()
+      else
+        UIErrorsFrame:AddMessage(L["You need to select just one of those options so they don't overlap"], 1.0, 0.1, 0.1, 1.0)
+        AbyssIconBorder_CheckButton:SetChecked(nil)
+      end
+    end)
   --[[
   --Fonts
   -- Create a frame to hold the dropdown

@@ -1,6 +1,6 @@
 -- Author: Yugen
--- This is a fork from the addon "ColoredInventoryItems" that someone asked me 
--- to fix it and implement in my UI. Please check the original project (abandoned) and give the orignal author some credits.
+-- This is based from the addon "ColoredInventoryItems" that someone asked me 
+-- to fix it and implement in my UI. Please check the original project (abandoned when this was implemented) and give the orignal author some credits.
 -- Classic
 --
 -- Hope you like my addOn ^^
@@ -191,7 +191,6 @@ function addon:updateContainerSlot(containerId, slotId, slotFrameName, show)
 
     if (itemId and show == 1) then
         local quality = GetItemQuality(itemId);
-
         -- green or better item, or quest item
         if (quality and quality > LE_ITEM_QUALITY_POOR) then 
             local r, g, b = GetQualityColor(quality);
