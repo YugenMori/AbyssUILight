@@ -12,7 +12,39 @@
 -- Init - Tables - Saves
 local addon, ns = ...
 local Abconfig = CreateFrame("Frame")
+local addonName, addonTable = ...
+local L = LibStub("AceLocale-3.0"):GetLocale("AbyssUIClassic")
 local GetWoWVersion = ((select(4, GetBuildInfo())))
+local f = CreateFrame("Frame", "AbyssUIClassic_Config", UIParent)
+f:SetSize(50, 50)
+f:RegisterEvent("PLAYER_LOGIN")
+f:SetScript("OnEvent", function(self, event, ...)
+  character = UnitName("player").."-"..GetRealmName()
+  -- Config/Panel
+  if not AbyssUIClassic_Config then
+    local AbyssUIClassic_Config = {}
+  end
+    if not AbyssUI_Config then
+    local AbyssUI_Config = {}
+  end
+  -- AddonSettings
+  if not AbyssUIClassicAddonSettings then
+    AbyssUIClassicAddonSettings = {}
+  end
+  if not AbyssUIClassicAddonSettings[character] then
+    AbyssUIClassicAddonSettings[character] = {}
+  end
+  -- Color Init
+  if not COLOR_MY_UI then
+      COLOR_MY_UI = {}
+  end
+  if not COLOR_MY_UI[character] then
+      COLOR_MY_UI[character] = {}
+  end
+  if not COLOR_MY_UI[character].Color then
+      COLOR_MY_UI[character].Color = { r = 1, g = 1, b = 1 }
+  end
+end)
 -- Fontfication
 local function AbyssUIClassic_Fontification(globalFont, subFont, damageFont, oldglobalFont)
 local locale = GetLocale()
@@ -53,6 +85,47 @@ local mediaFolder = "Interface\\AddOns\\AbyssUIClassic\\Textures\\font\\"
   return globalFont, subFont, damageFont, oldglobalFont
 end
 local globalFont, subFont, damageFont, oldglobalFont = AbyssUIClassic_Fontification(globalFont, subFont, damageFont, oldglobalFont)
+local function AbyssUIClassic_ColorizationFrameFunction(...)
+	local v = ...
+	if AbyssUIClassicAddonSettings.UIVertexColorFrames01 == true then
+		v:SetVertexColor(1, 1, 1)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames02 == true then
+		v:SetVertexColor(.2, .2, .2)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames03 == true then
+		v:SetVertexColor(182/255, 42/255, 37/255)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames04 == true then
+		v:SetVertexColor(236/255, 193/255, 60/255)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames05 == true then
+		v:SetVertexColor(196/255, 31/255, 59/255)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames06 == true then
+		v:SetVertexColor(163/255, 48/255, 201/255)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames07 == true then
+		v:SetVertexColor(252/255, 163/255, 85/255)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames08 == true then
+		v:SetVertexColor(190/255, 221/255, 115/255)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames09 == true then
+		v:SetVertexColor(64/255, 220/255, 255/255)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames10 == true then
+		v:SetVertexColor(86/255, 255/255, 184/255)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames11 == true then
+		v:SetVertexColor(255/255, 155/255, 195/255)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames12 == true then
+		v:SetVertexColor(23/255, 28/255, 99/255)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames13 == true then
+		v:SetVertexColor(255/255, 255/255, 0/255)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames14 == true then
+		v:SetVertexColor(0/255, 112/255, 222/255)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames15 == true then
+		v:SetVertexColor(135/255, 135/255, 237/255)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames16 == true then
+		v:SetVertexColor(199/255, 156/255, 110/255)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFramesColorPicker == true then
+		local character = UnitName("player").."-"..GetRealmName()
+		v:SetVertexColor(COLOR_MY_UI[character].Color.r, COLOR_MY_UI[character].Color.g, COLOR_MY_UI[character].Color.b)	
+	else
+		v:SetVertexColor(.4, .4, .4)
+	end
+end
 local function GlossTheme()
   Abconfig.textures = {
     normal            = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\gloss",
@@ -2564,21 +2637,36 @@ local function styleDefaultActionButton(bu)
   local fob  = _G[name.."FlyoutBorder"]
   local fobs = _G[name.."FlyoutBorderShadow"]
 
-  nt:SetVertexColor(0, 0, 0, 1)
+  --if fbg then fbg:Hide() end  --floating background
+  --flyout border stuff
+  --if fob then fob:SetTexture(nil) end
+  --if fobs then fobs:SetTexture(nil) end
+  --bo:SetTexture(nil) --hide the border (plain ugly, sry blizz)
+
+  --if not nt then
+    --fix the non existent texture problem (no clue what is causing this)
+    --nt = bu:GetNormalTexture()
+  --end
+  
+  AbyssUIClassic_ColorizationFrameFunction(nt)
   --make the normaltexture match the buttonsize
   --nt:SetAllPoints(bu)
+  --ic:SetTexCoord(0.06, 0.9, 0.06, 0.9)
+  --ic:SetTexCoord(0.02, 1, 0.08, 1)
+  --ic:SetPoint("TOPLEFT", bu, "TOPLEFT", 0, 1)
+  --ic:SetPoint("BOTTOMRIGHT", bu, "BOTTOMRIGHT", 1, 0)
   --hook to prevent Blizzard from reseting our colors
   hooksecurefunc(nt, "SetVertexColor", function(nt, r, g, b, a)
     local bu = nt:GetParent()
     local action = bu.action
     --print("bu"..bu:GetName().."R"..r.."G"..g.."B"..b)
     if r == 1 and g == 1 and b == 1 and action and (IsEquippedAction(action)) then
-      nt:SetVertexColor(0.999, 0.999, 0.999, 1)
+      nt:SetVertexColor(124/255, 252/255, 10/255, 1)
     elseif r == 0.5 and g == 0.5 and b == 1 then
       --blizzard oom color
       nt:SetVertexColor(0.4, 0.4, 0.4, 1)
     elseif r == 1 and g == 1 and b == 1 then
-      nt:SetVertexColor(0.5, 0.5, 0.5, 1)
+      AbyssUIClassic_ColorizationFrameFunction(nt)
     end
   end)
 end
@@ -2589,20 +2677,13 @@ local function styleDefaultBag(bu)
     local name = bu:GetName()
     local ic  = _G[name.."IconTexture"]
     local nt  = _G[name.."NormalTexture"]
-    --nt:SetTexCoord(0, 1, 0, 1)
-    --nt:SetDrawLayer("BACKGROUND", -7)
-    nt:SetVertexColor(0.4, 0.35, 0.35)
-    --nt:SetAllPoints(bu)
+    AbyssUIClassic_ColorizationFrameFunction(nt)
     local bo = bu.IconBorder
     bo:Hide()
     bo.Show = function() end
     ic:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-    ic:SetPoint("TOPLEFT", bu, "TOPLEFT", 2, -2)
-    ic:SetPoint("BOTTOMRIGHT", bu, "BOTTOMRIGHT", -2, 2)
-    --bu:SetNormalTexture(Abconfig.textures.bags)
-    --bu:SetHighlightTexture(Abconfig.textures.hover)
-    --bu:SetPushedTexture(Abconfig.textures.pushed)
-    --bu:SetCheckedTexture(Abconfig.textures.checked)
+    ic:SetPoint("TOPLEFT", bu, "TOPLEFT", 1, -1)
+    ic:SetPoint("BOTTOMRIGHT", bu, "BOTTOMRIGHT", -1, 1)
     bu.Back = CreateFrame("Frame", nil, bu, BackdropTemplateMixin and "BackdropTemplate")
     bu.Back:SetPoint("TOPLEFT", bu, "TOPLEFT", -4, 4)
     bu.Back:SetPoint("BOTTOMRIGHT", bu, "BOTTOMRIGHT", 4, -4)
@@ -2621,14 +2702,17 @@ local function styleDefaultOtherBag(bu)
     local bo = bu.IconBorder
     bo:Hide()
     bo.Show = function() end
+    ic:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+    ic:SetPoint("TOPLEFT", bu, "TOPLEFT", 1, -1)
+    ic:SetPoint("BOTTOMRIGHT", bu, "BOTTOMRIGHT", -1, 1)
     bu.Back = CreateFrame("Frame", nil, bu, BackdropTemplateMixin and "BackdropTemplate")
     bu.Back:SetPoint("TOPLEFT", bu, "TOPLEFT", -4, 4)
     bu.Back:SetPoint("BOTTOMRIGHT", bu, "BOTTOMRIGHT", 4, -4)
     bu.Back:SetFrameLevel(bu:GetFrameLevel() - 1)
     bu.Back:SetBackdrop(backdrop)
     bu.Back:SetBackdropBorderColor(0, 0, 0, 0.9)
-    C_Timer.After(0.2, function()
-      nt:SetVertexColor(0.5, 0.5, 0.5, 1)
+    C_Timer.After(0.1, function()
+      AbyssUIClassic_ColorizationFrameFunction(nt)
     end)
   end
 end
@@ -2648,22 +2732,19 @@ local function styleDefaultLeaveButton(bu)
   --nt:SetTexCoord(0.2, 0.8, 0.2, 0.8)
   --nt:SetPoint("TOPLEFT", bu, "TOPLEFT", 2, -2)
   --nt:SetPoint("BOTTOMRIGHT", bu, "BOTTOMRIGHT", -2, 2)
-  nt:SetVertexColor(0.5, 0.5, 0.5, 1)
+  AbyssUIClassic_ColorizationFrameFunction(nt)
 end
-
 --style pet buttons
 local function styleDefaultPetButton(bu)
   if not bu or (bu and bu.rabs_styled) then return end
   local name = bu:GetName()
   local nt  = _G[name.."NormalTexture2"]
   if not nt then
-    --fix the non existent texture problem (no clue what is causing this)
+    --fix the non existent texture
     nt = bu:GetNormalTexture()
   end
   if (nt ~= nil) then
-    --nt:SetAllPoints(bu)
-    --applying color
-    nt:SetVertexColor(0.5, 0.5, 0.5, 1)
+    AbyssUIClassic_ColorizationFrameFunction(nt)
   end
 end
 --style stance buttons
@@ -2672,15 +2753,30 @@ local function styleDefaultStanceButton(bu)
   local name = bu:GetName()
   local nt  = _G[name.."NormalTexture2"]
   if not nt then
-    --fix the non existent texture problem (no clue what is causing this)
+    --fix the non existent texture
     nt = bu:GetNormalTexture()
   end
   if (nt ~= nil) then
-    --nt:SetAllPoints(bu)
-    --applying color
-    nt:SetVertexColor(0.5, 0.5, 0.5, 1)
+    AbyssUIClassic_ColorizationFrameFunction(nt)
   end
 end
+--[[
+-- function just to make sure action style is working
+-- Function to handle the "updates" event
+local function onActionBarChangeUpdateHandler()
+  for i = 1, NUM_ACTIONBAR_BUTTONS do
+      styleDefaultActionButton(_G["ActionButton"..i])
+      styleDefaultActionButton(_G["MultiBarBottomLeftButton"..i])
+      styleDefaultActionButton(_G["MultiBarBottomRightButton"..i])
+      styleDefaultActionButton(_G["MultiBarRightButton"..i])
+      styleDefaultActionButton(_G["MultiBarLeftButton"..i])
+  end
+end
+-- Register the event handler for event
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("VEHICLE_UPDATE")
+frame:SetScript("OnEvent", onActionBarChangeUpdateHandler)
+--]]
 -- Default Init
 local function DefaultInit()
   if (AbyssUIClassicAddonSettings.AbyssIconBorder == true) then
@@ -2784,7 +2880,7 @@ local function DefaultInit()
       border:SetTexCoord(0, 1, 0, 1)
       border:SetDrawLayer("BACKGROUND", -7)
       if b.buff then
-        border:SetVertexColor(0.6, 0.6, 0.6)
+        AbyssUIClassic_ColorizationFrameFunction(border)
       end
       border:ClearAllPoints()
       border:SetPoint("TOPLEFT", b, "TOPLEFT", -1, 1)
@@ -2808,7 +2904,7 @@ local function DefaultInit()
       border:SetTexture("Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\classic")
       border:SetTexCoord(0, 1, 0, 1)
       border:SetDrawLayer("BACKGROUND", -7)
-      border:SetVertexColor(0.6, 0.6, 0.6)
+      AbyssUIClassic_ColorizationFrameFunction(border)
       border:ClearAllPoints()
       border:SetPoint("TOPLEFT", b, "TOPLEFT", -1, 1)
       border:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 1, -1)
@@ -2947,7 +3043,7 @@ local function DefaultInit()
       border:SetTexture(Abconfig.border.texture)
       border:SetTexCoord(0, 1, 0, 1)
       border:SetDrawLayer("BACKGROUND", -7)
-      border:SetVertexColor(0.6, 0.6, 0.6)
+      AbyssUIClassic_ColorizationFrameFunction(border)
       border:ClearAllPoints()
       border:SetAllPoints(b)
       b.border = border
@@ -3001,12 +3097,14 @@ local function DefaultInit()
       --hook Blizzard functions
       hooksecurefunc("BuffFrame_UpdateAllBuffAnchors", updateAllBuffAnchors)
       hooksecurefunc("DebuffButton_UpdateAnchors", updateDebuffAnchors)
+      --hooksecurefunc("ACTIONBAR_UPDATE_COOLDOWN", styleDefaultActionButtonHook)
     end
   else
     return nil
   end
   --End
 end
+
 -- Init
 local f = CreateFrame("Frame")
 f:SetSize(50, 50)

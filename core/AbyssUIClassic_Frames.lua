@@ -820,11 +820,13 @@ FrameButtonModern:SetScript("OnClick", function()
 		addonTable.InspectTarget,
 		addonTable.ConfirmPopUps,
 		addonTable.AutoSellGray,
+		addonTable.AutoRepair,
 		addonTable.HideInCombat,
 		addonTable.DisableHealingSpam,
 		addonTable.TooltipOnCursor,
 		addonTable.UnitFrameImproved,
 		addonTable.ElitePortrait,
+		addonTable.AbyssIconBorder,
 	} do
 	 	v:SetChecked(true)
 	end
@@ -833,12 +835,14 @@ FrameButtonModern:SetScript("OnClick", function()
 	AbyssUIClassicAddonSettings.HideGroupFrame						= addonTable.HideGroupFrame:GetChecked()
 	AbyssUIClassicAddonSettings.ExtraFunctionInspectTarget 			= addonTable.InspectTarget:GetChecked()
 	AbyssUIClassicAddonSettings.ExtraFunctionConfirmPopUps 			= addonTable.ConfirmPopUps:GetChecked()
+	AbyssUIClassicAddonSettings.ExtraFunctionRepair					= addonTable.AutoRepair:GetChecked()
 	AbyssUIClassicAddonSettings.ExtraFunctionSellGray 				= addonTable.AutoSellGray:GetChecked()
 	AbyssUIClassicAddonSettings.ExtraFunctionHideInCombat			= addonTable.HideInCombat:GetChecked()
 	AbyssUIClassicAddonSettings.ExtraFunctionDisableHealingSpam		= addonTable.DisableHealingSpam:GetChecked()
 	AbyssUIClassicAddonSettings.TooltipOnCursor 					= addonTable.TooltipOnCursor:GetChecked()
 	AbyssUIClassicAddonSettings.UnitFrameImproved 					= addonTable.UnitFrameImproved:GetChecked()
 	AbyssUIClassicAddonSettings.ElitePortrait 						= addonTable.ElitePortrait:GetChecked()
+	AbyssUIClassicAddonSettings.AbyssIconBorder						= addonTable.AbyssIconBorder:GetChecked()
 	AbyssUIClassicSecondFrame:Hide()
 	FrameButtonModern.Glow:Finish()
 	ReloadUI()
@@ -868,6 +872,7 @@ FrameButtonClassic:SetScript("OnClick", function()
 		addonTable.InspectTarget,
 		addonTable.ConfirmPopUps,
 		addonTable.AutoSellGray,
+		addonTable.AutoRepair,
 		addonTable.ChatBubbleChanges,
 		addonTable.DisableHealingSpam,
 		addonTable.DisableSquareMinimap,
@@ -886,6 +891,7 @@ FrameButtonClassic:SetScript("OnClick", function()
 	AbyssUIClassicAddonSettings.HideCastTimer								= addonTable.HideCastTimer:GetChecked()
 	AbyssUIClassicAddonSettings.ExtraFunctionInspectTarget 					= addonTable.InspectTarget:GetChecked()
 	AbyssUIClassicAddonSettings.ExtraFunctionConfirmPopUps 					= addonTable.ConfirmPopUps:GetChecked()
+	AbyssUIClassicAddonSettings.ExtraFunctionRepair							= addonTable.AutoRepair:GetChecked()
 	AbyssUIClassicAddonSettings.ExtraFunctionSellGray 						= addonTable.AutoSellGray:GetChecked()
 	AbyssUIClassicAddonSettings.ExtraFunctionChatBubbleChanges 				= addonTable.ChatBubbleChanges:GetChecked()
 	AbyssUIClassicAddonSettings.ExtraFunctionDisableHealingSpam				= addonTable.DisableHealingSpam:GetChecked()

@@ -499,6 +499,8 @@ AbyssUIClassic_AutoSell:SetScript("OnEvent", function()
 	        	end
 	    	end
 		end
+	end
+	if ( AbyssUIClassicAddonSettings.ExtraFunctionRepair == true ) then
 	    if( CanMerchantRepair() ) then
 	        local cost = GetRepairAllCost()
 	        if cost > 0 then
@@ -511,8 +513,6 @@ AbyssUIClassic_AutoSell:SetScript("OnEvent", function()
 	            end
 	    	end
 		end
-	else 
-		return nil
 	end
 end)
 ----------------------------------------------------
@@ -780,21 +780,21 @@ local AbyssUIClassic_ElitePortrait = CreateFrame("Button", '$parentAbyssUIClassi
 AbyssUIClassic_ElitePortrait:RegisterEvent("PLAYER_ENTERING_WORLD")
 AbyssUIClassic_ElitePortrait:SetScript("OnEvent", function(self, event, ...)
 	if (AbyssUIClassicAddonSettings.UnitFrameImprovedDefaultTexture ~= true) then
-    if (AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved == true) then
-      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\UI-TargetingFrame-Elite")
-    elseif(AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
-    	PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Rare-Elite-Normal")
-    else 
-      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\UI-TargetingFrame")
-    end
+		if (AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved == true) then
+			PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\UI-TargetingFrame-Elite")
+		elseif(AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
+			PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Rare-Elite-Normal")
+		else 
+			PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\UI-TargetingFrame")
+		end
   else
-    if (AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved == true) then
-      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Elite")
-    elseif(AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
-    	PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Rare-Elite-Normal")
-    else 
-      PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Normal")
-    end
+    	if (AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved == true) then
+      		PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Elite")
+    	elseif(AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
+    		PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Rare-Elite-Normal")
+    	else 
+      		PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Normal")
+    	end
   end
 end)
 -- Exp Font Color Change

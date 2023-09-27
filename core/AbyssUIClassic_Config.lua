@@ -1357,12 +1357,22 @@ local function Miscellaneous()
     end
   --]]
   end)
-  -- Auto Repair/Sell Gray --
+  -- Auto Repair--
+  local AbyssUIClassicAutoRepair_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassicAutoRepair_CheckButton", AbyssUIClassic_Config.childpanel3, "ChatConfigCheckButtonTemplate")
+  AbyssUIClassicAutoRepair_CheckButton:SetPoint("TOPLEFT", 10, -290)
+  AbyssUIClassicAutoRepair_CheckButton.Text:SetText("|cfff2dc7fAuto Repair|r")
+  AbyssUIClassicAutoRepair_CheckButton.tooltip = "When you open a Merchant shop auto repair items"
+  AbyssUIClassicAutoRepair_CheckButton:SetChecked(AbyssUIClassicAddonSettings.ExtraFunctionRepair)
+  addonTable.AutoRepair = AbyssUIClassicAutoRepair_CheckButton
+  -- OnClick Function
+  AbyssUIClassicAutoRepair_CheckButton:SetScript("OnClick", function(self)
+    AbyssUIClassicAddonSettings.ExtraFunctionRepair = self:GetChecked()
+  end)
+  -- Auto Sell Gray --
   local AbyssUIClassicAutoSellGray_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassicAutoSellGray_CheckButton", AbyssUIClassic_Config.childpanel3, "ChatConfigCheckButtonTemplate")
-  AbyssUIClassicAutoSellGray_CheckButton:SetPoint("TOPLEFT", 10, -290)
-  AbyssUIClassicAutoSellGray_CheckButton.Text:SetText("|cfff2dc7fAuto Repair\nSell Gray Items|r")
-  AbyssUIClassicAutoSellGray_CheckButton.tooltip = "When you open a Merchant shop, auto sell gray"..
-  " and repair items"
+  AbyssUIClassicAutoSellGray_CheckButton:SetPoint("TOPLEFT", 10, -320)
+  AbyssUIClassicAutoSellGray_CheckButton.Text:SetText("|cfff2dc7fAuto Sell Gray Items|r")
+  AbyssUIClassicAutoSellGray_CheckButton.tooltip = "When you open a Merchant shop, auto sell gray"
   AbyssUIClassicAutoSellGray_CheckButton:SetChecked(AbyssUIClassicAddonSettings.ExtraFunctionSellGray)
   addonTable.AutoSellGray = AbyssUIClassicAutoSellGray_CheckButton
   -- OnClick Function
@@ -1371,7 +1381,7 @@ local function Miscellaneous()
   end)
   -- Auto Gamma Day/Night
   local AbyssUIClassicAutoGamma_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassicAutoGamma_CheckButton", AbyssUIClassic_Config.childpanel3, "ChatConfigCheckButtonTemplate")
-  AbyssUIClassicAutoGamma_CheckButton:SetPoint("TOPLEFT", 10, -320)
+  AbyssUIClassicAutoGamma_CheckButton:SetPoint("TOPLEFT", 10, -350)
   AbyssUIClassicAutoGamma_CheckButton.Text:SetText("Auto Gamma\n(Day and Night Mode)")
   AbyssUIClassicAutoGamma_CheckButton.tooltip = "Automatically change the gamma when is day to"..
   " 1.2 (brighter) and to 1.0 (default) at night based on the local time"
@@ -1405,7 +1415,7 @@ local function Miscellaneous()
   end)
   -- American Clock Style --
   local AbyssUIClassic_AmericanClock_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassic_AmericanClock_CheckButton", AbyssUIClassic_Config.childpanel3, "ChatConfigCheckButtonTemplate")
-  AbyssUIClassic_AmericanClock_CheckButton:SetPoint("TOPLEFT", 10, -350)
+  AbyssUIClassic_AmericanClock_CheckButton:SetPoint("TOPLEFT", 10, -380)
   AbyssUIClassic_AmericanClock_CheckButton.Text:SetText("American Date Style")
   AbyssUIClassic_AmericanClock_CheckButton.tooltip = "Change the date format of the whole UI to"..
   " the American style"
@@ -1416,7 +1426,7 @@ local function Miscellaneous()
   end)
   -- Disable healing spam over player --
   local AbyssUIClassic_DisableHealingSpam_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassic_DisableHealingSpam_CheckButton", AbyssUIClassic_Config.childpanel3, "ChatConfigCheckButtonTemplate")
-  AbyssUIClassic_DisableHealingSpam_CheckButton:SetPoint("TOPLEFT", 10, -380)
+  AbyssUIClassic_DisableHealingSpam_CheckButton:SetPoint("TOPLEFT", 10, -410)
   AbyssUIClassic_DisableHealingSpam_CheckButton.Text:SetText("|cfff2dc7fDisable Portrait Text Spam|r")
   AbyssUIClassic_DisableHealingSpam_CheckButton.tooltip = "Disable healing/damage spam over player"..
   " and pet portraits"
@@ -1446,7 +1456,7 @@ local function Miscellaneous()
   end)
   -- Shaman Pink --
   local AbyssUIClassic_ShamanPink_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassic_ShamanPink_CheckButton", AbyssUIClassic_Config.childpanel3, "ChatConfigCheckButtonTemplate")
-  AbyssUIClassic_ShamanPink_CheckButton:SetPoint("TOPLEFT", 10, -410)
+  AbyssUIClassic_ShamanPink_CheckButton:SetPoint("TOPLEFT", 10, -440)
   AbyssUIClassic_ShamanPink_CheckButton.Text:SetText("Shaman Pink")
   AbyssUIClassic_ShamanPink_CheckButton.tooltip = "Keep the color pink for Shaman health bars"..
   " (portrait and tooltip)"
@@ -1458,7 +1468,7 @@ local function Miscellaneous()
   end)
   -- Friendly Green --
   local AbyssUIClassic_FriendlyHealthGreen_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassic_FriendlyHealthGreen_CheckButton", AbyssUIClassic_Config.childpanel3, "ChatConfigCheckButtonTemplate")
-  AbyssUIClassic_FriendlyHealthGreen_CheckButton:SetPoint("TOPLEFT", 10, -440)
+  AbyssUIClassic_FriendlyHealthGreen_CheckButton:SetPoint("TOPLEFT", 10, -470)
   AbyssUIClassic_FriendlyHealthGreen_CheckButton.Text:SetText("Default Friendly Health")
   AbyssUIClassic_FriendlyHealthGreen_CheckButton.tooltip = "Friendly unit health bars in the default color"
   AbyssUIClassic_FriendlyHealthGreen_CheckButton:SetChecked(AbyssUIClassicAddonSettings.ExtraFunctionFriendlyHealthGreen)
@@ -1469,7 +1479,7 @@ local function Miscellaneous()
   end)
   -- Transparent Background Name --
   local AbyssUIClassic_TransparentName_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassic_TransparentName_CheckButton", AbyssUIClassic_Config.childpanel3, "ChatConfigCheckButtonTemplate")
-  AbyssUIClassic_TransparentName_CheckButton:SetPoint("TOPLEFT", 10, -470)
+  AbyssUIClassic_TransparentName_CheckButton:SetPoint("TOPLEFT", 10, -500)
   AbyssUIClassic_TransparentName_CheckButton.Text:SetText("Transparent Name BKGD")
   AbyssUIClassic_TransparentName_CheckButton.tooltip = "Remove any color in the target name background"
   AbyssUIClassic_TransparentName_CheckButton:SetChecked(AbyssUIClassicAddonSettings.ExtraFunctionTransparentName)
@@ -1480,7 +1490,7 @@ local function Miscellaneous()
   end)
   -- Instance Leave --
   local AbyssUIClassic_InstanceLeave_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassic_InstanceLeave_CheckButton", AbyssUIClassic_Config.childpanel3, "ChatConfigCheckButtonTemplate")
-  AbyssUIClassic_InstanceLeave_CheckButton:SetPoint("TOPLEFT", 10, -500)
+  AbyssUIClassic_InstanceLeave_CheckButton:SetPoint("TOPLEFT", 10, -530)
   AbyssUIClassic_InstanceLeave_CheckButton.Text:SetText("|cff848484Instance Leave Frame *Retail|r")
   AbyssUIClassic_InstanceLeave_CheckButton.tooltip = "A dynamic frame that pop-up when you"..
   " complete a LFG (dungeon, raid, etc)"
@@ -2133,36 +2143,36 @@ local function IconsFonts ()
       OldSchoolIconBorder_CheckButton:SetChecked(nil)
     end
   end)
-    -- Abyss Theme
-    local AbyssIconBorder_CheckButton = CreateFrame("CheckButton", "$parentAbyssIconBorder_CheckButton", AbyssUIClassic_Config.childpanel7, "ChatConfigCheckButtonTemplate")
-    AbyssIconBorder_CheckButton:SetPoint("TOPLEFT", 180, -200)
-    AbyssIconBorder_CheckButton.Text:SetText("|cff0d75d4".."AbyssUI Classic".."|r")
-    local Frame = CreateFrame("Frame", nil, AbyssIconBorder_CheckButton)
-    Frame:SetWidth(180)
-    Frame:SetHeight(40)
-    Frame:SetPoint("LEFT", 25, 0)
-    AbyssIconBorder_CheckButton.Text:SetAllPoints(Frame)
-    AbyssIconBorder_CheckButton.tooltip = "AbyssUI Classic icon borders, a Blizzard Default enchanced theme"
-    AbyssIconBorder_CheckButton:SetChecked(AbyssUIClassicAddonSettings.AbyssIconBorder)
-    addonTable.AbyssIconBorder = AbyssIconBorder_CheckButton
-    -- OnClick Function
-    AbyssIconBorder_CheckButton:SetScript("OnClick", function(self)
-      if AbyssUIClassicAddonSettings.CrispIconBorder    ~= true and 
-        AbyssUIClassicAddonSettings.OriginalIconBorder  ~= true and 
-        AbyssUIClassicAddonSettings.SquareIconBorder    ~= true and 
-        AbyssUIClassicAddonSettings.GlossIconBorder     ~= true and
-        AbyssUIClassicAddonSettings.GlassIconBorder     ~= true and 
-        AbyssUIClassicAddonSettings.ThinIconBorder      ~= true and 
-        AbyssUIClassicAddonSettings.ClassicIconBorder   ~= true and
-        AbyssUIClassicAddonSettings.OldSchoolIconBorder ~= true and
-        AbyssUIClassicAddonSettings.DefaultIconBorder   ~= true then
-        AbyssUIClassicAddonSettings.AbyssIconBorder = self:GetChecked()
-        AbyssUIClassic_ReloadFrame:Show()
-      else
-        UIErrorsFrame:AddMessage(L["You need to select just one of those options so they don't overlap"], 1.0, 0.1, 0.1, 1.0)
-        AbyssIconBorder_CheckButton:SetChecked(nil)
-      end
-    end)
+  -- Abyss Theme
+  local AbyssIconBorder_CheckButton = CreateFrame("CheckButton", "$parentAbyssIconBorder_CheckButton", AbyssUIClassic_Config.childpanel7, "ChatConfigCheckButtonTemplate")
+  AbyssIconBorder_CheckButton:SetPoint("TOPLEFT", 180, -200)
+  AbyssIconBorder_CheckButton.Text:SetText("|cff0d75d4".."AbyssUI Classic".."|r")
+  local Frame = CreateFrame("Frame", nil, AbyssIconBorder_CheckButton)
+  Frame:SetWidth(180)
+  Frame:SetHeight(40)
+  Frame:SetPoint("LEFT", 25, 0)
+  AbyssIconBorder_CheckButton.Text:SetAllPoints(Frame)
+  AbyssIconBorder_CheckButton.tooltip = "AbyssUI Classic icon borders, a Blizzard Default enchanced theme"
+  AbyssIconBorder_CheckButton:SetChecked(AbyssUIClassicAddonSettings.AbyssIconBorder)
+  addonTable.AbyssIconBorder = AbyssIconBorder_CheckButton
+  -- OnClick Function
+  AbyssIconBorder_CheckButton:SetScript("OnClick", function(self)
+    if AbyssUIClassicAddonSettings.CrispIconBorder    ~= true and 
+      AbyssUIClassicAddonSettings.OriginalIconBorder  ~= true and 
+      AbyssUIClassicAddonSettings.SquareIconBorder    ~= true and 
+      AbyssUIClassicAddonSettings.GlossIconBorder     ~= true and
+      AbyssUIClassicAddonSettings.GlassIconBorder     ~= true and 
+      AbyssUIClassicAddonSettings.ThinIconBorder      ~= true and 
+      AbyssUIClassicAddonSettings.ClassicIconBorder   ~= true and
+      AbyssUIClassicAddonSettings.OldSchoolIconBorder ~= true and
+      AbyssUIClassicAddonSettings.DefaultIconBorder   ~= true then
+      AbyssUIClassicAddonSettings.AbyssIconBorder = self:GetChecked()
+      AbyssUIClassic_ReloadFrame:Show()
+    else
+      UIErrorsFrame:AddMessage(L["You need to select just one of those options so they don't overlap"], 1.0, 0.1, 0.1, 1.0)
+      AbyssIconBorder_CheckButton:SetChecked(nil)
+    end
+  end)
   --[[
   --Fonts
   -- Create a frame to hold the dropdown

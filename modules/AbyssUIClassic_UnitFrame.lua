@@ -493,7 +493,7 @@ AbyssUIClassic_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 				hooksecurefunc("TextStatusBar_UpdateTextStringWithValues", UnitFramesImproved_TextStatusBar_UpdateTextStringWithValues)
 				
 				-- Hook PlayerFrame functions
-	      hooksecurefunc("PlayerFrame_ToPlayerArt", UnitFramesImproved_PlayerFrame_ToPlayerArt)
+	      		hooksecurefunc("PlayerFrame_ToPlayerArt", UnitFramesImproved_PlayerFrame_ToPlayerArt)
 				hooksecurefunc("PlayerFrame_ToVehicleArt", UnitFramesImproved_PlayerFrame_ToVehicleArt)
 
 				-- Hook TargetFrame functions
