@@ -879,6 +879,7 @@ FrameButtonClassic:SetScript("OnClick", function()
 		addonTable.DisableUnitFrameSmoke,
 		addonTable.DisableCharacterText,
 		addonTable.DisableTooltipHealth,
+		addonTable.RarePortrait,
 		addonTable.AlwaysShowClock,
 		addonTable.AbyssIconBorder,
 	} do
@@ -899,6 +900,7 @@ FrameButtonClassic:SetScript("OnClick", function()
 	AbyssUIClassicAddonSettings.UnitFrameImprovedDefaultTexture 			= addonTable.DisableUnitFrameSmoke:GetChecked()
 	AbyssUIClassicAddonSettings.DisableCharacterText						= addonTable.DisableCharacterText:GetChecked()
 	AbyssUIClassicAddonSettings.DisableTooltipHealth 						= addonTable.DisableTooltipHealth:GetChecked()
+	AbyssUIClassicAddonSettings.RarePortrait 								= addonTable.RarePortrait:GetChecked()
 	AbyssUIClassicAddonSettings.AlwaysShowClock 							= addonTable.AlwaysShowClock:GetChecked()
 	AbyssUIClassicAddonSettings.AbyssIconBorder								= addonTable.AbyssIconBorder:GetChecked()
 	AbyssUIClassicSecondFrame:Hide()

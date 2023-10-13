@@ -1861,12 +1861,39 @@ local function TweaksExtra()
   addonTable.ElitePortrait = ElitePortrait_CheckButton
   -- OnClick Function
   ElitePortrait_CheckButton:SetScript("OnClick", function(self)
-    AbyssUIClassicAddonSettings.ElitePortrait = self:GetChecked()
-    AbyssUIClassic_ReloadFrame:Show()
+    if AbyssUIClassicAddonSettings.RarePortrait ~= true then
+      AbyssUIClassicAddonSettings.ElitePortrait = self:GetChecked()
+      AbyssUIClassic_ReloadFrame:Show()
+    else
+      UIErrorsFrame:AddMessage("You can only select one UnitFrame portrait art", 1.0, 0.1, 0.1, 1.0)
+      ElitePortrait_CheckButton:SetChecked(nil)
+    end
+  end)
+  -- Rare Portrait --
+  local RarePortrait_CheckButton = CreateFrame("CheckButton", "$parentRarePortrait_CheckButton", AbyssUIClassic_Config.childpanel5, "ChatConfigCheckButtonTemplate")
+  RarePortrait_CheckButton:SetPoint("TOPLEFT", 400, -110)
+  RarePortrait_CheckButton.Text:SetText("|cfff2dc7fRare Portrait|r")
+  local Frame = CreateFrame("Frame", nil, RarePortrait_CheckButton)
+  Frame:SetWidth(180)
+  Frame:SetHeight(40)
+  Frame:SetPoint("LEFT", 25, 0)
+  RarePortrait_CheckButton.Text:SetAllPoints(Frame)
+  RarePortrait_CheckButton.tooltip = "Add a rare texture to the player portrait"
+  RarePortrait_CheckButton:SetChecked(AbyssUIClassicAddonSettings.RarePortrait)
+  addonTable.RarePortrait = RarePortrait_CheckButton
+  -- OnClick Function
+  RarePortrait_CheckButton:SetScript("OnClick", function(self)
+    if AbyssUIClassicAddonSettings.ElitePortrait ~= true then
+      AbyssUIClassicAddonSettings.RarePortrait = self:GetChecked()
+      AbyssUIClassic_ReloadFrame:Show()
+    else
+      UIErrorsFrame:AddMessage(L["You can only select one UnitFrame portrait art"], 1.0, 0.1, 0.1, 1.0)
+      RarePortrait_CheckButton:SetChecked(nil)
+    end
   end)
   -- UnitFrame Improved --
   local UnitFrameImproved_CheckButton = CreateFrame("CheckButton", "$parentUnitFrameImproved_CheckButton", AbyssUIClassic_Config.childpanel5, "ChatConfigCheckButtonTemplate")
-  UnitFrameImproved_CheckButton:SetPoint("TOPLEFT", 400, -110)
+  UnitFrameImproved_CheckButton:SetPoint("TOPLEFT", 400, -140)
   UnitFrameImproved_CheckButton.Text:SetText("|cfff2dc7fUnitFrame Improved|r")
   UnitFrameImproved_CheckButton.tooltip = "This is a improved version of unitframes,"..
   " it changes those frames to a more beautiful and complete version (recommended use)"

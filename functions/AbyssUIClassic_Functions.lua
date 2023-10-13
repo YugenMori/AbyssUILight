@@ -775,52 +775,40 @@ AbyssUIClassic_ElitePortrait:SetScript("OnEvent", function(self, event, ...)
 	end
 end)
 --]]
--- Elite Portrait
-local AbyssUIClassic_ElitePortrait = CreateFrame("Button", '$parentAbyssUIClassic_ElitePortrait', nil)
-AbyssUIClassic_ElitePortrait:RegisterEvent("PLAYER_ENTERING_WORLD")
-AbyssUIClassic_ElitePortrait:SetScript("OnEvent", function(self, event, ...)
+-- Elite Portrait / Rare Portrait
+local AbyssUIClassic_EliteRarePortrait = CreateFrame("Button", '$parentAbyssUIClassic_EliteRarePortrait', nil)
+AbyssUIClassic_EliteRarePortrait:RegisterEvent("PLAYER_ENTERING_WORLD")
+AbyssUIClassic_EliteRarePortrait:SetScript("OnEvent", function(self, event, ...)
 	if (AbyssUIClassicAddonSettings.UnitFrameImprovedDefaultTexture ~= true) then
-		if (AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved == true) then
+		if (AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.RarePortrait ~= true and AbyssUIClassicAddonSettings.UnitFrameImproved == true) then
 			PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\UI-TargetingFrame-Elite")
-		elseif(AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
+		elseif (AbyssUIClassicAddonSettings.RarePortrait == true and AbyssUIClassicAddonSettings.ElitePortrait ~= true and AbyssUIClassicAddonSettings.UnitFrameImproved == true) then
+			PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\UI-TargetingFrame-Rare")
+		elseif (AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.RarePortrait ~= true and AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
 			PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Rare-Elite-Normal")
+		elseif(AbyssUIClassicAddonSettings.RarePortrait == true and AbyssUIClassicAddonSettings.ElitePortrait ~= true and AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
+			PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Rare-Normal")
 		else 
 			PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\UI-TargetingFrame")
 		end
-  else
-    	if (AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved == true) then
+  	else
+    	if (AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.RarePortrait ~= true and AbyssUIClassicAddonSettings.UnitFrameImproved == true) then
       		PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Elite")
-    	elseif(AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
+		elseif (AbyssUIClassicAddonSettings.RarePortrait == true and AbyssUIClassicAddonSettings.ElitePortrait ~= true and AbyssUIClassicAddonSettings.UnitFrameImproved == true) then
+			PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Rare")
+    	elseif (AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.RarePortrait ~= true and AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
     		PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Rare-Elite-Normal")
+		elseif(AbyssUIClassicAddonSettings.RarePortrait == true and AbyssUIClassicAddonSettings.ElitePortrait ~= true and AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
+    		PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Rare-Normal")
     	else 
       		PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Normal")
     	end
-  end
+  	end
 end)
--- Exp Font Color Change
---[[
-local function SetFontStringColor(fontString, red, green, blue, alpha)
-    fontString:SetTextColor(red, green, blue, alpha)
-end
--- Event update
-local AbyssUIClassic_XPColor = CreateFrame("FRAME", '$parentAbyssUIClassic_XPColor', nil)
-AbyssUIClassic_XPColor:RegisterEvent("PLAYER_XP_UPDATE")
-AbyssUIClassic_XPColor:SetScript("OnEvent", function(self, event, ...)
--- Find and change the color of "NumberFontNormalLarge"
-local fontStringName = "NumberFontNormalLarge"
-local fontString = _G[fontStringName]
-	if fontString then
-	    local red, green, blue, alpha = 0, 0, 0, 1 -- Change these values to set the desired color (RGBA format)
-	    SetFontStringColor(fontString, red, green, blue, alpha)
-	else
-	    print("FontString not found: " .. fontStringName)
-	end
-end)
---]]
 --------------------------------------------
 local _G = _G
-local levelString 			= _G["LEVEL"]
-local versionString 		= _G["GAME_VERSION_LABEL"]
+local levelString 		= _G["LEVEL"]
+local versionString 	= _G["GAME_VERSION_LABEL"]
 local latestString     	= _G["KBASE_RECENTLY_UPDATED"] 
 local timeStringLabel 	= _G["TIME_LABEL"]
 -- DailyInfo Function

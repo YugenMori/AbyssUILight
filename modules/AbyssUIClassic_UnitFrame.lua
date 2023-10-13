@@ -145,19 +145,23 @@ AbyssUIClassic_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 	          PlayerFrameHealthBarText:SetPoint("CENTER", 50, 6)
 	        end
 	        if ( AbyssUIClassicAddonSettings.UnitFrameImprovedDefaultTexture ~= true ) then
-	          if ( AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
-	            PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\UI-TargetingFrame-Elite")
-	          else 
-	            PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\UI-TargetingFrame")
-	          end
+	         	if ( AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.RarePortrait ~= true and AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
+	            	PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\UI-TargetingFrame-Elite")
+				elseif (AbyssUIClassicAddonSettings.RarePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved == true and AbyssUIClassicAddonSettings.ElitePortrait ~= true) then
+					PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\UI-TargetingFrame-Rare")
+	          	else 
+	           		PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\UI-TargetingFrame")
+	          	end
 	          PlayerStatusTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\UI-Player-Status")
 	          PlayerFrameHealthBar:SetStatusBarColor(UnitColor("player"))
 	        else
-	          if ( AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
-	            PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\backup\\UI-TargetingFrame-Elite")
-	          else 
-	            PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\backup\\UI-TargetingFrame")
-	          end
+	          	if ( AbyssUIClassicAddonSettings.ElitePortrait == true and AbyssUIClassicAddonSettings.RarePortrait ~= true and AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
+	            	PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\backup\\UI-TargetingFrame-Elite")
+				elseif (AbyssUIClassicAddonSettings.RarePortrait == true and AbyssUIClassicAddonSettings.UnitFrameImproved == true and AbyssUIClassicAddonSettings.ElitePortrait ~= true) then
+					PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\textures\\backup\\UI-TargetingFrame-Rare")
+	          	else 
+	           	 	PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\backup\\UI-TargetingFrame")
+	          	end
 	          PlayerStatusTexture:SetTexture("Interface\\Addons\\AbyssUIClassic\\Textures\\backup\\UI-Player-Status")
 	          PlayerFrameHealthBar:SetStatusBarColor(UnitColor("player"))
 	        end
