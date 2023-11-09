@@ -17,8 +17,8 @@ f:SetScript("OnEvent", function(self, event, ...)
   if not AbyssUIClassic_Config then
     local AbyssUIClassic_Config = {}
   end
-    if not AbyssUI_Config then
-    local AbyssUI_Config = {}
+    if not AbyssUIClassic_Config then
+    local AbyssUIClassic_Config = {}
   end
   -- AddonSettings
   if not AbyssUIClassicAddonSettings then
@@ -112,6 +112,8 @@ local function AbyssUIClassic_ColorizationFrameFunction(...)
 		v:SetVertexColor(135/255, 135/255, 237/255)
 	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames16 == true then
 		v:SetVertexColor(199/255, 156/255, 110/255)
+	elseif AbyssUIClassicAddonSettings.UIVertexColorFrames17 == true then
+		v:SetVertexColor(51/255, 147/255, 127/255)
 	elseif AbyssUIClassicAddonSettings.UIVertexColorFramesColorPicker == true then
 		local character = UnitName("player").."-"..GetRealmName()
 		v:SetVertexColor(COLOR_MY_UI[character].Color.r, COLOR_MY_UI[character].Color.g, COLOR_MY_UI[character].Color.b)	
@@ -393,55 +395,6 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 				return nil
 			end
 		end
-		-- Frames that blizzard didn't atribute proper names 
-		--[[
-		for i, v in pairs({ PaperDollFrame, 
-			QuestLogFrame,
-			SpellBookFrame, }) do
-			if AbyssUIClassicAddonSettings ~= nil then
-				if AbyssUIClassicAddonSettings.UIVertexColorFrames01 == true then
-					v:SetVertexColor(1, 1, 1)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames02 == true then
-					v:SetVertexColor(.2, .2, .2)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames03 == true then
-					v:SetVertexColor(182/255, 42/255, 37/255)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames04 == true then
-					v:SetVertexColor(236/255, 193/255, 60/255)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames05 == true then
-					v:SetVertexColor(196/255, 31/255, 59/255)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames06 == true then
-					v:SetVertexColor(163/255, 48/255, 201/255)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames07 == true then
-					v:SetVertexColor(252/255, 163/255, 85/255)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames08 == true then
-					v:SetVertexColor(190/255, 221/255, 115/255)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames09 == true then
-					v:SetVertexColor(64/255, 220/255, 255/255)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames10 == true then
-					v:SetVertexColor(86/255, 255/255, 184/255)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames11 == true then
-					v:SetVertexColor(255/255, 155/255, 195/255)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames12 == true then
-					v:SetVertexColor(23/255, 28/255, 99/255)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames13 == true then
-					v:SetVertexColor(255/255, 255/255, 0/255)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames14 == true then
-					v:SetVertexColor(0/255, 112/255, 222/255)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames15 == true then
-					v:SetVertexColor(135/255, 135/255, 237/255)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFrames16 == true then
-					v:SetVertexColor(199/255, 156/255, 110/255)
-				elseif AbyssUIClassicAddonSettings.UIVertexColorFramesColorPicker == true then
-					local character = UnitName("player").."-"..GetRealmName()
-					v:SetVertexColor(COLOR_MY_UI[character].Color.r, COLOR_MY_UI[character].Color.g, COLOR_MY_UI[character].Color.b)
-				else
-					v:SetVertexColor(.4, .4, .4)
-				end
-			else
-				return nil
-			end
-		end
-		--]]
 		-- End
 		self:UnregisterEvent("ADDON_LOADED")
 		NewFrames:SetScript("OnEvent", nil)
@@ -1142,6 +1095,29 @@ f:SetScript("OnEvent", function(self, event, name)
     end
 	end
 end)
+-- CollectionsJournal
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+	if name == "Blizzard_Collections" then
+		for i, v in pairs({ CollectionsJournalTopBorder,
+			CollectionsJournalTopRightCorner,
+			CollectionsJournalRightBorder,
+			CollectionsJournalBotRightCorner,
+			CollectionsJournalBtnCornerRight,
+			CollectionsJournalBottomBorder,
+			CollectionsJournalBotLeftCorner,
+			CollectionsJournalBtnCornerLeft,
+			CollectionsJournalLeftBorder,
+			CollectionsJournalPortraitFrame, }) do
+			if AbyssUIClassicAddonSettings ~= nil then
+				AbyssUIClassic_ColorizationFrameFunction(v)
+			else
+				return nil
+			end
+		end
+	end
+end)
 -- PaperDollFrame
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -1149,6 +1125,19 @@ f:SetScript("OnEvent", function(self)
 	if GetWoWVersion <= 30600 then
     self:UnregisterAllEvents()
     local ChildRegions = { PaperDollFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUIClassic_ColorizationFrameFunction(v)
+    end
+  end
+end)
+-- CharacterAmmoSlot
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { CharacterAmmoSlot:GetRegions() }
     local fs = {}
     for k, v in pairs(ChildRegions) do
     	AbyssUIClassic_ColorizationFrameFunction(v)
@@ -1188,10 +1177,26 @@ f:SetScript("OnEvent", function(self)
 	if GetWoWVersion <= 30600 and GetWoWVersion >= 12000 then
     self:UnregisterAllEvents()
     local ChildRegions = { PVPFrame:GetRegions() }
+	local ChildRegions2 = {	PVPParentFrameTab1Left,
+	PVPParentFrameTab1Middle,
+	PVPParentFrameTab1Right,
+	PVPParentFrameTab1LeftDisabled,
+	PVPParentFrameTab1MiddleDisabled,
+	PVPParentFrameTab1RightDisabled,
+	PVPParentFrameTab2Left,
+	PVPParentFrameTab2Middle,
+	PVPParentFrameTab2Right,
+	PVPParentFrameTab2LeftDisabled,
+	PVPParentFrameTab2MiddleDisabled,
+	PVPParentFrameTab2RightDisabled, }
     local fs = {}
-    for k, v in pairs(ChildRegions) do
-    	AbyssUIClassic_ColorizationFrameFunction(v)
-    end
+		for k, v in pairs(ChildRegions) do
+			AbyssUIClassic_ColorizationFrameFunction(v)
+		end
+		for k , v in pairs(ChildRegions2) do 
+			AbyssUIClassic_ColorizationFrameFunction(v)
+		end	
+		PVPFramePortrait:SetVertexColor(1, 1, 1)
   end
 end)
 -- PVEFrame
@@ -1442,14 +1447,18 @@ f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self)
 	if GetWoWVersion <= 30600 then
 		if (not leatrix) then
-	    self:UnregisterAllEvents()
-	    local ChildRegions = { WorldMapFrame.BorderFrame:GetRegions() }
-	    local fs = {}
-	    for k, v in pairs(ChildRegions) do
-	    	AbyssUIClassic_ColorizationFrameFunction(v)
-	    end
-	  end
-  end
+			self:UnregisterAllEvents()
+			local ChildRegions = { WorldMapFrame.BorderFrame:GetRegions() }
+			local ChildRegions2 = { WorldMapFrame.MiniBorderFrame:GetRegions() }
+			local fs = {}
+			for k, v in pairs(ChildRegions) do
+				AbyssUIClassic_ColorizationFrameFunction(v)
+			end
+			for k, v in pairs(ChildRegions2) do
+				AbyssUIClassic_ColorizationFrameFunction(v)
+			end
+		end
+  	end
 end)
 -- LFGParentFrame
 local f = CreateFrame("Frame")
@@ -1597,10 +1606,40 @@ f:SetScript("OnEvent", function(self, event, name)
 	if name == "Blizzard_TalentUI" and GetWoWVersion <= 30600 then
     self:UnregisterAllEvents()
     local ChildRegions = { PlayerTalentFrame:GetRegions() }
+	local ChildRegions2 = {PlayerTalentFrameTab1Left,
+	PlayerTalentFrameTab1Middle,
+	PlayerTalentFrameTab1Right,
+	PlayerTalentFrameTab1LeftDisabled,
+	PlayerTalentFrameTab1MiddleDisabled,
+	PlayerTalentFrameTab1RightDisabled,
+	PlayerTalentFrameTab2Left,
+	PlayerTalentFrameTab2Middle,
+	PlayerTalentFrameTab2Right,
+	PlayerTalentFrameTab2LeftDisabled,
+	PlayerTalentFrameTab2MiddleDisabled,
+	PlayerTalentFrameTab2RightDisabled,
+	PlayerTalentFrameTab3Left,
+	PlayerTalentFrameTab3Middle,
+	PlayerTalentFrameTab3Right,
+	PlayerTalentFrameTab3LeftDisabled,
+	PlayerTalentFrameTab3MiddleDisabled,
+	PlayerTalentFrameTab3RightDisabled,
+	PlayerTalentFrameTab4Left,
+	PlayerTalentFrameTab4Middle,
+	PlayerTalentFrameTab4Right,
+	PlayerTalentFrameTab4LeftDisabled,
+	PlayerTalentFrameTab4MiddleDisabled,
+	PlayerTalentFrameTab4RightDisabled,
+	PlayerTalentFramePointsBarBackground,
+ }
     local fs = {}
-    for k, v in pairs(ChildRegions) do
-    	AbyssUIClassic_ColorizationFrameFunction(v)
-    end
+		for k, v in pairs(ChildRegions) do
+			AbyssUIClassic_ColorizationFrameFunction(v)
+		end
+		for k , v in pairs(ChildRegions2) do 
+			AbyssUIClassic_ColorizationFrameFunction(v)
+		end	
+		PlayerTalentFramePortrait:SetVertexColor(1, 1, 1)
 	end
 end)
 -- PlayerTalentFrame

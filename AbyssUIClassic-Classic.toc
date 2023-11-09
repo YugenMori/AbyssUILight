@@ -1,6 +1,6 @@
 ## Interface: 11404
-## Title: AbyssUI|cffbcb3f8Classic|r
-## Version: 10.1.7.3_Classic_Dragonflight
+## Title: AbyssUI|cffc41F3BClassic|r
+## Version: 10.2.0.1_Classic_Dragonflight
 ## Author: Yugen
 ## Notes-enUS: Minimalist UI for World of Warcraft
 ## Notes-ptBR: Interface Minimalista para World of Warcraft
@@ -18,7 +18,7 @@
 ## Notes-zhTW: 魔獸世界的簡約UI
 ## SavedVariablesPerCharacter: AbyssUIClassicProfile, AbyssUIClassicAddonSettings, COLOR_MY_UI
 ## IconTexture: Interface\AddOns\AbyssUIClassic\textures\extra\logo\abyssuilogo
-# Wow Versions: Classic - 11404 | LichKingClassic - 30402 | DragonFlight - 100105
+# Wow Versions: Classic - 11404 | LichKingClassic - 30403 | DragonFlight - 100107
 
 # Libs
 libs\LibStub\LibStub.lua

@@ -24,8 +24,8 @@ f:SetScript("OnEvent", function(self, event, ...)
   if not AbyssUIClassic_Config then
     local AbyssUIClassic_Config = {}
   end
-    if not AbyssUI_Config then
-    local AbyssUI_Config = {}
+    if not AbyssUIClassic_Config then
+    local AbyssUIClassic_Config = {}
   end
   -- AddonSettings
   if not AbyssUIClassicAddonSettings then
@@ -1935,9 +1935,11 @@ local function IconBackInit()
           nt:SetVertexColor(Abconfig.color.normal.r, Abconfig.color.normal.g, Abconfig.color.normal.b, 1)
         end
         hooksecurefunc(bu, "SetNormalTexture", function(self, texture)
-          --make sure the normaltexture stays the way we want it
-          if texture and texture ~= Abconfig.textures.normal then
+          if self.settingTexture then return end
+          if texture ~= Abconfig.textures.normal then
+            self.settingTexture = true
             self:SetNormalTexture(Abconfig.textures.normal)
+            self.settingTexture = false
           end
         end)
         --cut the default border of the icons and make them shiny
@@ -2039,8 +2041,11 @@ local function IconBackInit()
           
           --make sure the normaltexture stays the way we want it
           hooksecurefunc(bu, "SetNormalTexture", function(self, texture)
-            if texture and texture ~= Abconfig.textures.bags then
+            if self.settingTexture then return end
+            if texture ~= Abconfig.textures.bags then
+              self.settingTexture = true
               self:SetNormalTexture(Abconfig.textures.bags)
+              self.settingTexture = false
             end
           end)
           bu.Back = CreateFrame("Frame", nil, bu, BackdropTemplateMixin and "BackdropTemplate")
@@ -2075,8 +2080,11 @@ local function IconBackInit()
           
           --make sure the normaltexture stays the way we want it
           hooksecurefunc(bu, "SetNormalTexture", function(self, texture)
-            if texture and texture ~= Abconfig.textures.bags then
+            if self.settingTexture then return end
+            if texture ~= Abconfig.textures.bags then
+              self.settingTexture = true
               self:SetNormalTexture(Abconfig.textures.bags)
+              self.settingTexture = false
             end
           end)
           bu.Back = CreateFrame("Frame", nil, bu, BackdropTemplateMixin and "BackdropTemplate")

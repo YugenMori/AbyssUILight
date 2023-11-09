@@ -19,8 +19,8 @@ f:SetScript("OnEvent", function(self, event, ...)
   if not AbyssUIClassic_Config then
     local AbyssUIClassic_Config = {}
   end
-    if not AbyssUI_Config then
-    local AbyssUI_Config = {}
+    if not AbyssUIClassic_Config then
+    local AbyssUIClassic_Config = {}
   end
   -- AddonSettings
   if not AbyssUIClassicAddonSettings then
@@ -109,7 +109,7 @@ local dialogFrameTextureBorder 	= "Interface\\DialogFrame\\UI-DialogBox-Backgrou
 ----------------------------------------------------
 ----------------------------------------------------
 -- AbyssUIClassic_EditBox_Frame
-AbyssUIClassic_EditBox_Frame = CreateFrame("Frame", "$parentAbyssUIClassic_EditBox_Frame", AbyssUIClassic_Config.childpanel1)
+local AbyssUIClassic_EditBox_Frame = CreateFrame("Frame", "AbyssUIClassic_EditBox_Frame", AbyssUIClassic_Config.childpanel1)
 AbyssUIClassic_EditBox_Frame:Hide()
 AbyssUIClassic_EditBox_Frame:SetWidth(500)
 AbyssUIClassic_EditBox_Frame:SetHeight(128)
@@ -120,7 +120,7 @@ AbyssUIClassic_EditBox_Frame:SetMovable(true)
 AbyssUIClassic_EditBox_Frame:RegisterForDrag("LeftButton")
 AbyssUIClassic_EditBox_Frame:SetScript("OnDragStart", AbyssUIClassic_EditBox_Frame.StartMoving)
 AbyssUIClassic_EditBox_Frame:SetScript("OnDragStop", function(self)
-  self:StopMovingOrSizing()
+self:StopMovingOrSizing()
 end)
 AbyssUIClassic_EditBox_Frame:SetFrameStrata("Dialog")
 ----------------------------------------------------
@@ -143,29 +143,38 @@ AbyssUIClassic_EditBox_Frame.texture = Texture
 local f = CreateFrame("Frame", nil)
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function() 
+	-- Confirm Button
 	local FrameButtonConfirm = CreateFrame("Button","$parentFrameButtonConfirm", AbyssUIClassic_EditBox_Frame, "UIPanelButtonTemplate")
 	FrameButtonConfirm:SetHeight(24)
 	FrameButtonConfirm:SetWidth(100)
 	FrameButtonConfirm:SetPoint("BOTTOM", AbyssUIClassic_EditBox_Frame, "BOTTOM", 0, 0)
 	FrameButtonConfirm.text = FrameButtonConfirm.text or FrameButtonConfirm:CreateFontString(nil, "ARTWORK", "QuestMapRewardsFont")
-	FrameButtonConfirm.text:SetFont(globalFont, 12)
+	--FrameButtonConfirm.text:SetFont(globalFont, 14)
 	FrameButtonConfirm.text:SetPoint("CENTER", FrameButtonConfirm, "CENTER", 0, 0)
-	FrameButtonConfirm.text:SetText(confirmString)
-	FrameButtonConfirm.text:SetTextColor(229/255, 229/255, 229/255)
-	FrameButtonConfirm.text:SetShadowColor(0, 0, 0)
-	FrameButtonConfirm.text:SetShadowOffset(1, -1)
+	FrameButtonConfirm.text:SetText(L["Confirm"])
+		if (AbyssUIClassicAddonSettings.FontsValue == true and AbyssUIClassicAddonSettings.ExtraFunctionDisableFontWhiteText ~= true) then
+			AbyssUI_ApplyFonts(FrameButtonConfirm.text)
+		else
+			FrameButtonConfirm.text:SetFont(globalFont, 14)
+			FrameButtonConfirm.text:SetTextColor(248/255, 248/255, 248/255)
+			FrameButtonConfirm.text:SetShadowColor(0, 0, 0)
+			FrameButtonConfirm.text:SetShadowOffset(1, -1)
+		end
 	FrameButtonConfirm:SetScript("OnClick", function()
 	  AbyssUIClassic_EditBox_Frame:Hide()
 	end)
 end)
 ----------------------------------------------------
 -- EditBox
-AbyssUIClassic_EditBox = CreateFrame("EditBox", "$parentAbyssUIClassic_EditBox", AbyssUIClassic_EditBox_Frame)
-AbyssUIClassic_EditBox:SetFont(globalFont, 14, "THINOUTLINE")
-AbyssUIClassic_EditBox:SetPoint("CENTER", 0, 0)
+local AbyssUIClassic_EditBox = CreateFrame("EditBox", "AbyssUIClassic_EditBox", AbyssUIClassic_EditBox_Frame)
 AbyssUIClassic_EditBox:SetMultiLine(true)
-AbyssUIClassic_EditBox:SetHeight(24)
+AbyssUIClassic_EditBox:SetAutoFocus(false)
+AbyssUIClassic_EditBox:SetFontObject(ChatFontNormal)
 AbyssUIClassic_EditBox:SetWidth(450)
+AbyssUIClassic_EditBox:SetHeight(100)
+AbyssUIClassic_EditBox:SetPoint("CENTER")
+AbyssUIClassic_EditBox:SetText("Default Text")
+AbyssUIClassic_EditBox:Show()
 ----------------------------------------------------
 -- AbyssUIClassic_AFKCameraFrame
 local AbyssUIClassic_AFKCameraFrame = CreateFrame("Frame", "$parentAbyssUIClassic_AFKCameraFrame", WorldFrame)
@@ -674,7 +683,7 @@ AbyssUIClassicFirstFrame.text:SetScale(5)
 AbyssUIClassicFirstFrame.text:SetAllPoints(true)
 AbyssUIClassicFirstFrame.text:SetJustifyH("CENTER")
 AbyssUIClassicFirstFrame.text:SetJustifyV("CENTER")
-AbyssUIClassicFirstFrame.text:SetText("Thank you for choosing AbyssUI|cff0d75d4Classic|r!")
+AbyssUIClassicFirstFrame.text:SetText("Thank you for choosing AbyssUI|cffc41F3BClassic|r!")
 ----------------------------------------------------
 local Subtittle = CreateFrame("Frame", "$parentSubtittle", AbyssUIClassicFirstFrame)
 Subtittle:SetWidth(GetScreenWidth())
@@ -826,6 +835,7 @@ FrameButtonModern:SetScript("OnClick", function()
 		addonTable.TooltipOnCursor,
 		addonTable.UnitFrameImproved,
 		addonTable.ElitePortrait,
+		addonTable.FlatHealth,
 		addonTable.AbyssIconBorder,
 	} do
 	 	v:SetChecked(true)
@@ -842,6 +852,7 @@ FrameButtonModern:SetScript("OnClick", function()
 	AbyssUIClassicAddonSettings.TooltipOnCursor 					= addonTable.TooltipOnCursor:GetChecked()
 	AbyssUIClassicAddonSettings.UnitFrameImproved 					= addonTable.UnitFrameImproved:GetChecked()
 	AbyssUIClassicAddonSettings.ElitePortrait 						= addonTable.ElitePortrait:GetChecked()
+	AbyssUIClassicAddonSettings.FlatHealth 				      		= addonTable.FlatHealth:GetChecked()
 	AbyssUIClassicAddonSettings.AbyssIconBorder						= addonTable.AbyssIconBorder:GetChecked()
 	AbyssUIClassicSecondFrame:Hide()
 	FrameButtonModern.Glow:Finish()
@@ -1138,7 +1149,7 @@ AbyssUIClassic_ActionBarInfo.text:SetScale(1.5)
 AbyssUIClassic_ActionBarInfo.text:SetAllPoints(true)
 AbyssUIClassic_ActionBarInfo.text:SetJustifyH("CENTER")
 AbyssUIClassic_ActionBarInfo.text:SetJustifyV("CENTER")
-AbyssUIClassic_ActionBarInfo.text:SetText("AbyssUI|cff0d75d4Classic|r Actionbar could glitch sometimes.")
+AbyssUIClassic_ActionBarInfo.text:SetText("AbyssUI|cffc41F3BClassic|r Actionbar could glitch sometimes.")
 ----------------------------------------------------
 local Border = AbyssUIClassic_ActionBarInfo:CreateTexture(nil, "BACKGROUND")
 Border:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Background")
