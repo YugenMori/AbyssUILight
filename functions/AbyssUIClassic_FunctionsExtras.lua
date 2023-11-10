@@ -662,6 +662,37 @@ end)
 ----------------------------------------------------
 -- Square Minimap
 ----------------------------------------------------
+-- Extra functions
+local function squareminimapExtras()
+	-- WatchFrame
+	if (GetWoWVersion >= 20000) then
+		WatchFrame:SetScript("OnUpdate", function()
+			if MultiBarRight:IsShown() and MultiBarLeft:IsShown() then
+				WatchFrame:ClearAllPoints()
+				WatchFrame:SetPoint("TOPRIGHT", MinimapCluster, "BOTTOMRIGHT", -100, -50)
+			elseif MultiBarRight:IsShown() then
+				WatchFrame:ClearAllPoints()
+				WatchFrame:SetPoint("TOPRIGHT", MinimapCluster, "BOTTOMRIGHT", -50, -50)
+			else
+				WatchFrame:ClearAllPoints()
+				WatchFrame:SetPoint("TOPRIGHT", MinimapCluster, "BOTTOMRIGHT", -25, -50)
+			end
+		end)
+	else
+		QuestWatchFrame:SetScript("OnUpdate", function()
+			if MultiBarRight:IsShown() and MultiBarLeft:IsShown() then
+				QuestWatchFrame:ClearAllPoints()
+				QuestWatchFrame:SetPoint("TOPRIGHT", MinimapCluster, "BOTTOMRIGHT", -100, -50)
+			elseif MultiBarRight:IsShown() then
+				QuestWatchFrame:ClearAllPoints()
+				QuestWatchFrame:SetPoint("TOPRIGHT", MinimapCluster, "BOTTOMRIGHT", -50, -50)
+			else
+				QuestWatchFrame:ClearAllPoints()
+				QuestWatchFrame:SetPoint("TOPRIGHT", MinimapCluster, "BOTTOMRIGHT", -25, -50)
+			end
+		end)
+	end
+end
 -- Thanks to Dawn for part of this amazing minimap code
 local SquareMinimap_ = CreateFrame("CheckButton", "$parentSquareMinimap_", UIParent, "ChatConfigCheckButtonTemplate")
 SquareMinimap_:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -744,9 +775,13 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 		MinimapZoomOut:Hide()	
 		GameTimeFrame:Hide()		
 		--MiniMapTracking:Hide()
-		MiniMapTrackingButtonBorder:Hide()
-		MiniMapTrackingBackground:Hide()
-		MiniMapTrackingIconOverlay:Hide()
+		if (GetWoWVersion >= 20000) then
+			MiniMapTrackingButtonBorder:Hide()
+			MiniMapTrackingBackground:Hide()
+			MiniMapTrackingIconOverlay:Hide()
+			MiniMapTracking:ClearAllPoints()
+			MiniMapTracking:SetPoint("TOPRIGHT", Minimap, -5, -5)
+		end
 		MiniMapMailBorder:Hide()	
 		--MiniMapVoiceChatFrame:Hide()
 		--MinimapZoneTextButton:Hide()	
@@ -772,25 +807,11 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 		--MiniMapMailFrame:ClearAllPoints()
 		--MiniMapMailFrame:SetPoint("TOPRIGHT", Minimap, 1, -20)
 		--MiniMapMailFrame:SetFrameLevel(10)
-		MiniMapTracking:ClearAllPoints()
-		MiniMapTracking:SetPoint("TOPRIGHT", Minimap, -5, -5)
 		MiniMapMailIcon:SetTexture(mailicon)
 		MiniMapWorldMapButton:Hide()
 		DropDownList1:SetClampedToScreen(true)	
 		
-		-- WatchFrame
-		WatchFrame:SetScript("OnUpdate", function()
-			if MultiBarRight:IsShown() and MultiBarLeft:IsShown() then
-				WatchFrame:ClearAllPoints()
-				WatchFrame:SetPoint("TOPRIGHT", MinimapCluster, "BOTTOMRIGHT", -100, -50)
-			elseif MultiBarRight:IsShown() then
-				WatchFrame:ClearAllPoints()
-				WatchFrame:SetPoint("TOPRIGHT", MinimapCluster, "BOTTOMRIGHT", -50, -50)
-			else
-				WatchFrame:ClearAllPoints()
-				WatchFrame:SetPoint("TOPRIGHT", MinimapCluster, "BOTTOMRIGHT", -25, -50)
-			end
-		end)
+		squareminimapExtras()
 
 		-- mousewheel zoom --
 		Minimap:EnableMouseWheel(true)
@@ -805,10 +826,14 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 		-- options/dropdown
 		Minimap:SetScript('OnMouseUp', function(self, button)
 			Minimap:StopMovingOrSizing()
-			if (button == 'RightButton') then
-				ToggleDropDownMenu(1, nil, MiniMapTrackingDropDown, self, - (Minimap:GetWidth() * 0.7), -3)
-			elseif (button == 'MiddleButton') then
-				ToggleCalendar()
+			if (GetWoWVersion >= 20000) then
+				if (button == 'RightButton') then
+					ToggleDropDownMenu(1, nil, MiniMapTrackingDropDown, self, - (Minimap:GetWidth() * 0.7), -3)
+				elseif (button == 'MiddleButton') then
+					ToggleCalendar()
+				else
+					Minimap_OnClick(self)
+				end
 			else
 				Minimap_OnClick(self)
 			end

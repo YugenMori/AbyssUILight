@@ -519,57 +519,42 @@ end)
 -- Target Mob(Enemy) Health Bar Color
 local frame = CreateFrame("Frame", "$parentFrame", nil)
 frame:RegisterEvent("PLAYER_TARGET_CHANGED")
+if (GetWoWVersion > 20000) then
+	frame:RegisterEvent("PLAYER_FOCUS_CHANGED")
+end
 local function eventHandler(self, event, ...)
-	if ( AbyssUIClassicAddonSettings.UnitFrameImproved ~= true ) then
-		if ( event == "PLAYER_TARGET_CHANGED" ) then
-			if ( UnitReaction("player", "target") ~= nil ) then
-				local target = UnitReaction("player", "target")
-				local utarget = UnitIsPlayer("target")
-				if utarget == false and target < 3 then
-					TargetFrameHealthBar:SetStatusBarColor(255/255, 0/255, 0/255)
-				elseif ( utarget == false and target == 3 ) then
-					TargetFrameHealthBar:SetStatusBarColor(242/255, 96/255, 0/255)
-				elseif ( utarget == false and target == 4 ) then
-					TargetFrameHealthBar:SetStatusBarColor(255/255, 255/255, 0/255)
-				elseif ( utarget == false and target > 4 ) then
-					TargetFrameHealthBar:SetStatusBarColor(51/255, 255/255, 51/255)
-				else
-					return nil
+	if (event == "PLAYER_TARGET_CHANGED" or event == "PLAYER_FOCUS_CHANGED") then
+		if (GetWoWVersion <= 90500) then
+			if (AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
+				TargetFrameHealthBar:SetStatusBarColor(UnitColor("target"))
+				if (GetWoWVersion > 20000) then
+					FocusFrameHealthBar:SetStatusBarColor(UnitColor("focus"))
 				end
-			else 
+			else
 				return nil
 			end
-		else
-			return nil
-		end
-	else
-		return nil
+			TargetFrameToTHealthBar:SetStatusBarColor(UnitColor("targettarget"))
+			if (GetWoWVersion > 20000) then
+				FocusFrameToTHealthBar:SetStatusBarColor(UnitColor("focustarget"))
+			end
+		end	
 	end
 end
+
 frame:SetScript("OnEvent", eventHandler)
 for _, BarTextures in pairs({ TargetFrameNameBackground, FocusFrameNameBackground, }) do
 	BarTextures:SetTexture("Interface\\TargetingFrame\\UI-StatusBar")
 end
+
 ----------------------------------------------------
 -- Keep the color when health changes
 hooksecurefunc("HealthBar_OnValueChanged", function()
-	if ( AbyssUIClassicAddonSettings.UnitFrameImproved ~= true ) then
-		if ( UnitReaction("player", "target") ~= nil ) then
-			local target = UnitReaction("player", "target")
-			local utarget = UnitIsPlayer("target")
-			if utarget == false and target < 3 then
-				TargetFrameHealthBar:SetStatusBarColor(255/255, 0/255, 0/255)
-			elseif ( utarget == false and target == 3 ) then
-				TargetFrameHealthBar:SetStatusBarColor(242/255, 96/255, 0/255)
-			elseif ( utarget == false and target == 4 ) then
-				TargetFrameHealthBar:SetStatusBarColor(255/255, 255/255, 0/255)
-			elseif ( utarget == false and target > 4 ) then
-				TargetFrameHealthBar:SetStatusBarColor(51/255, 255/255, 51/255)
-			else
-				return nil
-			end
-		else 
-			return nil
+	if (AbyssUIClassicAddonSettings.UnitFrameImproved ~= true and GetWoWVersion <= 90500) then
+		TargetFrameHealthBar:SetStatusBarColor(UnitColor("target"))
+		TargetFrameToTHealthBar:SetStatusBarColor(UnitColor("targettarget"))	
+		if (GetWoWVersion > 20000) then		
+			FocusFrameHealthBar:SetStatusBarColor(UnitColor("focus"))	
+			FocusFrameToTHealthBar:SetStatusBarColor(UnitColor("focustarget"))
 		end
 	else
 		return nil

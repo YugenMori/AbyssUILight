@@ -1839,6 +1839,7 @@ local classification = UnitClassification("target")
 		return nil
 	end
 end
+--[[
 -- Target Mob(Enemy) Health Bar Color
 local frame = CreateFrame("Frame", "$parentFrame", nil)
 frame:RegisterEvent("PLAYER_TARGET_CHANGED")
@@ -1870,6 +1871,7 @@ frame:SetScript("OnEvent", eventHandler)
 for _, BarTextures in pairs({ TargetFrameNameBackground, FocusFrameNameBackground, }) do
 	BarTextures:SetTexture("Interface\\TargetingFrame\\UI-StatusBar")
 end
+--]]
 --[[
 -- Change HealthBarSize
 local frame = CreateFrame("Frame", "$parentFrameHealthBarSize", nil)
@@ -1891,6 +1893,7 @@ end
 frame:SetScript("OnEvent", eventHandler)
 --]]
 ----------------------------------------------------
+--[[
 -- Keep the color when health changes
 hooksecurefunc("HealthBar_OnValueChanged", function()
 	if GetWoWVersion <= 30600 then
@@ -1913,6 +1916,7 @@ hooksecurefunc("HealthBar_OnValueChanged", function()
 		end
 	end
 end)
+--]]
 -- Change Health Bar Fill
 local f = CreateFrame("Frame", nil)
 f:RegisterEvent("ADDON_LOADED")
