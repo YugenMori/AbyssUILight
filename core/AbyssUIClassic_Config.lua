@@ -2106,6 +2106,7 @@ local function IconsFonts ()
   GlossIconBorder_CheckButton.Text:SetAllPoints(Frame)
   GlossIconBorder_CheckButton.tooltip = L["Change icon border to a class colored theme"]
   GlossIconBorder_CheckButton:SetChecked(AbyssUIClassicAddonSettings.GlossIconBorder)
+  addonTable.GlossIconBorder = GlossIconBorder_CheckButton
   -- OnClick Function
   GlossIconBorder_CheckButton:SetScript("OnClick", function(self)
    if AbyssUIClassicAddonSettings.CrispIconBorder     ~= true and 
