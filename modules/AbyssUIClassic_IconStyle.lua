@@ -2044,10 +2044,10 @@ local function IconBackInit()
             if self.settingTexture then return end
             if texture ~= Abconfig.textures.bags then
               self.settingTexture = true
-              self:SetNormalTexture(Abconfig.textures.bags)
+              self:SetNormalTexture(texture)
               self.settingTexture = false
             end
-          end)
+          end)  
           bu.Back = CreateFrame("Frame", nil, bu, BackdropTemplateMixin and "BackdropTemplate")
           bu.Back:SetPoint("TOPLEFT", bu, "TOPLEFT", -4, 4)
           bu.Back:SetPoint("BOTTOMRIGHT", bu, "BOTTOMRIGHT", 4, -4)
@@ -2056,10 +2056,10 @@ local function IconBackInit()
           bu.Back:SetBackdropBorderColor(0, 0, 0, 0.9)
         end
       end
-
+      
       -- style bags
       local function styleOtherBag(bu)
-        if (GetWoWVersion <= 30000) then
+        if (GetWoWVersion <= 10000) then
           if not bu or (bu and bu.rabs_styled) then return end
           local name = bu:GetName()
           local ic  = _G[name.."IconTexture"]
@@ -2086,7 +2086,7 @@ local function IconBackInit()
               self:SetNormalTexture(texture)
               self.settingTexture = false
             end
-          end)
+          end)      
           bu.Back = CreateFrame("Frame", nil, bu, BackdropTemplateMixin and "BackdropTemplate")
           bu.Back:SetPoint("TOPLEFT", bu, "TOPLEFT", -4, 4)
           bu.Back:SetPoint("BOTTOMRIGHT", bu, "BOTTOMRIGHT", 4, -4)
@@ -2659,10 +2659,12 @@ local function styleDefaultActionButton(bu)
   AbyssUIClassic_ColorizationFrameFunction(nt)
   --make the normaltexture match the buttonsize
   --nt:SetAllPoints(bu)
-  --ic:SetTexCoord(0.06, 0.9, 0.06, 0.9)
-  --ic:SetTexCoord(0.02, 1, 0.08, 1)
-  --ic:SetPoint("TOPLEFT", bu, "TOPLEFT", 0, 1)
-  --ic:SetPoint("BOTTOMRIGHT", bu, "BOTTOMRIGHT", 1, 0)
+  if (GetWoWVersion <= 90600) then
+    ic:SetTexCoord(0.06, 0.9, 0.06, 0.9)
+    --ic:SetTexCoord(0.02, 1, 0.08, 1)
+    ic:SetPoint("TOPLEFT", bu, "TOPLEFT", 0, 1)
+    ic:SetPoint("BOTTOMRIGHT", bu, "BOTTOMRIGHT", 1, 0)
+  end
   --hook to prevent Blizzard from reseting our colors
   hooksecurefunc(nt, "SetVertexColor", function(nt, r, g, b, a)
     local bu = nt:GetParent()
@@ -2768,23 +2770,6 @@ local function styleDefaultStanceButton(bu)
     AbyssUIClassic_ColorizationFrameFunction(nt)
   end
 end
---[[
--- function just to make sure action style is working
--- Function to handle the "updates" event
-local function onActionBarChangeUpdateHandler()
-  for i = 1, NUM_ACTIONBAR_BUTTONS do
-      styleDefaultActionButton(_G["ActionButton"..i])
-      styleDefaultActionButton(_G["MultiBarBottomLeftButton"..i])
-      styleDefaultActionButton(_G["MultiBarBottomRightButton"..i])
-      styleDefaultActionButton(_G["MultiBarRightButton"..i])
-      styleDefaultActionButton(_G["MultiBarLeftButton"..i])
-  end
-end
--- Register the event handler for event
-local frame = CreateFrame("Frame")
-frame:RegisterEvent("VEHICLE_UPDATE")
-frame:SetScript("OnEvent", onActionBarChangeUpdateHandler)
---]]
 -- Default Init
 local function DefaultInit()
   if (AbyssUIClassicAddonSettings.AbyssIconBorder == true) then
@@ -3105,7 +3090,6 @@ local function DefaultInit()
       --hook Blizzard functions
       hooksecurefunc("BuffFrame_UpdateAllBuffAnchors", updateAllBuffAnchors)
       hooksecurefunc("DebuffButton_UpdateAnchors", updateDebuffAnchors)
-      --hooksecurefunc("ACTIONBAR_UPDATE_COOLDOWN", styleDefaultActionButtonHook)
     end
   else
     return nil

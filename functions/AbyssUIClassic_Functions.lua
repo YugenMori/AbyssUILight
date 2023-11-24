@@ -182,18 +182,20 @@ hooksecurefunc("UnitFramePortrait_Update", function(self)
 end)
 -- Class HP Colours
 local function colour(statusbar, unit)
-	if( AbyssUIClassicAddonSettings.ExtraFunctionFriendlyHealthGreen ~= true ) then
-		local _, class, c
-		if UnitIsPlayer(unit) and UnitIsConnected(unit) and unit == statusbar.unit and UnitClass(unit) then
-			_, class = UnitClass(unit)
-			c = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
-			statusbar:SetStatusBarColor(c.r, c.g, c.b)
-			if ( class == "SHAMAN" and AbyssUIClassicAddonSettings.ExtraFunctionShamanPink ~= true) then
-				statusbar:SetStatusBarColor(0/255, 112/255, 222/255)
-			 else 
-			 	statusbar:SetStatusBarColor(c.r, c.g, c.b)
+	if(AbyssUIClassicAddonSettings.ExtraFunctionFriendlyHealthGreen ~= true) then
+		if (AbyssUIClassicAddonSettings.ExtraFunctionPlayerHealthGreen ~= true) then
+			local _, class, c
+			if UnitIsPlayer(unit) and UnitIsConnected(unit) and unit == statusbar.unit and UnitClass(unit) then
+				_, class = UnitClass(unit)
+				c = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
+				statusbar:SetStatusBarColor(c.r, c.g, c.b)
+				if ( class == "SHAMAN" and AbyssUIClassicAddonSettings.ExtraFunctionShamanPink ~= true) then
+					statusbar:SetStatusBarColor(0/255, 112/255, 222/255)
+				else 
+					statusbar:SetStatusBarColor(c.r, c.g, c.b)
+				end
+				--PlayerFrameHealthBar:SetStatusBarColor(0, 1, 0)
 			end
-			--PlayerFrameHealthBar:SetStatusBarColor(0, 1, 0)
 		end
 	else 
 		return nil
@@ -240,19 +242,6 @@ frame:SetScript("OnEvent", eventHandler)
 for _, BarTextures in pairs({TargetFrameNameBackground}) do
 	BarTextures:SetTexture("Interface\\TargetingFrame\\UI-StatusBar")
 end
-----------------------------------------------------
--- Text round values
---[[
-hooksecurefunc("TextStatusBar_UpdateTextStringWithValues", function()
-	PlayerFrameHealthBar.TextString:SetText(AbbreviateLargeNumbers(UnitHealth("player")))
-	PlayerFrameManaBar.TextString:SetText(AbbreviateLargeNumbers(UnitPower("player")))
-	--TargetFrameHealthBar.TextString:SetText(AbbreviateLargeNumbers(UnitHealth("target")))
-	--TargetFrameManaBar.TextString:SetText(AbbreviateLargeNumbers(UnitPower("target")))
-end)
---]]
-----------------------------------------------------
--- CastBar size fixes
-
 -- Cast bars
 ----------------------------------------------------
 -- Minimap Tweaks
@@ -275,9 +264,6 @@ PlayerHitIndicator.SetText = function() end
 
 PetHitIndicator:SetText(nil)
 PetHitIndicator.SetText = function() end
-----------------------------------------------------
--- Tooltip Class Color and extras 
-
 ----------------------------------------------------
 -- Tooltip
 local UnitColor
@@ -304,7 +290,6 @@ local function UnitColor(unit)
 	end
 	return r, g, b
 end
--- Tooltip
 -- Tooltip Background and borders
 if (GetWoWVersion <= 90500) then
 	if (GetWoWVersion >= 30500) then
@@ -525,17 +510,19 @@ end
 local function eventHandler(self, event, ...)
 	if (event == "PLAYER_TARGET_CHANGED" or event == "PLAYER_FOCUS_CHANGED") then
 		if (GetWoWVersion <= 90500) then
-			if (AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
-				TargetFrameHealthBar:SetStatusBarColor(UnitColor("target"))
-				if (GetWoWVersion > 20000) then
-					FocusFrameHealthBar:SetStatusBarColor(UnitColor("focus"))
+			if (AbyssUIClassicAddonSettings.ExtraFunctionFriendlyHealthGreen ~= true) then
+				if (AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
+					TargetFrameHealthBar:SetStatusBarColor(UnitColor("target"))
+					if (GetWoWVersion > 20000) then
+						FocusFrameHealthBar:SetStatusBarColor(UnitColor("focus"))
+					end
+				else
+					return nil
 				end
-			else
-				return nil
-			end
-			TargetFrameToTHealthBar:SetStatusBarColor(UnitColor("targettarget"))
-			if (GetWoWVersion > 20000) then
-				FocusFrameToTHealthBar:SetStatusBarColor(UnitColor("focustarget"))
+				TargetFrameToTHealthBar:SetStatusBarColor(UnitColor("targettarget"))
+				if (GetWoWVersion > 20000) then
+					FocusFrameToTHealthBar:SetStatusBarColor(UnitColor("focustarget"))
+				end
 			end
 		end	
 	end
@@ -550,11 +537,13 @@ end
 -- Keep the color when health changes
 hooksecurefunc("HealthBar_OnValueChanged", function()
 	if (AbyssUIClassicAddonSettings.UnitFrameImproved ~= true and GetWoWVersion <= 90500) then
-		TargetFrameHealthBar:SetStatusBarColor(UnitColor("target"))
-		TargetFrameToTHealthBar:SetStatusBarColor(UnitColor("targettarget"))	
-		if (GetWoWVersion > 20000) then		
-			FocusFrameHealthBar:SetStatusBarColor(UnitColor("focus"))	
-			FocusFrameToTHealthBar:SetStatusBarColor(UnitColor("focustarget"))
+		if (AbyssUIClassicAddonSettings.ExtraFunctionFriendlyHealthGreen ~= true) then
+			TargetFrameHealthBar:SetStatusBarColor(UnitColor("target"))
+			TargetFrameToTHealthBar:SetStatusBarColor(UnitColor("targettarget"))	
+			if (GetWoWVersion > 20000) then		
+				FocusFrameHealthBar:SetStatusBarColor(UnitColor("focus"))	
+				FocusFrameToTHealthBar:SetStatusBarColor(UnitColor("focustarget"))
+			end
 		end
 	else
 		return nil

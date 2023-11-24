@@ -108,96 +108,33 @@ AbyssUIClassic_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 		local UnitColor
 		local function UnitColor(unit)
 			if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
-				local r, g, b
-				if ( ( not UnitIsPlayer(unit) ) and ( ( not UnitIsConnected(unit) ) or ( UnitIsDeadOrGhost(unit) ) ) ) then
-					--Color it gray
-					r, g, b = 0.5, 0.5, 0.5
-				elseif ( UnitIsPlayer(unit) ) then
-					--Try to color it by class.
-					local localizedClass, englishClass = UnitClass(unit)
-					local classColor = RAID_CLASS_COLORS[englishClass]
-					if ( classColor ) then
-						r, g, b = classColor.r, classColor.g, classColor.b
-					else
-						if ( UnitIsFriend("player", unit) ) then
-							r, g, b = 0.0, 1.0, 0.0
+				if (AbyssUIClassicAddonSettings.ExtraFunctionFriendlyHealthGreen ~= true) then
+					local r, g, b
+					if ( ( not UnitIsPlayer(unit) ) and ( ( not UnitIsConnected(unit) ) or ( UnitIsDeadOrGhost(unit) ) ) ) then
+						--Color it gray
+						r, g, b = 0.5, 0.5, 0.5
+					elseif ( UnitIsPlayer(unit) ) then
+						--Try to color it by class.
+						local localizedClass, englishClass = UnitClass(unit)
+						local classColor = RAID_CLASS_COLORS[englishClass]
+						if ( classColor ) then
+							r, g, b = classColor.r, classColor.g, classColor.b
 						else
-							r, g, b = 1.0, 0.0, 0.0
+							if ( UnitIsFriend("player", unit) ) then
+								r, g, b = 0.0, 1.0, 0.0
+							else
+								r, g, b = 1.0, 0.0, 0.0
+							end
 						end
+					else
+						r, g, b = UnitSelectionColor(unit)
 					end
-				else
-					r, g, b = UnitSelectionColor(unit)
+					return r, g, b
 				end
-				return r, g, b
 			else
 				return nil
 			end
 		end
-		-- PlayerFrameStyle
-		--[[
-	    local function UnitFramesImproved_Style_PlayerFrame()
-	      if (AbyssUIAddonSettings.UnitFrameImproved == true) then
-	      	if (GetWoWVersion <= 90500) then
-		        if not InCombatLockdown() then 
-					PlayerFrameHealthBar.lockColor = true
-					PlayerFrameHealthBar.capNumericDisplay = true
-					PlayerFrameHealthBar:SetWidth(119)
-					PlayerFrameHealthBar:SetHeight(30)
-					PlayerFrameHealthBar:SetPoint("TOPLEFT", 106, -22)
-					PlayerFrameHealthBarText:SetPoint("CENTER", 50, 6)
-		        end
-		        if (AbyssUIAddonSettings.UnitFrameImprovedDefaultTexture ~= true) then
-					if (AbyssUIAddonSettings.ElitePortrait == true and AbyssUIAddonSettings.Dragonflight ~= true and AbyssUIAddonSettings.RarePortrait ~= true) then
-		            	PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUI\\textures\\UI-TargetingFrame-Elite")
-					elseif (AbyssUIAddonSettings.RarePortrait == true and AbyssUIAddonSettings.Dragonflight ~= true and AbyssUIAddonSettings.ElitePortrait ~= true) then
-						PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUI\\textures\\UI-TargetingFrame-Rare")
-	  	        	elseif (AbyssUIAddonSettings.DKAllyPortrait == true) then
-		          		PlayerFrameTexture:SetTexture("Interface\\AddOns\\AbyssUI\\textures\\improved\\UI-PlayerFrame-Deathknight-Alliance")
-		          	elseif (AbyssUIAddonSettings.DKHordePortrait == true) then
-		          		PlayerFrameTexture:SetTexture("Interface\\AddOns\\AbyssUI\\textures\\improved\\UI-PlayerFrame-Deathknight-Horde")
-		          	elseif (AbyssUIAddonSettings.DemonHunterPortrait == true) then
-		          		PlayerFrameTexture:SetTexture("Interface\\AddOns\\AbyssUI\\textures\\improved\\UI-TargetingFrame-DemonHunter")
-		         		PlayerFrameTexture:SetVertexColor(1, 1, 1)
-		         	elseif (AbyssUIAddonSettings.Dragonflight == true and AbyssUIAddonSettings.ElitePortrait ~= true) then
-		         		PlayerFrameTexture:SetTexture("Interface\\AddOns\\AbyssUI\\textures\\improved\\Dragonflight-UI-PlayerFrameLarge")
-						DragonflightUnitPlayerFrameStyle()
-					elseif (AbyssUIAddonSettings.Dragonflight == true and AbyssUIAddonSettings.ElitePortrait == true) then
-		         		PlayerFrameTexture:SetTexture("Interface\\AddOns\\AbyssUI\\textures\\improved\\Dragonflight-UI-PlayerFrameLarge-Elite")
-						DragonflightUnitPlayerFrameStyle()
-		          	else
-		           		PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUI\\textures\\UI-TargetingFrame")
-		          	end
-					if (AbyssUIAddonSettings.DKHordePortrait == true) then
-						PlayerStatusTexture:SetTexture("Interface\\Addons\\AbyssUI\\textures\\improved\\UI-Player-StatusDKH")
-						PlayerFrameHealthBar:SetWidth(105)
-					else
-						PlayerStatusTexture:SetTexture("Interface\\Addons\\AbyssUI\\textures\\UI-Player-Status")
-					end
-					if (GetWoWVersion <= 90500) then
-						PlayerFrameHealthBar:SetStatusBarColor(UnitColor("player"))
-					end
-		        else
-					if (AbyssUIAddonSettings.ElitePortrait == true and AbyssUIAddonSettings.Dragonflight ~= true) then
-						PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUI\\textures\\backup\\UI-TargetingFrame-Elite")
-					elseif (AbyssUIAddonSettings.ElitePortrait == true and AbyssUIAddonSettings.Dragonflight == true) then
-						PlayerFrameTexture:SetTexture("Interface\\AddOns\\AbyssUI\\textures\\improved\\Dragonflight-UI-PlayerFrameLarge-Elite")
-						DragonflightUnitPlayerFrameStyle()
-					elseif (AbyssUIAddonSettings.Dragonflight == true and AbyssUIAddonSettings.ElitePortrait ~= true) then
-						PlayerFrameTexture:SetTexture("Interface\\AddOns\\AbyssUI\\textures\\improved\\Dragonflight-UI-PlayerFrameLarge")
-						DragonflightUnitPlayerFrameStyle()
-					else
-						PlayerFrameTexture:SetTexture("Interface\\Addons\\AbyssUI\\textures\\backup\\UI-TargetingFrame")
-					end
-		          	if (GetWoWVersion <= 90500) then
-		          		PlayerStatusTexture:SetTexture("Interface\\Addons\\AbyssUI\\textures\\backup\\UI-Player-Status")
-		          		PlayerFrameHealthBar:SetStatusBarColor(UnitColor("player"))
-					end
-		        end		      	
-		      end		      	
-	      else
-	        return nil
-	      end
-	    end--]]
 		local function DragonflightUnitPlayerFrameStyle()
 			PlayerFrameHealthBar:SetHeight(20)
 			PlayerFrameHealthBar:SetWidth(125)
@@ -454,37 +391,39 @@ AbyssUIClassic_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 		-- TargetUpdate
 		local function UnitFramesImproved_TargetFrame_Update(self)
 			if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then
-				-- Set back color of health bar
-				if ( not UnitPlayerControlled(self.unit) and UnitIsTapDenied(self.unit) ) then
-					-- Gray if npc is tapped by other player
-					self.healthbar:SetStatusBarColor(0.5, 0.5, 0.5)
-				else
-					-- Standard by class etc if not
-					if ( UnitIsPlayer(self.unit) ) then
-						if ((UnitHealth(self.unit) > 0) and UnitIsConnected(self.unit)) then
-							local healthPercentage = ceil(((UnitHealth(self.unit) / UnitHealthMax(self.unit)) * 1000) /10)
-							if ( healthPercentage == 0 ) then return end
-							if healthPercentage == 100 then
-								self.healthbar:SetStatusBarColor(UnitColor(self.healthbar.unit))
-							elseif healthPercentage < 100 and healthPercentage > 21 then
-								self.healthbar:SetStatusBarColor(UnitColor(self.healthbar.unit))
-							elseif healthPercentage < 21 then
-								self.healthbar:SetStatusBarColor(255/255, 255/255, 255/255)
-							end				
-						end	
+				if (AbyssUIClassicAddonSettings.ExtraFunctionFriendlyHealthGreen ~= true) then
+					-- Set back color of health bar
+					if ( not UnitPlayerControlled(self.unit) and UnitIsTapDenied(self.unit) ) then
+						-- Gray if npc is tapped by other player
+						self.healthbar:SetStatusBarColor(0.5, 0.5, 0.5)
 					else
-						-- Change Color By health
-						if ((UnitHealth(self.unit) > 0) and UnitIsConnected(self.unit)) then
-							local healthPercentage = ceil(((UnitHealth(self.unit) / UnitHealthMax(self.unit)) * 1000) /10)
-							if ( healthPercentage == 0 ) then return end
-							if healthPercentage == 100 then
-								self.healthbar:SetStatusBarColor(UnitColor(self.healthbar.unit))
-							elseif healthPercentage < 100 and healthPercentage > 21 then
-								self.healthbar:SetStatusBarColor(UnitColor(self.healthbar.unit))
-							elseif healthPercentage < 21 then
-								self.healthbar:SetStatusBarColor(255/255, 255/255, 255/255)
-							end				
-						end	
+						-- Standard by class etc if not
+						if ( UnitIsPlayer(self.unit) ) then
+							if ((UnitHealth(self.unit) > 0) and UnitIsConnected(self.unit)) then
+								local healthPercentage = ceil(((UnitHealth(self.unit) / UnitHealthMax(self.unit)) * 1000) /10)
+								if ( healthPercentage == 0 ) then return end
+								if healthPercentage == 100 then
+									self.healthbar:SetStatusBarColor(UnitColor(self.healthbar.unit))
+								elseif healthPercentage < 100 and healthPercentage > 21 then
+									self.healthbar:SetStatusBarColor(UnitColor(self.healthbar.unit))
+								elseif healthPercentage < 21 then
+									self.healthbar:SetStatusBarColor(255/255, 255/255, 255/255)
+								end				
+							end	
+						else
+							-- Change Color By health
+							if ((UnitHealth(self.unit) > 0) and UnitIsConnected(self.unit)) then
+								local healthPercentage = ceil(((UnitHealth(self.unit) / UnitHealthMax(self.unit)) * 1000) /10)
+								if ( healthPercentage == 0 ) then return end
+								if healthPercentage == 100 then
+									self.healthbar:SetStatusBarColor(UnitColor(self.healthbar.unit))
+								elseif healthPercentage < 100 and healthPercentage > 21 then
+									self.healthbar:SetStatusBarColor(UnitColor(self.healthbar.unit))
+								elseif healthPercentage < 21 then
+									self.healthbar:SetStatusBarColor(255/255, 255/255, 255/255)
+								end				
+							end	
+						end
 					end
 				end
 				if ((UnitHealth(self.unit) <= 0) and UnitIsConnected(self.unit)) then

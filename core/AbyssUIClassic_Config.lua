@@ -114,10 +114,6 @@ local function InitSettings()
   -- Add the panel to the Interface Options
   InterfaceOptions_AddCategory(AbyssUIClassic_Config.panel, addonName)
   --Child Panels
-  AbyssUIClassic_Config.childpanel1 = CreateFrame( "Frame", "$parentConfigChild_ActionBar", AbyssUIClassic_Config.panel)
-  AbyssUIClassic_Config.childpanel1.name = "ActionBar"
-  AbyssUIClassic_Config.childpanel1.parent = AbyssUIClassic_Config.panel.name
-  InterfaceOptions_AddCategory(AbyssUIClassic_Config.childpanel1)
   --
   AbyssUIClassic_Config.childpanel2 = CreateFrame( "Frame", "$parentConfigChild_HideElements", AbyssUIClassic_Config.panel)
   AbyssUIClassic_Config.childpanel2.name = L["Hide Elements"]
@@ -138,7 +134,7 @@ local function InitSettings()
   AbyssUIClassic_Config.childpanel5.name = L["Tweaks & Extra"]
   AbyssUIClassic_Config.childpanel5.parent = AbyssUIClassic_Config.panel.name
   InterfaceOptions_AddCategory(AbyssUIClassic_Config.childpanel5)
-    --
+  --
   AbyssUIClassic_Config.childpanel7 = CreateFrame( "Frame", "$parentConfigChild_Extras", AbyssUIClassic_Config.panel)
   AbyssUIClassic_Config.childpanel7.name = L["Icons"]
   AbyssUIClassic_Config.childpanel7.parent = AbyssUIClassic_Config.panel.name
@@ -167,15 +163,6 @@ local function InitSettings()
   "Options that have a different text color are based on your choice in the setup."..
   " Those options are set by default if you choose recommended settings.\n"..
   "Check the options by clicking in the (+) button on the left."])
-  -- Panel 01 (ActionBar)
-  local Frame = CreateFrame("Frame","$parentFrameButtonPanel01", AbyssUIClassic_Config.childpanel1)
-  Frame:SetPoint("CENTER", AbyssUIClassic_Config.childpanel1, "TOP", 0, -20)
-  Frame:SetWidth(120)
-  Frame:SetHeight(24)
-  Frame:SetScale(1.5)
-  Frame = Frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-  Frame:SetPoint("CENTER")
-  Frame:SetText("AbyssUI|cffc41F3BClassic|r Actionbar")
   -- Panel 02 (HideElements)
   local Frame = CreateFrame("Frame","$parentFrameButtonPanel02", AbyssUIClassic_Config.childpanel2)
   Frame:SetPoint("CENTER", AbyssUIClassic_Config.childpanel2, "TOP", 0, -20)
@@ -302,6 +289,24 @@ local function InitSettings()
   Frame = Frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   Frame:SetPoint("CENTER")
   Frame:SetText(L["- Icons"])
+  -- ActionBar
+  local Frame = CreateFrame("Frame","$parentFrameButtonPanel07", AbyssUIClassic_Config.childpanel7)
+  Frame:SetPoint("CENTER", AbyssUIClassic_Config.childpanel7, "TOP", 0, -180)
+  Frame:SetWidth(120)
+  Frame:SetHeight(24)
+  Frame:SetScale(1.5)
+  Frame = Frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+  Frame:SetPoint("CENTER")
+  Frame:SetText("ActionBar")
+  -- Minimap
+  local Frame = CreateFrame("Frame","$parentFrameButtonPanel07", AbyssUIClassic_Config.childpanel7)
+  Frame:SetPoint("CENTER", AbyssUIClassic_Config.childpanel7, "TOP", 0, -250)
+  Frame:SetWidth(120)
+  Frame:SetHeight(24)
+  Frame:SetScale(1.5)
+  Frame = Frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+  Frame:SetPoint("CENTER")
+  Frame:SetText("Minimap")
   --------------------------------- Buttons ---------------------------------
   local _G = _G
   local levelString       = _G["LEVEL"]
@@ -580,8 +585,8 @@ local function InitSettings()
   end)
   ----------------------------- AbyssUIClassic Actionbar -------------------------------
   -- AbyssUIClassic Action Bar --
-  local AbyssUIClassicNewActionBar3x12_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassicNewActionBar3x12_CheckButton", AbyssUIClassic_Config.childpanel1, "ChatConfigCheckButtonTemplate")
-  AbyssUIClassicNewActionBar3x12_CheckButton:SetPoint("TOPLEFT", 10, -140)
+  local AbyssUIClassicNewActionBar3x12_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassicNewActionBar3x12_CheckButton", AbyssUIClassic_Config.childpanel7, "ChatConfigCheckButtonTemplate")
+  AbyssUIClassicNewActionBar3x12_CheckButton:SetPoint("TOPLEFT", 10, -300)
   AbyssUIClassicNewActionBar3x12_CheckButton.Text:SetText("3x12 Actionbar")
   AbyssUIClassicNewActionBar3x12_CheckButton.tooltip = "Adds a new bar above the Blizzard MainActionBar"
   AbyssUIClassicNewActionBar3x12_CheckButton:SetChecked(AbyssUIClassicAddonSettings.AbyssUIClassicNewActionBar3x12)
@@ -1545,9 +1550,20 @@ local function Miscellaneous()
     AbyssUIClassicAddonSettings.ExtraFunctionFriendlyHealthGreen = self:GetChecked()
     AbyssUIClassic_ReloadFrame:Show()
   end)
+  -- Player Green Healthbar --
+  local AbyssUIClassic_PlayerHealthGreen_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassic_PlayerHealthGreen_CheckButton", AbyssUIClassic_Config.childpanel3, "ChatConfigCheckButtonTemplate")
+  AbyssUIClassic_PlayerHealthGreen_CheckButton:SetPoint("TOPLEFT", 10, -500)
+  AbyssUIClassic_PlayerHealthGreen_CheckButton.Text:SetText("Player HealthBar")
+  AbyssUIClassic_PlayerHealthGreen_CheckButton.tooltip = "Player unitframe health bars will be green (default)"
+  AbyssUIClassic_PlayerHealthGreen_CheckButton:SetChecked(AbyssUIClassicAddonSettings.ExtraFunctionPlayerHealthGreen)
+  -- OnClick Function
+  AbyssUIClassic_PlayerHealthGreen_CheckButton:SetScript("OnClick", function(self)
+    AbyssUIClassicAddonSettings.ExtraFunctionPlayerHealthGreen = self:GetChecked()
+    AbyssUIClassic_ReloadFrame:Show()
+  end)
   -- Transparent Background Name --
   local AbyssUIClassic_TransparentName_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassic_TransparentName_CheckButton", AbyssUIClassic_Config.childpanel3, "ChatConfigCheckButtonTemplate")
-  AbyssUIClassic_TransparentName_CheckButton:SetPoint("TOPLEFT", 10, -500)
+  AbyssUIClassic_TransparentName_CheckButton:SetPoint("TOPLEFT", 10, -530)
   AbyssUIClassic_TransparentName_CheckButton.Text:SetText(L["Transparent Name BKGD"])
   AbyssUIClassic_TransparentName_CheckButton.tooltip = L["Remove any color in the target name background"]
   AbyssUIClassic_TransparentName_CheckButton:SetChecked(AbyssUIClassicAddonSettings.ExtraFunctionTransparentName)
@@ -1555,18 +1571,6 @@ local function Miscellaneous()
   AbyssUIClassic_TransparentName_CheckButton:SetScript("OnClick", function(self)
     AbyssUIClassicAddonSettings.ExtraFunctionTransparentName = self:GetChecked()
     AbyssUIClassic_ReloadFrame:Show()
-  end)
-  -- Instance Leave --
-  local AbyssUIClassic_InstanceLeave_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassic_InstanceLeave_CheckButton", AbyssUIClassic_Config.childpanel3, "ChatConfigCheckButtonTemplate")
-  AbyssUIClassic_InstanceLeave_CheckButton:SetPoint("TOPLEFT", 10, -530)
-  AbyssUIClassic_InstanceLeave_CheckButton.Text:SetText(L["|cfff2dc7fInstance Leave Frame|r"])
-  AbyssUIClassic_InstanceLeave_CheckButton.tooltip = L["A dynamic frame that pop-up when you"..
-  " complete a LFG (dungeon, raid, etc)"]
-  --AbyssUIClassic_InstanceLeave_CheckButton:SetChecked(AbyssUIClassicAddonSettings.ExtraFunctionInstanceLeave)
-  -- OnClick Function
-  AbyssUIClassic_InstanceLeave_CheckButton:SetScript("OnClick", function(self)
-    --AbyssUIClassicAddonSettings.ExtraFunctionInstanceLeave = self:GetChecked()
-    AbyssUIClassic_InstanceLeave_CheckButton:SetChecked(nil)
   end)
   -- 2nd Column
   -- CTRL + ' to confirm  --
@@ -1756,6 +1760,18 @@ local function Miscellaneous()
     AbyssUIClassicAddonSettings.DisableCharacterText = self:GetChecked()
     AbyssUIClassic_ReloadFrame:Show()
   end)
+  -- Instance Leave --
+  local AbyssUIClassic_InstanceLeave_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassic_InstanceLeave_CheckButton", AbyssUIClassic_Config.childpanel3, "ChatConfigCheckButtonTemplate")
+  AbyssUIClassic_InstanceLeave_CheckButton:SetPoint("TOPLEFT", 400, -470)
+  AbyssUIClassic_InstanceLeave_CheckButton.Text:SetText(L["|cfff2dc7fInstance Leave Frame|r"])
+  AbyssUIClassic_InstanceLeave_CheckButton.tooltip = L["A dynamic frame that pop-up when you"..
+  " complete a LFG (dungeon, raid, etc)"]
+  --AbyssUIClassic_InstanceLeave_CheckButton:SetChecked(AbyssUIClassicAddonSettings.ExtraFunctionInstanceLeave)
+  -- OnClick Function
+  AbyssUIClassic_InstanceLeave_CheckButton:SetScript("OnClick", function(self)
+    --AbyssUIClassicAddonSettings.ExtraFunctionInstanceLeave = self:GetChecked()
+    AbyssUIClassic_InstanceLeave_CheckButton:SetChecked(nil)
+  end)
 end
 --End
 local function TweaksExtra()
@@ -1836,22 +1852,9 @@ local function TweaksExtra()
     AbyssUIClassicAddonSettings.FadeUI = self:GetChecked()
     AbyssUIClassic_ReloadFrameFadeUI:Show()
   end)
-  -- Disable Square Minimap --
-  local DisableSquareMinimap_CheckButton = CreateFrame("CheckButton", "$parentSquareMinimap_CheckButton", AbyssUIClassic_Config.childpanel5, "ChatConfigCheckButtonTemplate")
-  DisableSquareMinimap_CheckButton:SetPoint("TOPLEFT", 10, -170)
-  DisableSquareMinimap_CheckButton.Text:SetText("|cff0d75d4"..L["Disable Square Minimap"].."|r")
-  DisableSquareMinimap_CheckButton.tooltip = L["This option will get you back to the"..
-  " Blizzard default minimap style (round). *You need to restart the game so round textures can be re-loaded"]
-  DisableSquareMinimap_CheckButton:SetChecked(AbyssUIClassicAddonSettings.DisableSquareMinimap)
-  addonTable.DisableSquareMinimap = DisableSquareMinimap_CheckButton
-  -- OnClick Function
-  DisableSquareMinimap_CheckButton:SetScript("OnClick", function(self)
-    AbyssUIClassicAddonSettings.DisableSquareMinimap = self:GetChecked()
-    AbyssUIClassic_ReloadFrame:Show()
-  end)
   -- Minimal ActionBar --
   local MinimalActionBar_CheckButton = CreateFrame("CheckButton", "$parentMinimalActionBar_CheckButton", AbyssUIClassic_Config.childpanel5, "ChatConfigCheckButtonTemplate")
-  MinimalActionBar_CheckButton:SetPoint("TOPLEFT", 10, -200)
+  MinimalActionBar_CheckButton:SetPoint("TOPLEFT", 10, -170)
   MinimalActionBar_CheckButton.Text:SetText(L["Minimal ActionBar"])
   MinimalActionBar_CheckButton.tooltip = L["Minimalist actionbar, hide all the textures"]
   MinimalActionBar_CheckButton:SetChecked(AbyssUIClassicAddonSettings.MinimalActionBar)
@@ -1862,7 +1865,7 @@ local function TweaksExtra()
   end)
   -- Disable UnitFrame Smoke --
   local DisableUnitFrameSmoke_CheckButton = CreateFrame("CheckButton", "$parentDisableUnitFrameSmoke_CheckButton", AbyssUIClassic_Config.childpanel5, "ChatConfigCheckButtonTemplate")
-  DisableUnitFrameSmoke_CheckButton:SetPoint("TOPLEFT", 10, -230)
+  DisableUnitFrameSmoke_CheckButton:SetPoint("TOPLEFT", 10, -200)
   DisableUnitFrameSmoke_CheckButton.Text:SetText("|cff0d75d4"..L["Disable Smoke Texture"].."|r")
   DisableUnitFrameSmoke_CheckButton.tooltip = L["It will disable the 'smoke' texture around the portrait in "..
   "the UnitFrameImproved version of it"]
@@ -1875,7 +1878,7 @@ local function TweaksExtra()
   end)
   -- Disable Kill Announcer --
   local KillAnnouncer_CheckButton = CreateFrame("CheckButton", "$parentKillAnnouncer_CheckButton", AbyssUIClassic_Config.childpanel5, "ChatConfigCheckButtonTemplate")
-  KillAnnouncer_CheckButton:SetPoint("TOPLEFT", 10, -260)
+  KillAnnouncer_CheckButton:SetPoint("TOPLEFT", 10, -230)
   KillAnnouncer_CheckButton.Text:SetText(L["Disable Kill Announcer"])
   KillAnnouncer_CheckButton.tooltip = L["Disable the Kill Announcer frame that show up when you kill someone"]
   KillAnnouncer_CheckButton:SetChecked(AbyssUIClassicAddonSettings.DisableKillAnnouncer)
@@ -1886,7 +1889,7 @@ local function TweaksExtra()
   end)
   -- Silence Kill Announcer --
   local SilenceKillAnnouncer_CheckButton = CreateFrame("CheckButton", "$parentSilenceKillAnnouncer_CheckButton", AbyssUIClassic_Config.childpanel5, "ChatConfigCheckButtonTemplate")
-  SilenceKillAnnouncer_CheckButton:SetPoint("TOPLEFT", 10, -290)
+  SilenceKillAnnouncer_CheckButton:SetPoint("TOPLEFT", 10, -260)
   SilenceKillAnnouncer_CheckButton.Text:SetText(L["Silence Kill Announcer"])
   SilenceKillAnnouncer_CheckButton.tooltip = L["Remove boss/kill sounds from the Kill Announcer frame"]
   SilenceKillAnnouncer_CheckButton:SetChecked(AbyssUIClassicAddonSettings.SilenceKillAnnouncer)
@@ -1896,7 +1899,7 @@ local function TweaksExtra()
   end)
   -- TooltipOnCursor --
   local TooltipOnCursor_CheckButton = CreateFrame("CheckButton", "$parentTooltipOnCursor_CheckButton", AbyssUIClassic_Config.childpanel5, "ChatConfigCheckButtonTemplate")
-  TooltipOnCursor_CheckButton:SetPoint("TOPLEFT", 10, -320)
+  TooltipOnCursor_CheckButton:SetPoint("TOPLEFT", 10, -290)
   TooltipOnCursor_CheckButton.Text:SetText(L["|cfff2dc7fTooltip on Cursor|r"])
   TooltipOnCursor_CheckButton.tooltip = L["Tooltips will appear close to the mouse cursor position"]
   TooltipOnCursor_CheckButton:SetChecked(AbyssUIClassicAddonSettings.TooltipOnCursor)
@@ -1904,18 +1907,6 @@ local function TweaksExtra()
   -- OnClick Function
   TooltipOnCursor_CheckButton:SetScript("OnClick", function(self)
     AbyssUIClassicAddonSettings.TooltipOnCursor = self:GetChecked()
-    AbyssUIClassic_ReloadFrame:Show()
-  end)
-  -- Always show clock --
-  local AlwaysShowClock_CheckButton = CreateFrame("CheckButton", "$parentAlwaysShowClock_CheckButton", AbyssUIClassic_Config.childpanel5, "ChatConfigCheckButtonTemplate")
-  AlwaysShowClock_CheckButton:SetPoint("TOPLEFT", 10, -350)
-  AlwaysShowClock_CheckButton.Text:SetText("|cff0d75d4"..L["Show Minimap Clock"].."|r")
-  AlwaysShowClock_CheckButton.tooltip = L["This will always show the minimap clock, instead of showing on hover"]
-  AlwaysShowClock_CheckButton:SetChecked(AbyssUIClassicAddonSettings.AlwaysShowClock)
-  addonTable.AlwaysShowClock = AlwaysShowClock_CheckButton
-  -- OnClick Function
-  AlwaysShowClock_CheckButton:SetScript("OnClick", function(self)
-    AbyssUIClassicAddonSettings.AlwaysShowClock = self:GetChecked()
     AbyssUIClassic_ReloadFrame:Show()
   end)
   --- Frames ---
@@ -2090,7 +2081,6 @@ local function TweaksExtra()
     end
   end)
 end
-
 -- End
 local function IconsFonts ()
 ----------------------------------- Icons  -----------------------------------
@@ -2387,76 +2377,31 @@ local function IconsFonts ()
       AbyssIconBorder_CheckButton:SetChecked(nil)
     end
   end)
-  --[[
-  --Fonts
-  -- Create a frame to hold the dropdown
-  --Global
-  local frame = CreateFrame("Frame", "$parentFontSelectionFrameGlobal", AbyssUIClassic_Config.childpanel7, "UIDropDownMenuTemplate")
-  frame:SetPoint("CENTER", AbyssUIClassic_Config.childpanel7, "CENTER")
-  frame:SetSize(200, 30)
-
-  -- Create a function to be called when a font is selected
-  local function OnFontSelected(self, fontName)
-    UIDropDownMenu_SetText(frame, fontName)
-    -- Do something with the selected font, like updating a font for a specific frame or element
-    local newglobalFont = fontName
-  end
-
-  -- Initialize the dropdown menu
-  UIDropDownMenu_Initialize(frame, function(self, level, menuList)
-      local info = UIDropDownMenu_CreateInfo()
-      local mediaFolder = "Interface\\AddOns\\AbyssUIClassic\\Textures\\font\\"
-      local newglobalFont = mediaFolder.."global.tff"
-      info.func = OnFontSelected
-
-      local fonts = {
-          "Blizzard Default",
-          "Open Sans",
-          "Monstserrat",
-          "Oswald",
-          "Nikkyou",
-          "Rocker",
-          "Immortal",
-          -- Add more fonts as needed
-      }
-
-      for _, fontName in ipairs(fonts) do
-          info.text = fontName
-          info.arg1 = fontName
-          UIDropDownMenu_AddButton(info)
-      end
+  -- Disable Square Minimap --
+  local DisableSquareMinimap_CheckButton = CreateFrame("CheckButton", "$parentSquareMinimap_CheckButton", AbyssUIClassic_Config.childpanel7, "ChatConfigCheckButtonTemplate")
+  DisableSquareMinimap_CheckButton:SetPoint("TOPLEFT", 10, -400)
+  DisableSquareMinimap_CheckButton.Text:SetText("|cff0d75d4"..L["Disable Square Minimap"].."|r")
+  DisableSquareMinimap_CheckButton.tooltip = L["This option will get you back to the"..
+  " Blizzard default minimap style (round). *You need to restart the game so round textures can be re-loaded"]
+  DisableSquareMinimap_CheckButton:SetChecked(AbyssUIClassicAddonSettings.DisableSquareMinimap)
+  addonTable.DisableSquareMinimap = DisableSquareMinimap_CheckButton
+  -- OnClick Function
+  DisableSquareMinimap_CheckButton:SetScript("OnClick", function(self)
+    AbyssUIClassicAddonSettings.DisableSquareMinimap = self:GetChecked()
+    AbyssUIClassic_ReloadFrame:Show()
   end)
-
-  -- Set the default text
-  UIDropDownMenu_SetText(frame, "Select Font")
-
-  -- Add the dropdown to your UI frame or wherever you need it
-  -- Your code to add the frame to your UI goes here
-  if (fontName == "Blizzard Default") then
-    newglobalFont = "Fonts\\FRIZQT__.TTF"
-    AbyssUIClassic_ReloadFrame()
-  elseif (fontName == "Open Sans") then
-    newglobalFont = mediaFolder.."global.tff"
-    AbyssUIClassic_ReloadFrame()
-  elseif (fontName == "Monstserrat") then
-    newglobalFont = mediaFolder.."globalsmall.tff"
-    AbyssUIClassic_ReloadFrame()
-  elseif (fontName == "Oswald") then
-    newglobalFont = mediaFolder.."npcfont.tff"
-    AbyssUIClassic_ReloadFrame()
-  elseif (fontName == "Nikkyou") then
-    newglobalFont = mediaFolder.."npcfont_fat.tff"
-    AbyssUIClassic_ReloadFrame()
-  elseif (fontName == "Rocker") then
-    newglobalFont = mediaFolder.."damagefont.tff"
-    AbyssUIClassic_ReloadFrame()
-  elseif (fontName == "Nikkyou") then
-    newglobalFont = mediaFolder.."damagefont_classic.tff"
-    AbyssUIClassic_ReloadFrame()
-  else
-    return nil
-  end
-  --]]
+  -- Always show clock --
+  local AlwaysShowClock_CheckButton = CreateFrame("CheckButton", "$parentAlwaysShowClock_CheckButton", AbyssUIClassic_Config.childpanel7, "ChatConfigCheckButtonTemplate")
+  AlwaysShowClock_CheckButton:SetPoint("TOPLEFT", 10, -430)
+  AlwaysShowClock_CheckButton.Text:SetText("|cff0d75d4"..L["Show Minimap Clock"].."|r")
+  AlwaysShowClock_CheckButton.tooltip = L["This will always show the minimap clock, instead of showing on hover"]
+  AlwaysShowClock_CheckButton:SetChecked(AbyssUIClassicAddonSettings.AlwaysShowClock)
+  addonTable.AlwaysShowClock = AlwaysShowClock_CheckButton
+  -- OnClick Function
+  AlwaysShowClock_CheckButton:SetScript("OnClick", function(self)
+    AbyssUIClassicAddonSettings.AlwaysShowClock = self:GetChecked()
+    AbyssUIClassic_ReloadFrame:Show()
+  end)
 end
 --End
 local function Stylization()

@@ -736,37 +736,25 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 		local color = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]			
 		
 		Minimap:SetSize(182*scale, 182*scale)
-		Minimap:SetMaskTexture(mediaFolder.."rectanglenew")
+		Minimap:SetMaskTexture(mediaFolder.."rectangle")
 		Minimap:SetHitRectInsets(0, 0, scale, scale)
 		Minimap:ClearAllPoints()
 		Minimap:SetPoint(position, UIParent, position_x, position_y)
 		Minimap:SetScale(scale)
-		Minimap:SetFrameLevel(6)		
-
-		BorderFrame = CreateFrame("Frame", nil, self, BackdropTemplateMixin and "BackdropTemplate")
-		BorderFrame:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, (scale))
-		BorderFrame:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 0, -(scale))
-		BorderFrame:SetBackdrop(backdrop)
-		if not classColoredBorder then
-			BorderFrame:SetBackdropBorderColor(unpack(brdcolor))
-		else
-			if ( AbyssUIClassicAddonSettings.UIVertexColorFramesColorPicker ~= true ) then
-				if ( AbyssUIClassicAddonSettings.KeepUnitDark == true and AbyssUIClassicAddonSettings.UIVertexColorFrames02 ~= true ) then
-					BorderFrame:SetBackdropBorderColor(unpack(brdcolor))
-				elseif ( AbyssUIClassicAddonSettings.UIVertexColorFrames02 == true and AbyssUIClassicAddonSettings.KeepUnitDark ~= true ) then
-					BorderFrame:SetBackdropBorderColor(unpack(brdcolor))				
-				else
-					local r, g, b = AbyssUIClassic_RBGColorizationFrameFunction(BorderFrame)
-					BorderFrame:SetBackdropBorderColor(r, g, b)
-				end
-			else
-				local character = UnitName("player").."-"..GetRealmName()
-				BorderFrame:SetBackdropBorderColor(COLOR_MY_UI[character].Color.r, COLOR_MY_UI[character].Color.g, COLOR_MY_UI[character].Color.b)
-			end
-		end	
-		BorderFrame:SetBackdropColor(unpack(backdropcolor))
-		BorderFrame:SetFrameLevel(2)
+		Minimap:SetFrameLevel(6)
 		
+		-- New Border
+		local frame = Minimap -- replace this with your frame
+		local frameborder = CreateFrame("Frame", nil, frame)
+		frameborder:SetAllPoints(frame)
+		frameborder:SetFrameStrata("HIGH")
+		frameborder:SetFrameLevel(8)
+	
+		frameborder.texture = frameborder:CreateTexture(nil, "BACKGROUND")
+		frameborder.texture:SetAllPoints(frameborder)
+		frameborder.texture:SetTexture("Interface\\AddOns\\AbyssUIClassic\\Textures\\minimap\\abyssminimapborder")
+		AbyssUIClassic_ColorizationFrameFunction(frameborder.texture)
+
 		-- hide some stuff --
 		--MinimapBackdrop:Hide()
 		MinimapBorder:Hide()
