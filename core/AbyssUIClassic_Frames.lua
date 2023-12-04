@@ -836,7 +836,7 @@ FrameButtonModern:SetScript("OnClick", function()
 		addonTable.UnitFrameImproved,
 		addonTable.ElitePortrait,
 		addonTable.FlatHealth,
-		addonTable.AbyssIconBorder,
+		addonTable.OldSchoolIconBorder,
 	} do
 	 	v:SetChecked(true)
 	end
@@ -853,7 +853,7 @@ FrameButtonModern:SetScript("OnClick", function()
 	AbyssUIClassicAddonSettings.UnitFrameImproved 					= addonTable.UnitFrameImproved:GetChecked()
 	AbyssUIClassicAddonSettings.ElitePortrait 						= addonTable.ElitePortrait:GetChecked()
 	AbyssUIClassicAddonSettings.FlatHealth 				      		= addonTable.FlatHealth:GetChecked()
-	AbyssUIClassicAddonSettings.AbyssIconBorder						= addonTable.AbyssIconBorder:GetChecked()
+	AbyssUIClassicAddonSettings.OldSchoolIconBorder					= addonTable.OldSchoolIconBorder:GetChecked()
 	AbyssUIClassicSecondFrame:Hide()
 	FrameButtonModern.Glow:Finish()
 	ReloadUI()
@@ -892,7 +892,7 @@ FrameButtonClassic:SetScript("OnClick", function()
 		addonTable.DisableTooltipHealth,
 		addonTable.RarePortrait,
 		addonTable.AlwaysShowClock,
-		addonTable.AbyssIconBorder,
+		addonTable.OldSchoolIconBorder,
 	} do
 		v:SetChecked(true)
 	end
@@ -913,7 +913,7 @@ FrameButtonClassic:SetScript("OnClick", function()
 	AbyssUIClassicAddonSettings.DisableTooltipHealth 						= addonTable.DisableTooltipHealth:GetChecked()
 	AbyssUIClassicAddonSettings.RarePortrait 								= addonTable.RarePortrait:GetChecked()
 	AbyssUIClassicAddonSettings.AlwaysShowClock 							= addonTable.AlwaysShowClock:GetChecked()
-	AbyssUIClassicAddonSettings.AbyssIconBorder								= addonTable.AbyssIconBorder:GetChecked()
+	AbyssUIClassicAddonSettings.OldSchoolIconBorder							= addonTable.OldSchoolIconBorder:GetChecked()
 	AbyssUIClassicSecondFrame:Hide()
 	FrameButtonModern.Glow:Finish()
 	ReloadUI()

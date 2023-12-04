@@ -693,6 +693,7 @@ local function squareminimapExtras()
 		end)
 	end
 end
+
 -- Thanks to Dawn for part of this amazing minimap code
 local SquareMinimap_ = CreateFrame("CheckButton", "$parentSquareMinimap_", UIParent, "ChatConfigCheckButtonTemplate")
 SquareMinimap_:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -742,12 +743,13 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 		Minimap:SetPoint(position, UIParent, position_x, position_y)
 		Minimap:SetScale(scale)
 		Minimap:SetFrameLevel(6)
+		MiniMapTrackingFrame:SetFrameLevel(10)
 		
 		-- New Border
 		local frame = Minimap -- replace this with your frame
 		local frameborder = CreateFrame("Frame", nil, frame)
 		frameborder:SetAllPoints(frame)
-		frameborder:SetFrameStrata("HIGH")
+		frameborder:SetFrameStrata("LOW")
 		frameborder:SetFrameLevel(8)
 	
 		frameborder.texture = frameborder:CreateTexture(nil, "BACKGROUND")

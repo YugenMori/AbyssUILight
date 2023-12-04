@@ -2347,6 +2347,7 @@ local function IconsFonts ()
       OldSchoolIconBorder_CheckButton:SetChecked(nil)
     end
   end)
+  --[[
   -- Abyss Theme
   local AbyssIconBorder_CheckButton = CreateFrame("CheckButton", "$parentAbyssIconBorder_CheckButton", AbyssUIClassic_Config.childpanel7, "ChatConfigCheckButtonTemplate")
   AbyssIconBorder_CheckButton:SetPoint("TOPLEFT", 180, -200)
@@ -2377,6 +2378,7 @@ local function IconsFonts ()
       AbyssIconBorder_CheckButton:SetChecked(nil)
     end
   end)
+  --]]
   -- Disable Square Minimap --
   local DisableSquareMinimap_CheckButton = CreateFrame("CheckButton", "$parentSquareMinimap_CheckButton", AbyssUIClassic_Config.childpanel7, "ChatConfigCheckButtonTemplate")
   DisableSquareMinimap_CheckButton:SetPoint("TOPLEFT", 10, -400)
