@@ -2329,6 +2329,7 @@ local function IconsFonts ()
   OldSchoolIconBorder_CheckButton.Text:SetAllPoints(Frame)
   OldSchoolIconBorder_CheckButton.tooltip = "Old School"
   OldSchoolIconBorder_CheckButton:SetChecked(AbyssUIClassicAddonSettings.OldSchoolIconBorder)
+  addonTable.OldSchoolIconBorder = OldSchoolIconBorder_CheckButton
   -- OnClick Function
   OldSchoolIconBorder_CheckButton:SetScript("OnClick", function(self)
     if AbyssUIClassicAddonSettings.CrispIconBorder   ~= true and 

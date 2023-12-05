@@ -743,7 +743,9 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 		Minimap:SetPoint(position, UIParent, position_x, position_y)
 		Minimap:SetScale(scale)
 		Minimap:SetFrameLevel(6)
-		MiniMapTrackingFrame:SetFrameLevel(10)
+		if (GetWoWVersion < 30000) then
+			MiniMapTrackingFrame:SetFrameLevel(10)
+		end
 		
 		-- New Border
 		local frame = Minimap -- replace this with your frame
