@@ -511,29 +511,31 @@ local function eventHandler(self, event, ...)
 	if (event == "PLAYER_TARGET_CHANGED" or event == "PLAYER_FOCUS_CHANGED") then
 		if (GetWoWVersion <= 90500) then
 			_, class = UnitClass("Target")
-			if (AbyssUIClassicAddonSettings.ExtraFunctionFriendlyHealthGreen ~= true) then
-				if (AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
-					if (AbyssUIClassicAddonSettings.ExtraFunctionPlayerHealthGreen == true and UnitPlayerControlled("target")) then
-						TargetFrameHealthBar:SetStatusBarColor(10/255, 255/255, 10/255)				
-					else
-						if (class == "SHAMAN" and AbyssUIClassicAddonSettings.ExtraFunctionShamanPink ~= true) then
-							TargetFrameHealthBar:SetStatusBarColor(0/255, 112/255, 222/255)
-						else			
-							TargetFrameHealthBar:SetStatusBarColor(UnitColor("target"))
-						end
-						if (GetWoWVersion > 20000) then
-							FocusFrameHealthBar:SetStatusBarColor(UnitColor("focus"))
-						end
+			if (AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
+				if (UnitAffectingCombat("target") and not UnitPlayerControlled("target")) then
+					TargetFrameHealthBar:SetStatusBarColor(255/255, 10/255, 10/255)
+				elseif (AbyssUIClassicAddonSettings.ExtraFunctionPlayerHealthGreen == true and UnitPlayerControlled("target")) then
+					TargetFrameHealthBar:SetStatusBarColor(10/255, 255/255, 10/255)
+				elseif (AbyssUIClassicAddonSettings.ExtraFunctionFriendlyHealthGreen == true) then
+					TargetFrameHealthBar:SetStatusBarColor(10/255, 255/255, 10/255)
+				else
+					if (class == "SHAMAN" and AbyssUIClassicAddonSettings.ExtraFunctionShamanPink ~= true) then
+						TargetFrameHealthBar:SetStatusBarColor(0/255, 112/255, 222/255)
+					else			
+						TargetFrameHealthBar:SetStatusBarColor(UnitColor("target"))
+					end
+					if (GetWoWVersion > 20000) then
+						FocusFrameHealthBar:SetStatusBarColor(UnitColor("focus"))
 					end
 				end
-				if (class == "SHAMAN" and AbyssUIClassicAddonSettings.ExtraFunctionShamanPink ~= true) then
-					TargetFrameToTHealthBar:SetStatusBarColor(0/255, 112/255, 222/255)
-				else
-					TargetFrameToTHealthBar:SetStatusBarColor(UnitColor("targettarget"))
-				end
-				if (GetWoWVersion > 20000) then
-					FocusFrameToTHealthBar:SetStatusBarColor(UnitColor("focustarget"))
-				end
+			end
+			if (class == "SHAMAN" and AbyssUIClassicAddonSettings.ExtraFunctionShamanPink ~= true) then
+				TargetFrameToTHealthBar:SetStatusBarColor(0/255, 112/255, 222/255)
+			else
+				TargetFrameToTHealthBar:SetStatusBarColor(UnitColor("targettarget"))
+			end
+			if (GetWoWVersion > 20000) then
+				FocusFrameToTHealthBar:SetStatusBarColor(UnitColor("focustarget"))
 			end
 		end	
 	end
@@ -544,45 +546,40 @@ for _, BarTextures in pairs({ TargetFrameNameBackground, FocusFrameNameBackgroun
 	BarTextures:SetTexture("Interface\\TargetingFrame\\UI-StatusBar")
 end
 
+
 ----------------------------------------------------
 -- Keep the color when health changes
 hooksecurefunc("HealthBar_OnValueChanged", function()
-	if (AbyssUIClassicAddonSettings.UnitFrameImproved ~= true and GetWoWVersion <= 90500) then
-		_, class = UnitClass("Target")
-		local healthPercentage = ceil(((UnitHealth("target") / UnitHealthMax("target")) * 1000) /10)
-		if (AbyssUIClassicAddonSettings.ExtraFunctionFriendlyHealthGreen ~= true) then
-			if (AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
-				if (AbyssUIClassicAddonSettings.ExtraFunctionPlayerHealthGreen == true and UnitPlayerControlled("target")) then
-					TargetFrameHealthBar:SetStatusBarColor(10/255, 255/255, 10/255)				
-				else
-					if ( healthPercentage == 0 ) then return end
-					if (healthPercentage == 100) then
-						if (class == "SHAMAN" and AbyssUIClassicAddonSettings.ExtraFunctionShamanPink ~= true) then
-							TargetFrameHealthBar:SetStatusBarColor(0/255, 112/255, 222/255)
-						else						
-							TargetFrameHealthBar:SetStatusBarColor(UnitColor("target"))
-						end
-						if (GetWoWVersion > 20000) then
-							FocusFrameHealthBar:SetStatusBarColor(UnitColor("focus"))
-						end
-					
-						if (class == "SHAMAN" and AbyssUIClassicAddonSettings.ExtraFunctionShamanPink ~= true) then
-							TargetFrameToTHealthBar:SetStatusBarColor(0/255, 112/255, 222/255)
-						else
-							TargetFrameToTHealthBar:SetStatusBarColor(UnitColor("targettarget"))
-						end
-						if (GetWoWVersion > 20000) then
-							FocusFrameToTHealthBar:SetStatusBarColor(UnitColor("focustarget"))
-						end
-					elseif healthPercentage < 100 and healthPercentage > 21 then
-						TargetFrameHealthBar:SetStatusBarColor(255/255, 10/255, 10/255)
-					elseif healthPercentage < 21 then
-						TargetFrameHealthBar:SetStatusBarColor(255/255, 255/255, 255/255)
-					end	
-				end			
-			end
-		end
-	end
+    if (AbyssUIClassicAddonSettings.UnitFrameImproved ~= true and GetWoWVersion <= 90500) then
+        _, class = UnitClass("Target")
+        local healthPercentage = ceil(((UnitHealth("target") / UnitHealthMax("target")) * 1000) /10)
+        if (AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
+            if (UnitAffectingCombat("target") and not UnitPlayerControlled("target")) then
+                TargetFrameHealthBar:SetStatusBarColor(255/255, 10/255, 10/255)
+            elseif (AbyssUIClassicAddonSettings.ExtraFunctionPlayerHealthGreen == true and UnitPlayerControlled("target")) then
+                TargetFrameHealthBar:SetStatusBarColor(10/255, 255/255, 10/255)
+            elseif (AbyssUIClassicAddonSettings.ExtraFunctionFriendlyHealthGreen == true) then
+                TargetFrameHealthBar:SetStatusBarColor(10/255, 255/255, 10/255)
+            else
+                if (class == "SHAMAN" and AbyssUIClassicAddonSettings.ExtraFunctionShamanPink ~= true) then
+                    TargetFrameHealthBar:SetStatusBarColor(0/255, 112/255, 222/255)
+                else            
+                    TargetFrameHealthBar:SetStatusBarColor(UnitColor("target"))
+                end
+                if (GetWoWVersion > 20000) then
+                    FocusFrameHealthBar:SetStatusBarColor(UnitColor("focus"))
+                end
+            end
+        end
+        if (class == "SHAMAN" and AbyssUIClassicAddonSettings.ExtraFunctionShamanPink ~= true) then
+            TargetFrameToTHealthBar:SetStatusBarColor(0/255, 112/255, 222/255)
+        else
+            TargetFrameToTHealthBar:SetStatusBarColor(UnitColor("targettarget"))
+        end
+        if (GetWoWVersion > 20000) then
+            FocusFrameToTHealthBar:SetStatusBarColor(UnitColor("focustarget"))
+        end
+    end    
 end)
 ----------------------------------------------------
 -- UI Scale Elements (On Load)
