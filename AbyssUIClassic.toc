@@ -1,6 +1,6 @@
 ## Interface: 100200
 ## Title: AbyssUI|cffc41F3BClassic|r
-## Version: 10.2.0.6_Classic_Dragonflight
+## Version: 10.2.0.7_Classic_Dragonflight
 ## Author: Yugen
 ## Notes-enUS: Minimalist UI for World of Warcraft
 ## Notes-ptBR: Interface Minimalista para World of Warcraft
@@ -55,7 +55,8 @@ core\AbyssUIClassic_Config.lua
 functions\AbyssUIClassic_Functions.lua
 functions\AbyssUIClassic_FunctionsExtras.lua
 
-modules\AbyssUIClassic_IconStyle.lua
+#modules\AbyssUIClassic_IconStyle.lua
 modules\AbyssUIClassic_Inventory.lua
 modules\AbyssUIClassic_MoveFrames.lua
+modules\AbyssUIClassic_NewUI.lua
 modules\AbyssUIClassic_UnitFrame.lua

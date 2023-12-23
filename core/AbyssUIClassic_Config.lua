@@ -135,10 +135,12 @@ local function InitSettings()
   AbyssUIClassic_Config.childpanel5.parent = AbyssUIClassic_Config.panel.name
   InterfaceOptions_AddCategory(AbyssUIClassic_Config.childpanel5)
   --
+  --[[
   AbyssUIClassic_Config.childpanel7 = CreateFrame( "Frame", "$parentConfigChild_Extras", AbyssUIClassic_Config.panel)
   AbyssUIClassic_Config.childpanel7.name = L["Icons"]
   AbyssUIClassic_Config.childpanel7.parent = AbyssUIClassic_Config.panel.name
   InterfaceOptions_AddCategory(AbyssUIClassic_Config.childpanel7)
+  --]]
   -- Title
   local Frame = CreateFrame("Frame","$parentFrameButtonTitle", AbyssUIClassic_Config.panel)
   Frame:SetPoint("CENTER", AbyssUIClassic_Config.panel, "TOP", 0, -20)
@@ -271,6 +273,7 @@ local function InitSettings()
   Frame = Frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   Frame:SetPoint("CENTER")
   Frame:SetText(L["- Frames"])
+  --[[
   -- Panel 07 (Icons)
   local Frame = CreateFrame("Frame","$parentFrameButtonPanel07", AbyssUIClassic_Config.childpanel7)
   Frame:SetPoint("CENTER", AbyssUIClassic_Config.childpanel7, "TOP", 0, -20)
@@ -289,9 +292,10 @@ local function InitSettings()
   Frame = Frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   Frame:SetPoint("CENTER")
   Frame:SetText(L["- Icons"])
+
   -- ActionBar
-  local Frame = CreateFrame("Frame","$parentFrameButtonPanel07", AbyssUIClassic_Config.childpanel7)
-  Frame:SetPoint("CENTER", AbyssUIClassic_Config.childpanel7, "TOP", 0, -180)
+  local Frame = CreateFrame("Frame","$parentFrameButtonPanel05", AbyssUIClassic_Config.childpanel5)
+  Frame:SetPoint("CENTER", AbyssUIClassic_Config.childpanel5, "TOP", 0, -180)
   Frame:SetWidth(120)
   Frame:SetHeight(24)
   Frame:SetScale(1.5)
@@ -299,14 +303,15 @@ local function InitSettings()
   Frame:SetPoint("CENTER")
   Frame:SetText("ActionBar")
   -- Minimap
-  local Frame = CreateFrame("Frame","$parentFrameButtonPanel07", AbyssUIClassic_Config.childpanel7)
-  Frame:SetPoint("CENTER", AbyssUIClassic_Config.childpanel7, "TOP", 0, -250)
+  local Frame = CreateFrame("Frame","$parentFrameButtonPanel05", AbyssUIClassic_Config.childpanel5)
+  Frame:SetPoint("CENTER", AbyssUIClassic_Config.childpanel5, "TOP", 0, -250)
   Frame:SetWidth(120)
   Frame:SetHeight(24)
   Frame:SetScale(1.5)
   Frame = Frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   Frame:SetPoint("CENTER")
   Frame:SetText("Minimap")
+  --]]
   --------------------------------- Buttons ---------------------------------
   local _G = _G
   local levelString       = _G["LEVEL"]
@@ -582,91 +587,6 @@ local function InitSettings()
   Check:RegisterEvent("PLAYER_ENTERING_WORLD")
   Check:SetScript("OnEvent", function(self, event, arg1)
   AbyssUIClassic_CheckTexturePack()
-  end)
-  ----------------------------- AbyssUIClassic Actionbar -------------------------------
-  -- AbyssUIClassic Action Bar --
-  local AbyssUIClassicNewActionBar3x12_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassicNewActionBar3x12_CheckButton", AbyssUIClassic_Config.childpanel7, "ChatConfigCheckButtonTemplate")
-  AbyssUIClassicNewActionBar3x12_CheckButton:SetPoint("TOPLEFT", 10, -300)
-  AbyssUIClassicNewActionBar3x12_CheckButton.Text:SetText("3x12 Actionbar")
-  AbyssUIClassicNewActionBar3x12_CheckButton.tooltip = "Adds a new bar above the Blizzard MainActionBar"
-  AbyssUIClassicNewActionBar3x12_CheckButton:SetChecked(AbyssUIClassicAddonSettings.AbyssUIClassicNewActionBar3x12)
-  -- OnClick Function
-  AbyssUIClassicNewActionBar3x12_CheckButton:SetScript("OnClick", function(self)
-    AbyssUIClassicAddonSettings.AbyssUIClassicNewActionBar3x12 = self:GetChecked()
-    AbyssUIClassic_ActionBarInfo:Show()
-  end)
-  -- After Login/Reload
-  AbyssUIClassicNewActionBar3x12_CheckButton:RegisterEvent("PLAYER_ENTERING_WORLD")
-  AbyssUIClassicNewActionBar3x12_CheckButton:SetScript("OnEvent", function(self, event, ...)
-    if ( AbyssUIClassicAddonSettings.AbyssUIClassicNewActionBar3x12 == true ) then
-      -- MainMenuBar
-      MainMenuBar.ClearAllPoints = function() end
-      MainMenuBar:SetPoint("BOTTOM", UIParent, "BOTTOM", 250, 10)
-      MainMenuBar.SetPoint = function() end
-      --MultiBarBottomRight
-      MultiBarBottomRight.ClearAllPoints = function() end
-      MultiBarBottomRight:SetPoint("TOPRIGHT", MainMenuBar, "BOTTOMLEFT", 9, 125)
-      MultiBarBottomRight.SetPoint = function() end
-      --MultiBarBottomLeft
-      MultiBarBottomLeft.ClearAllPoints = function() end
-      MultiBarBottomLeft:SetPoint("TOPRIGHT", MainMenuBar, "BOTTOMLEFT", 9, 45)
-      MultiBarBottomLeft.SetPoint = function() end
-      --PetBar
-      PetActionBarFrame.ClearAllPoints = function() end
-      PetActionBarFrame:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", 0, 45)
-      PetActionBarFrame:SetScale(0.85)
-      PetActionBarFrame.SetPoint = function() end
-      --StanceBar
-      StanceBarFrame:ClearAllPoints()
-      StanceBarFrame:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 100, 0)
-      StanceBarFrame.SetPoint = function() end
-      --ExtraBar
-      --ExtraActionBarFrame.ClearAllPoints = function() end
-      --ExtraActionBarFrame:SetPoint("BOTTOMRIGHT", MainMenuBar, "BOTTOMRIGHT", 70, 30)
-      --ExtraActionBarFrame.SetPoint = function() end
-      --VehicleBar
-      MainMenuBarVehicleLeaveButton.ClearAllPoints = function() end
-      MainMenuBarVehicleLeaveButton:SetPoint("TOPLEFT", MainMenuBar, "TOPLEFT", -70, 70)
-      MainMenuBarVehicleLeaveButton.SetPoint = function() end
-      -- Hide Stuff for classic
-      if AbyssUIClassicAddonSettings.AbyssUIClassicNewActionBar3x12 == true then
-          C_Timer.After(1, function()
-            for i, v in pairs ({
-              MainMenuBarLeftEndCap,
-              MainMenuBarRightEndCap,
-              MainMenuBarTexture0,
-              MainMenuBarTexture1,
-              MainMenuBarTexture2,
-              MainMenuBarTexture3,
-              ActionBarUpButton,
-              ActionBarDownButton,
-              MainMenuBarPageNumber,
-              CharacterMicroButton,
-              SpellbookMicroButton,
-              QuestLogMicroButton,
-              SocialsMicroButton,
-              WorldMapMicroButton,
-              MainMenuMicroButton,
-              HelpMicroButton,
-              MainMenuBarBackpackButton,
-              CharacterBag0Slot,
-              CharacterBag1Slot,
-              CharacterBag2Slot,
-              CharacterBag3Slot,
-              MainMenuBarPerformanceBar,
-            }) do
-              MainMenuExpBar:SetAlpha(0)
-              ReputationWatchBar:SetAlpha(0)
-              TalentMicroButton:SetAlpha(0)
-              v:Hide()
-            end
-          end)
-        else
-          MainMenuExpBar:SetAlpha(1)
-          ReputationWatchBar:SetAlpha(1)
-          TalentMicroButton:SetAlpha(1)
-        end
-    end
   end)
 end
 -- End
@@ -1909,6 +1829,115 @@ local function TweaksExtra()
     AbyssUIClassicAddonSettings.TooltipOnCursor = self:GetChecked()
     AbyssUIClassic_ReloadFrame:Show()
   end)
+  -- AbyssUIClassic Action Bar --
+  local AbyssUIClassicNewActionBar3x12_CheckButton = CreateFrame("CheckButton", "$parentAbyssUIClassicNewActionBar3x12_CheckButton", AbyssUIClassic_Config.childpanel5, "ChatConfigCheckButtonTemplate")
+  AbyssUIClassicNewActionBar3x12_CheckButton:SetPoint("TOPLEFT", 10, -320)
+  AbyssUIClassicNewActionBar3x12_CheckButton.Text:SetText("3x12 Actionbar")
+  AbyssUIClassicNewActionBar3x12_CheckButton.tooltip = "Adds a new bar above the Blizzard MainActionBar"
+  AbyssUIClassicNewActionBar3x12_CheckButton:SetChecked(AbyssUIClassicAddonSettings.AbyssUIClassicNewActionBar3x12)
+  -- OnClick Function
+  AbyssUIClassicNewActionBar3x12_CheckButton:SetScript("OnClick", function(self)
+    AbyssUIClassicAddonSettings.AbyssUIClassicNewActionBar3x12 = self:GetChecked()
+    AbyssUIClassic_ActionBarInfo:Show()
+  end)
+  -- After Login/Reload
+  AbyssUIClassicNewActionBar3x12_CheckButton:RegisterEvent("PLAYER_ENTERING_WORLD")
+  AbyssUIClassicNewActionBar3x12_CheckButton:SetScript("OnEvent", function(self, event, ...)
+    if ( AbyssUIClassicAddonSettings.AbyssUIClassicNewActionBar3x12 == true ) then
+      -- MainMenuBar
+      MainMenuBar.ClearAllPoints = function() end
+      MainMenuBar:SetPoint("BOTTOM", UIParent, "BOTTOM", 250, 10)
+      MainMenuBar.SetPoint = function() end
+      --MultiBarBottomRight
+      MultiBarBottomRight.ClearAllPoints = function() end
+      MultiBarBottomRight:SetPoint("TOPRIGHT", MainMenuBar, "BOTTOMLEFT", 9, 125)
+      MultiBarBottomRight.SetPoint = function() end
+      --MultiBarBottomLeft
+      MultiBarBottomLeft.ClearAllPoints = function() end
+      MultiBarBottomLeft:SetPoint("TOPRIGHT", MainMenuBar, "BOTTOMLEFT", 9, 45)
+      MultiBarBottomLeft.SetPoint = function() end
+      --PetBar
+      PetActionBarFrame.ClearAllPoints = function() end
+      PetActionBarFrame:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", 0, 45)
+      PetActionBarFrame:SetScale(0.85)
+      PetActionBarFrame.SetPoint = function() end
+      --StanceBar
+      StanceBarFrame:ClearAllPoints()
+      StanceBarFrame:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 100, 0)
+      StanceBarFrame.SetPoint = function() end
+      --ExtraBar
+      --ExtraActionBarFrame.ClearAllPoints = function() end
+      --ExtraActionBarFrame:SetPoint("BOTTOMRIGHT", MainMenuBar, "BOTTOMRIGHT", 70, 30)
+      --ExtraActionBarFrame.SetPoint = function() end
+      --VehicleBar
+      MainMenuBarVehicleLeaveButton.ClearAllPoints = function() end
+      MainMenuBarVehicleLeaveButton:SetPoint("TOPLEFT", MainMenuBar, "TOPLEFT", -70, 70)
+      MainMenuBarVehicleLeaveButton.SetPoint = function() end
+      -- Hide Stuff for classic
+      if AbyssUIClassicAddonSettings.AbyssUIClassicNewActionBar3x12 == true then
+        C_Timer.After(1, function()
+          for i, v in pairs ({
+            MainMenuBarLeftEndCap,
+            MainMenuBarRightEndCap,
+            MainMenuBarTexture0,
+            MainMenuBarTexture1,
+            MainMenuBarTexture2,
+            MainMenuBarTexture3,
+            ActionBarUpButton,
+            ActionBarDownButton,
+            MainMenuBarPageNumber,
+            CharacterMicroButton,
+            SpellbookMicroButton,
+            QuestLogMicroButton,
+            SocialsMicroButton,
+            WorldMapMicroButton,
+            MainMenuMicroButton,
+            HelpMicroButton,
+            MainMenuBarBackpackButton,
+            CharacterBag0Slot,
+            CharacterBag1Slot,
+            CharacterBag2Slot,
+            CharacterBag3Slot,
+            MainMenuBarPerformanceBar,
+          }) do
+            MainMenuExpBar:SetAlpha(0)
+            ReputationWatchBar:SetAlpha(0)
+            TalentMicroButton:SetAlpha(0)
+            v:Hide()
+          end
+        end)
+      else
+        MainMenuExpBar:SetAlpha(1)
+        ReputationWatchBar:SetAlpha(1)
+        TalentMicroButton:SetAlpha(1)
+      end
+    end
+  end)
+  -- Disable Square Minimap --
+  local DisableSquareMinimap_CheckButton = CreateFrame("CheckButton", "$parentSquareMinimap_CheckButton", AbyssUIClassic_Config.childpanel5, "ChatConfigCheckButtonTemplate")
+  DisableSquareMinimap_CheckButton:SetPoint("TOPLEFT", 10, -350)
+  DisableSquareMinimap_CheckButton.Text:SetText("|cff0d75d4"..L["Disable Square Minimap"].."|r")
+  DisableSquareMinimap_CheckButton.tooltip = L["This option will get you back to the"..
+  " Blizzard default minimap style (round). *You need to restart the game so round textures can be re-loaded"]
+  DisableSquareMinimap_CheckButton:SetChecked(AbyssUIClassicAddonSettings.DisableSquareMinimap)
+  addonTable.DisableSquareMinimap = DisableSquareMinimap_CheckButton
+  -- OnClick Function
+  DisableSquareMinimap_CheckButton:SetScript("OnClick", function(self)
+    AbyssUIClassicAddonSettings.DisableSquareMinimap = self:GetChecked()
+    AbyssUIClassic_ReloadFrame:Show()
+  end)
+  -- Always show clock --
+  local AlwaysShowClock_CheckButton = CreateFrame("CheckButton", "$parentAlwaysShowClock_CheckButton", AbyssUIClassic_Config.childpanel5, "ChatConfigCheckButtonTemplate")
+  AlwaysShowClock_CheckButton:SetPoint("TOPLEFT", 10, -380)
+  AlwaysShowClock_CheckButton.Text:SetText("|cff0d75d4"..L["Show Minimap Clock"].."|r")
+  AlwaysShowClock_CheckButton.tooltip = L["This will always show the minimap clock, instead of showing on hover"]
+  AlwaysShowClock_CheckButton:SetChecked(AbyssUIClassicAddonSettings.AlwaysShowClock)
+  addonTable.AlwaysShowClock = AlwaysShowClock_CheckButton
+  -- OnClick Function
+  AlwaysShowClock_CheckButton:SetScript("OnClick", function(self)
+    AbyssUIClassicAddonSettings.AlwaysShowClock = self:GetChecked()
+    AbyssUIClassic_ReloadFrame:Show()
+  end)
   --- Frames ---
   -- Elite Portrait --
   local ElitePortrait_CheckButton = CreateFrame("CheckButton", "$parentElitePortrait_CheckButton", AbyssUIClassic_Config.childpanel5, "ChatConfigCheckButtonTemplate")
@@ -2082,6 +2111,7 @@ local function TweaksExtra()
   end)
 end
 -- End
+--[[
 local function IconsFonts ()
 ----------------------------------- Icons  -----------------------------------
 -- Icon Border --
@@ -2348,64 +2378,8 @@ local function IconsFonts ()
       OldSchoolIconBorder_CheckButton:SetChecked(nil)
     end
   end)
-  --[[
-  -- Abyss Theme
-  local AbyssIconBorder_CheckButton = CreateFrame("CheckButton", "$parentAbyssIconBorder_CheckButton", AbyssUIClassic_Config.childpanel7, "ChatConfigCheckButtonTemplate")
-  AbyssIconBorder_CheckButton:SetPoint("TOPLEFT", 180, -200)
-  AbyssIconBorder_CheckButton.Text:SetText("|cff0d75d4".."AbyssUI Classic".."|r")
-  local Frame = CreateFrame("Frame", nil, AbyssIconBorder_CheckButton)
-  Frame:SetWidth(180)
-  Frame:SetHeight(40)
-  Frame:SetPoint("LEFT", 25, 0)
-  AbyssIconBorder_CheckButton.Text:SetAllPoints(Frame)
-  AbyssIconBorder_CheckButton.tooltip = L["AbyssUI Classic icon borders, a Blizzard Default enchanced theme"]
-  AbyssIconBorder_CheckButton:SetChecked(AbyssUIClassicAddonSettings.AbyssIconBorder)
-  addonTable.AbyssIconBorder = AbyssIconBorder_CheckButton
-  -- OnClick Function
-  AbyssIconBorder_CheckButton:SetScript("OnClick", function(self)
-    if AbyssUIClassicAddonSettings.CrispIconBorder    ~= true and 
-      AbyssUIClassicAddonSettings.OriginalIconBorder  ~= true and 
-      AbyssUIClassicAddonSettings.SquareIconBorder    ~= true and 
-      AbyssUIClassicAddonSettings.GlossIconBorder     ~= true and
-      AbyssUIClassicAddonSettings.GlassIconBorder     ~= true and 
-      AbyssUIClassicAddonSettings.ThinIconBorder      ~= true and 
-      AbyssUIClassicAddonSettings.ClassicIconBorder   ~= true and
-      AbyssUIClassicAddonSettings.OldSchoolIconBorder ~= true and
-      AbyssUIClassicAddonSettings.DefaultIconBorder   ~= true then
-      AbyssUIClassicAddonSettings.AbyssIconBorder = self:GetChecked()
-      AbyssUIClassic_ReloadFrame:Show()
-    else
-      UIErrorsFrame:AddMessage(L["You need to select just one of those options so they don't overlap"], 1.0, 0.1, 0.1, 1.0)
-      AbyssIconBorder_CheckButton:SetChecked(nil)
-    end
-  end)
-  --]]
-  -- Disable Square Minimap --
-  local DisableSquareMinimap_CheckButton = CreateFrame("CheckButton", "$parentSquareMinimap_CheckButton", AbyssUIClassic_Config.childpanel7, "ChatConfigCheckButtonTemplate")
-  DisableSquareMinimap_CheckButton:SetPoint("TOPLEFT", 10, -400)
-  DisableSquareMinimap_CheckButton.Text:SetText("|cff0d75d4"..L["Disable Square Minimap"].."|r")
-  DisableSquareMinimap_CheckButton.tooltip = L["This option will get you back to the"..
-  " Blizzard default minimap style (round). *You need to restart the game so round textures can be re-loaded"]
-  DisableSquareMinimap_CheckButton:SetChecked(AbyssUIClassicAddonSettings.DisableSquareMinimap)
-  addonTable.DisableSquareMinimap = DisableSquareMinimap_CheckButton
-  -- OnClick Function
-  DisableSquareMinimap_CheckButton:SetScript("OnClick", function(self)
-    AbyssUIClassicAddonSettings.DisableSquareMinimap = self:GetChecked()
-    AbyssUIClassic_ReloadFrame:Show()
-  end)
-  -- Always show clock --
-  local AlwaysShowClock_CheckButton = CreateFrame("CheckButton", "$parentAlwaysShowClock_CheckButton", AbyssUIClassic_Config.childpanel7, "ChatConfigCheckButtonTemplate")
-  AlwaysShowClock_CheckButton:SetPoint("TOPLEFT", 10, -430)
-  AlwaysShowClock_CheckButton.Text:SetText("|cff0d75d4"..L["Show Minimap Clock"].."|r")
-  AlwaysShowClock_CheckButton.tooltip = L["This will always show the minimap clock, instead of showing on hover"]
-  AlwaysShowClock_CheckButton:SetChecked(AbyssUIClassicAddonSettings.AlwaysShowClock)
-  addonTable.AlwaysShowClock = AlwaysShowClock_CheckButton
-  -- OnClick Function
-  AlwaysShowClock_CheckButton:SetScript("OnClick", function(self)
-    AbyssUIClassicAddonSettings.AlwaysShowClock = self:GetChecked()
-    AbyssUIClassic_ReloadFrame:Show()
-  end)
 end
+--]]
 --End
 local function Stylization()
   ----------------------------- AbyssUIClassic Stylization ------------------------------
@@ -3442,7 +3416,7 @@ f:SetScript("OnEvent", function(self, event, ...)
   HideElementsInit()
   Miscellaneous()
   TweaksExtra()
-  IconsFonts()
+  --IconsFonts()
   Stylization()
 end)
 ----------------------------------------------------
