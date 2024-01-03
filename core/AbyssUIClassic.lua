@@ -869,6 +869,22 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
+			-- SettingsPanel
+			for i, v in pairs({ 
+					SettingsPanel.NineSlice.BottomEdge,
+					SettingsPanel.NineSlice.BottomLeftCorner,
+					SettingsPanel.NineSlice.BottomRightCorner,
+					SettingsPanel.NineSlice.Center,
+					SettingsPanel.NineSlice.LeftEdge,
+					SettingsPanel.NineSlice.RightEdge,
+					SettingsPanel.NineSlice.TopEdge,
+					SettingsPanel.NineSlice.TopLeftCorner,
+					SettingsPanel.NineSlice.TopRightCorner,
+				}) do
+				if AbyssUIClassicAddonSettings ~= nil then
+					AbyssUIClassic_ColorizationFrameFunction(v)
+				end
+			end
 		-- End
 		else
 			return nil

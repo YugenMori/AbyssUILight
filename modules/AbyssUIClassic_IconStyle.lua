@@ -1349,8 +1349,8 @@ local function OldSchoolTheme()
     showbg            = true,   --show a background image?
     showshadow        = false, --show an outer shadow?
     useflatbackground = false,  --true uses plain flat color instead
-    backgroundcolor   = { r = 0.2, g = 0.2, b = 0.2, a = 0.3 },
-    shadowcolor       = { r = 0, g = 0, b = 0, a = 0.9 },
+    backgroundcolor   = { r = 0.2, g = 0.2, b = 0.2, a = 1 },
+    shadowcolor       = { r = 0, g = 0, b = 0, a = 1 },
     classcolored      = false,
     inset             = 5,
   }
@@ -1419,7 +1419,7 @@ local function OldSchoolTheme()
     background = {
       show              = false,   --show backdrop
       edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
-      color             = { r = 0.2, g = 0.2, b = 0.2, a = 0.9},
+      color             = { r = 0.2, g = 0.2, b = 0.2, a = 1},
       classcolored      = false,
       inset             = 4,
       padding           = 2,
@@ -1464,7 +1464,7 @@ local function OldSchoolTheme()
     background = {
       show              = false,   --show backdrop
       edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
-      color             = { r = 0, g = 0, b = 0, a = 0.9},
+      color             = { r = 0, g = 0, b = 0, a = 1},
       classcolored      = false,
       inset             = 6,
       padding           = 4,
@@ -1500,8 +1500,8 @@ Abconfig.background = {
   showbg            = true,   --show a background image?
   showshadow        = false, --show an outer shadow?
   useflatbackground = false,  --true uses plain flat color instead
-  backgroundcolor   = { r = 0.2, g = 0.2, b = 0.2, a = 0.3 },
-  shadowcolor       = { r = 0, g = 0, b = 0, a = 0.9 },
+  backgroundcolor   = { r = 0.2, g = 0.2, b = 0.2, a = 1 },
+  shadowcolor       = { r = 0, g = 0, b = 0, a = 1 },
   classcolored      = false,
   inset             = 5,
 }
@@ -1570,7 +1570,7 @@ Abconfig.buffFrame = {
   background = {
     show              = false,   --show backdrop
     edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
-    color             = { r = 0.2, g = 0.2, b = 0.2, a = 0.9},
+    color             = { r = 0.2, g = 0.2, b = 0.2, a = 1},
     classcolored      = false,
     inset             = 4,
     padding           = 2,
@@ -1615,7 +1615,7 @@ Abconfig.debuffFrame = {
   background = {
     show              = false,   --show backdrop
     edgeFile          = "Interface\\AddOns\\AbyssUIClassic\\textures\\iconstyle\\outer_shadow",
-    color             = { r = 0, g = 0, b = 0, a = 0.9},
+    color             = { r = 0, g = 0, b = 0, a = 1},
     classcolored      = false,
     inset             = 6,
     padding           = 4,
@@ -1667,6 +1667,7 @@ local function IconBackInit()
       bottom = Abconfig.background.inset,
     },
   }
+  
   local classcolor = RAID_CLASS_COLORS[select(2, UnitClass("player"))]
   local dominos = IsAddOnLoaded("Dominos")
   local bartender4 = IsAddOnLoaded("Bartender4")
@@ -1677,7 +1678,7 @@ local function IconBackInit()
     if bu:GetFrameLevel() < 1 then bu:SetFrameLevel(1) end
     if Abconfig.background.showbg or Abconfig.background.showshadow then
       bu.bg = CreateFrame("Frame", nil, bu, BackdropTemplateMixin and "BackdropTemplate")
-    -- bu.bg:SetAllPoints(bu)
+      --bu.bg:SetAllPoints(bu)
       bu.bg:SetPoint("TOPLEFT", bu, "TOPLEFT", -4, 4)
       bu.bg:SetPoint("BOTTOMRIGHT", bu, "BOTTOMRIGHT", 4, -4)
       bu.bg:SetFrameLevel(bu:GetFrameLevel() - 1)
@@ -1731,13 +1732,16 @@ local function IconBackInit()
       nt = bu:GetNormalTexture()
     end
     --cut the default border of the icons and make them shiny
-    ic:SetTexCoord(0.05, 0.9, 0.05, 0.9)
+    --ic:SetTexCoord(0.05, 0.9, 0.05, 1)
+    ic:SetTexCoord(0.04, 1, 0.04, 1)
     ic:SetPoint("TOPLEFT", bu, "TOPLEFT", 2, -2)
-    ic:SetPoint("BOTTOMRIGHT", bu, "BOTTOMRIGHT", -2, 2)
-    
+    ic:SetPoint("BOTTOMRIGHT", bu, "BOTTOMRIGHT", -1, 1)
+    --hotkey
+    ho:SetPoint("TOPRIGHT", bu, "TOPRIGHT", 0, -3)
+
     --apply the normaltexture
     if action and IsEquippedAction(action) then
-      --bu:SetNormalTexture(Abconfig.textures.equipped)
+      bu:SetNormalTexture(Abconfig.textures.equipped)
       AbyssUIClassic_ColorizationFrameFunction(nt)
     else
       bu:SetNormalTexture(Abconfig.textures.normal)
@@ -1770,6 +1774,7 @@ local function IconBackInit()
         end
       end
     end)
+
     --shadows+background
     if not bu.bg then applyBackground(bu) end
       bu.rabs_styled = true
@@ -1869,8 +1874,8 @@ local function IconBackInit()
       AbyssUIClassic_ColorizationFrameFunction(nt)
     end
     --cut the default border of the icons and make them shiny
-    ic:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-    ic:SetPoint("TOPLEFT", bu, "TOPLEFT", 1, -1)
+    ic:SetTexCoord(0.04, 1, 0.04, 1)
+    ic:SetPoint("TOPLEFT", bu, "TOPLEFT", 2, -2)
     ic:SetPoint("BOTTOMRIGHT", bu, "BOTTOMRIGHT", -1, 1)
     --shadows+background
     if not bu.bg then applyBackground(bu) end
@@ -1933,65 +1938,85 @@ local function IconBackInit()
   end)
   
   local function init()
-  local dominos = IsAddOnLoaded("Dominos")
-  local bartender4 = IsAddOnLoaded("Bartender4")
-  --style the actionbar buttons
-  for i = 1, NUM_ACTIONBAR_BUTTONS do
-    styleActionButton(_G["ActionButton"..i])
-    styleActionButton(_G["MultiBarBottomLeftButton"..i])
-    styleActionButton(_G["MultiBarBottomRightButton"..i])
-    styleActionButton(_G["MultiBarRightButton"..i])
-    styleActionButton(_G["MultiBarLeftButton"..i])
+    local dominos = IsAddOnLoaded("Dominos")
+    local bartender4 = IsAddOnLoaded("Bartender4")
+    --style the actionbar buttons
+    if (AbyssUIClassicAddonSettings.DefaultIconBorder ~= true) then
+      for i = 1, NUM_ACTIONBAR_BUTTONS do      
+        styleActionButton(_G["ActionButton"..i])
+        styleActionButton(_G["MultiBarBottomLeftButton"..i])
+        styleActionButton(_G["MultiBarBottomRightButton"..i])
+        styleActionButton(_G["MultiBarRightButton"..i])
+        styleActionButton(_G["MultiBarLeftButton"..i])
+      end
+      -- actionbutton
+      for i = 1, 6 do
+        styleActionButton(_G["OverrideActionBarButton"..i])
+      end
+      --style bags
+      if (GetWoWVersion < 90000) then
+        for i = 0, 3 do
+          styleDefaultOtherBag(_G["CharacterBag"..i.."Slot"])
+        end
+        styleDefaultOtherBag(MainMenuBarBackpackButton)
+      end
+      --style leave button
+      styleLeaveButton(MainMenuBarVehicleLeaveButton)
+      styleLeaveButton(rABS_LeaveVehicleButton)
+      --petbar buttons
+      for i = 1, NUM_PET_ACTION_SLOTS do
+        stylePetButton(_G["PetActionButton"..i])
+      end
+      --stancebar buttons
+      local nStance = GetNumShapeshiftForms ()
+      if (nStance ~= nil) then
+        for i = 1, nStance do
+          styleStanceButton(_G["StanceButton"..i])
+        end
+      end
+      --dominos styling
+      if dominos then
+        --print("Dominos found")
+        for i = 1, 60 do
+          styleActionButton(_G["DominosActionButton"..i])
+        end
+      end
+      --bartender4 styling
+      if bartender4 then
+        --print("Bartender4 found")
+        for i = 1, 120 do
+          styleActionButton(_G["BT4Button"..i])
+          stylePetButton(_G["BT4PetButton"..i])
+        end
+      end
+      --hide the hotkeys if needed
+      if not dominos and not bartender4 and not Abconfig.hotkeys.show then
+        hooksecurefunc("ActionButton_UpdateHotkeys", updateHotkey)
+      end
+    end
   end
-    -- actionbutton
-    for i = 1, 6 do
-      styleActionButton(_G["OverrideActionBarButton"..i])
-    end
-    --style bags
-    if (GetWoWVersion < 90000) then
-      for i = 0, 3 do
-        styleDefaultOtherBag(_G["CharacterBag"..i.."Slot"])
-      end
-      styleDefaultOtherBag(MainMenuBarBackpackButton)
-    end
-    --style leave button
-    styleLeaveButton(MainMenuBarVehicleLeaveButton)
-    styleLeaveButton(rABS_LeaveVehicleButton)
-    --petbar buttons
-    for i = 1, NUM_PET_ACTION_SLOTS do
-      stylePetButton(_G["PetActionButton"..i])
-    end
-    --stancebar buttons
-    local nStance = GetNumShapeshiftForms ()
-    if (nStance ~= nil) then
-      for i = 1, nStance do
-        styleStanceButton(_G["StanceButton"..i])
-      end
-    end
-    --dominos styling
-    if dominos then
-      --print("Dominos found")
-      for i = 1, 60 do
-        styleActionButton(_G["DominosActionButton"..i])
-      end
-    end
-    --bartender4 styling
-    if bartender4 then
-      --print("Bartender4 found")
-      for i = 1, 120 do
-        styleActionButton(_G["BT4Button"..i])
-        stylePetButton(_G["BT4PetButton"..i])
-      end
-    end
-    --hide the hotkeys if needed
-    if not dominos and not bartender4 and not Abconfig.hotkeys.show then
-      hooksecurefunc("ActionButton_UpdateHotkeys", updateHotkey)
-    end
-  end
-
   local a = CreateFrame("Frame")
   a:RegisterEvent("PLAYER_ENTERING_WORLD")
   a:SetScript("OnEvent", init)
+
+  -- Update Action Bar on change
+  --[[
+  local frame = CreateFrame("Frame")
+  frame:RegisterEvent("ACTIONBAR_HIDEGRID")      
+  frame:SetScript("OnEvent", function(self, event, ...)
+      if event == "ACTIONBAR_HIDEGRID" then
+        if (AbyssUIClassicAddonSettings.DefaultIconBorder ~= true) then
+          for i = 1, NUM_ACTIONBAR_BUTTONS do      
+            styleActionButton(_G["ActionButton"..i])
+            styleActionButton(_G["MultiBarBottomLeftButton"..i])
+            styleActionButton(_G["MultiBarBottomRightButton"..i])
+            styleActionButton(_G["MultiBarRightButton"..i])
+            styleActionButton(_G["MultiBarLeftButton"..i])
+          end
+        end
+      end
+  end)
+  --]]
 
   -- Auras
   --apply aura frame texture func

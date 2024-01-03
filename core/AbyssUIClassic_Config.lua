@@ -2109,6 +2109,22 @@ local function TweaksExtra()
       DemonHunterPortrait_CheckButton:SetChecked(nil)
     end
   end)
+  -- Default Icon Border --
+  local DefaultIconBorder_CheckButton = CreateFrame("CheckButton", "$parentDefaultIconBorder_CheckButton", AbyssUIClassic_Config.childpanel5, "ChatConfigCheckButtonTemplate")
+  DefaultIconBorder_CheckButton:SetPoint("TOPLEFT", 400, -320)
+  DefaultIconBorder_CheckButton.Text:SetText("Default Icon Border")
+  local Frame = CreateFrame("Frame", nil, DefaultIconBorder_CheckButton)
+  Frame:SetWidth(180)
+  Frame:SetHeight(40)
+  Frame:SetPoint("LEFT", 25, 0)
+  DefaultIconBorder_CheckButton.Text:SetAllPoints(Frame)
+  DefaultIconBorder_CheckButton.tooltip = "Default Icon Borders"
+  DefaultIconBorder_CheckButton:SetChecked(AbyssUIClassicAddonSettings.DefaultIconBorder)
+  -- OnClick Function
+  DefaultIconBorder_CheckButton:SetScript("OnClick", function(self)
+      AbyssUIClassicAddonSettings.DefaultIconBorder = self:GetChecked()
+      AbyssUIClassic_ReloadFrame:Show()
+  end)
 end
 -- End
 --[[
