@@ -319,6 +319,87 @@ GameTooltip:HookScript("OnUpdate", function(self, elapsed)
 		GameTooltipStatusBar:SetAlpha(0)
 	end
 end)
+-- Tooltip on cursor
+local function cursorSetPoint(self)
+	local scale = self:GetEffectiveScale()
+	local x, y = GetCursorPosition()
+	self:ClearAllPoints()
+	self:SetPoint("BOTTOMLEFT", UIParent, x / scale + 16, (y / scale - self:GetHeight() - 16))
+end
+local TooltipOnCursor = CreateFrame("Frame", nil)
+TooltipOnCursor:RegisterEvent("PLAYER_ENTERING_WORLD")
+TooltipOnCursor:SetScript("OnEvent", function()
+	if ( AbyssUIClassicAddonSettings.TooltipOnCursor == true ) then
+		hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
+			if GetMouseFocus() ~= WorldFrame then return end
+			tooltip:SetOwner(parent, "ANCHOR_CURSOR")
+			cursorSetPoint(tooltip)
+			-- tooltip.default = 1
+		end)
+	end
+end)
+-- Guild on Tooltip
+_G.GameTooltip:HookScript("OnTooltipSetUnit", function(self)
+	if (AbyssUIClassicAddonSettings.ExtraFunctionDisableGuildTootip ~= true and GetWoWVersion < 90000) then
+		local _, unit = self:GetUnit()
+		if not unit then
+			return
+		end
+		local guildName, rank = _G.GetGuildInfo(unit);
+		if (guildName and _G.UnitExists(unit) and _G.UnitPlayerControlled(unit)) then
+			_G.GameTooltip:AddLine(string.format('%s of %s', rank, guildName))
+		end
+	end
+end)
+-- Tooltip Class Color and extras 
+local function AbyssUI_TooltipSetUnit()
+	if AbyssUIClassicAddonSettings.DefaultTooltipColor ~= true then
+		-- OnTooltipSetUnit
+		local _, unit = GameTooltip:GetUnit()
+		if  UnitIsPlayer(unit) then
+			local _, class = UnitClass(unit)
+			local color = class and (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
+			if (color ~= nil) then
+				local text  = GameTooltipTextLeft1:GetText()
+				local text2 = GameTooltipTextLeft2:GetText()
+				local text3 = GameTooltipTextLeft3:GetText()
+				local text4 = GameTooltipTextLeft4:GetText()
+				local englishFaction, localizedFaction = UnitFactionGroup(unit)
+				if (text ~= nil and text2 ~= nil) then
+					GameTooltipTextLeft1:SetFormattedText("|cff%02x%02x%02x%s|r", color.r * 255, color.g * 255, color.b * 255, text:match("|cff\x\x\x\x\x\x(.+)|r") or text)
+					GameTooltipTextLeft2:SetFormattedText("|cff%02x%02x%02x%s|r", color.r * 255, color.g * 255, color.b * 255, text2:match("|cff\x\x\x\x\x\x(.+)|r") or text2)
+				end
+				if (text ~= nil and text2 ~= nil and text3 ~= nil) then
+					GameTooltipTextLeft3:SetFormattedText("|cff%02x%02x%02x%s|r", color.r * 255, color.g * 255, color.b * 255, text3:match("|cff\x\x\x\x\x\x(.+)|r") or text3)
+				end
+				if (text ~= nil and text2 ~= nil and text3 ~= nil and text4 ~= nil) then
+					GameTooltipTextLeft4:SetFormattedText("|cff%02x%02x%02x%s|r", color.r * 255, color.g * 255, color.b * 255, text4:match("|cff\x\x\x\x\x\x(.+)|r") or text4)
+				end
+				if (text ~= nil and text2 ~= nil and text3 ~= nil and text4 ~= nil) then
+					local text5 = GameTooltipTextLeft5:GetText()
+					if (text5 ~= nil) then
+						GameTooltipTextLeft5:SetFormattedText("|cff%02x%02x%02x%s|r", color.r * 255, color.g * 255, color.b * 255, text5:match("|cff\x\x\x\x\x\x(.+)|r") or text5)
+					end
+				end
+				if (text ~= nil and text2 ~= nil and text3 ~= nil and text4 ~= nil and text5 ~= nil) then
+					local text6 = GameTooltipTextLeft6:GetText()
+					if (text6 ~= nil) then
+						GameTooltipTextLeft6:SetFormattedText("|cff%02x%02x%02x%s|r", color.r * 255, color.g * 255, color.b * 255, text6:match("|cff\x\x\x\x\x\x(.+)|r") or text6)
+					end
+				end
+			end
+		end
+	end
+end
+if (GetWoWVersion <= 90500) then
+	GameTooltip:HookScript("OnUpdate", function(self, elapsed)
+	-- Call AbyssUI_TooltipSetUnit() every 0.5 seconds
+		if not self.lastUpdate or self.lastUpdate < GetTime() - 0.1 then
+			AbyssUI_TooltipSetUnit()
+			self.lastUpdate = GetTime()
+		end
+	end)
+end
 ----------------------------------------------
 -- StatsFrame
 -- Many thanks to Syiana for part of this

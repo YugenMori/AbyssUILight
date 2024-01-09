@@ -1028,23 +1028,4 @@ KillAnouncer:SetScript("OnEvent", function(self)
 		return nil
 	end
 end)
--- Tooltip on cursor
-local function cursorSetPoint(self)
-	local scale = self:GetEffectiveScale()
-	local x, y = GetCursorPosition()
-	self:ClearAllPoints()
-	self:SetPoint("BOTTOMLEFT", UIParent, x / scale + 16, (y / scale - self:GetHeight() - 16))
-end
-local TooltipOnCursor = CreateFrame("Frame", nil)
-TooltipOnCursor:RegisterEvent("PLAYER_ENTERING_WORLD")
-TooltipOnCursor:SetScript("OnEvent", function()
-	if ( AbyssUIClassicAddonSettings.TooltipOnCursor == true ) then
-		hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
-			if GetMouseFocus() ~= WorldFrame then return end
-			tooltip:SetOwner(parent, "ANCHOR_CURSOR")
-			cursorSetPoint(tooltip)
-			-- tooltip.default = 1
-		end)
-	end
-end)
 --End

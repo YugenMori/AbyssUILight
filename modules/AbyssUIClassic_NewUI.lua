@@ -182,9 +182,13 @@ local function AbyssUIClassic_TooltipSetUnit()
 end
 -- Tooltip Class Color and extras 
 if (GetWoWVersion >= 90500) then
-    GameTooltip:HookScript("OnUpdate", function(self, elapsed)
-        AbyssUIClassic_TooltipSetUnit()
-    end)
+  GameTooltip:HookScript("OnUpdate", function(self, elapsed)
+    -- Call AbyssUI_TooltipSetUnit() every 0.5 seconds
+    if not self.lastUpdate or self.lastUpdate < GetTime() - 0.1 then
+      AbyssUI_TooltipSetUnit()
+      self.lastUpdate = GetTime()
+    end
+  end)
 end
 ---------------------------- NewUI Frames ----------------------------------
 local ClassicFrames = CreateFrame("Frame")
