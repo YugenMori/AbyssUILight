@@ -1232,7 +1232,7 @@ end)
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self)
-    if GetWoWVersion >= 30000 then
+    if GetWoWVersion >= 50000 then
         self:UnregisterAllEvents()
 
         local buttonNames = {
@@ -1509,7 +1509,7 @@ end)
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self)
-	if GetWoWVersion >= 20502 and GetWoWVersion < 90000 then
+	if GetWoWVersion >= 50502 and GetWoWVersion < 90000 then
     self:UnregisterAllEvents()
     local ChildRegions = { ArenaFrame:GetRegions() }
     local fs = {}

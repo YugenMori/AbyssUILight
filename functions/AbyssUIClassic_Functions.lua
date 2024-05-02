@@ -292,7 +292,7 @@ local function UnitColor(unit)
 end
 -- Tooltip Background and borders
 if (GetWoWVersion <= 90500) then
-	if (GetWoWVersion >= 30500) then
+	if (GetWoWVersion >= 50500) then
 		local TooltipBackground = GameTooltip:CreateTexture(nil, "LOW", nil)
 		TooltipBackground:SetPoint("TOPLEFT", 3, -3)
 		TooltipBackground:SetPoint("BOTTOMRIGHT", -3, 3)
@@ -695,10 +695,10 @@ function AbyssUIClassic_ShowColorPicker()
 	ColorPickerFrame.cancelFunc = ColorPicker_Cancelled
 	ColorPickerFrame.opacityFunc = ColorPicker_Changed
 	ColorPickerFrame.func = ColorPicker_Changed
-	ColorPickerFrame:SetColorRGB( COLOR_MY_UI[character].Color.r, COLOR_MY_UI[character].Color.g, COLOR_MY_UI[character].Color.b )
+	ColorPickerFrame.swatchFunc = ColorPicker_Changed
 	ColorPickerFrame:ClearAllPoints()
 	ColorPickerFrame:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", GetCursorPosition())
-	ColorPickerFrame:Show()
+	ShowUIPanel(ColorPickerFrame)
 end
 -- retail
 --[[

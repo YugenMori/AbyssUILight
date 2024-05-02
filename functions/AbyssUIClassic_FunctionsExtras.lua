@@ -798,6 +798,9 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 		end
 		--MiniMapMailFrame:ClearAllPoints()
 		--MiniMapMailFrame:SetPoint("TOPRIGHT", Minimap, 1, -20)
+		if GetWoWVersion <= 90500 then
+			MiniMapMailFrame:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 0, -25)
+		end
 		--MiniMapMailFrame:SetFrameLevel(10)
 		MiniMapMailIcon:SetTexture(mailicon)
 		MiniMapWorldMapButton:Hide()
@@ -881,8 +884,7 @@ KillAnouncerFrame.texture = t
 -- Text
 KillAnouncerFrame.text = KillAnouncerFrame.text or KillAnouncerFrame:CreateFontString(nil, "ARTWORK", "QuestMapRewardsFont")
 KillAnouncerFrame.text:SetScale(1)
-KillAnouncerFrame.text:SetJustifyH("CENTER")
-KillAnouncerFrame.text:SetJustifyV("CENTER")
+KillAnouncerFrame.text:SetPoint("CENTER")
 KillAnouncerFrame.text:SetPoint("CENTER", KillAnouncerFrame, "CENTER", 0, -15)
 KillAnouncerFrame.text:SetFont(damageFont, 14, "THINOUTLINE")
 KillAnouncerFrame.text:SetShadowColor(0/255, 0/255, 0/255)
@@ -898,8 +900,7 @@ KillAnouncerHeader:SetPoint("CENTER", 0, 20)
 -- Text
 KillAnouncerHeader.text = KillAnouncerHeader.text or KillAnouncerHeader:CreateFontString(nil, "ARTWORK", "QuestMapRewardsFont")
 KillAnouncerHeader.text:SetScale(1.25)
-KillAnouncerHeader.text:SetJustifyH("CENTER")
-KillAnouncerHeader.text:SetJustifyV("CENTER")
+KillAnouncerHeader.text:SetPoint("CENTER")
 KillAnouncerHeader.text:SetPoint("CENTER", KillAnouncerHeader, "CENTER", 0, -8)
 KillAnouncerHeader.text:SetFont(damageFont, 14, "THINOUTLINE")
 KillAnouncerHeader.text:SetShadowColor(0/255, 0/255, 0/255)
