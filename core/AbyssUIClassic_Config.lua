@@ -1162,6 +1162,89 @@ local function HideElementsInit()
     AbyssUIClassicAddonSettings.DisableTooltipHealth = self:GetChecked()
     AbyssUIClassic_ReloadFrame:Show()
   end)
+  -- Hide RunePower
+  local HideRunePower_CheckButton = CreateFrame("CheckButton", "$parentHideRunePower_CheckButton", AbyssUIClassic_Config.childpanel2, "ChatConfigCheckButtonTemplate")
+  HideRunePower_CheckButton:SetPoint("TOPRIGHT", -200, -200)
+  HideRunePower_CheckButton.Text:SetText(L["Hide RunePower"])
+  local Frame = CreateFrame("Frame", nil, HideRunePower_CheckButton)
+  Frame:SetWidth(180)
+  Frame:SetHeight(40)
+  Frame:SetPoint("LEFT", 25, 0)
+  HideRunePower_CheckButton.Text:SetAllPoints(Frame)
+  HideRunePower_CheckButton.tooltip = L["Hide RunePower"]
+  HideRunePower_CheckButton:SetChecked(AbyssUIClassicAddonSettings.RunePower)
+  -- OnClick Function
+  HideRunePower_CheckButton:SetScript("OnClick", function(self)
+    AbyssUIClassicAddonSettings.RunePower = self:GetChecked()
+      if (AbyssUIClassicAddonSettings.RunePower == true ) then
+        if (RuneFrame) then
+          RuneFrame:Hide()
+        end
+        if (WarlockPowerFrame) then
+          WarlockPowerFrame:Hide()
+        end
+        if (DruidComboPointBarFrame) then
+          DruidComboPointBarFrame:Hide()
+        end
+        if (InsanityBarFrame) then
+          InsanityBarFrame:Hide()
+        end
+        if (MageArcaneChargesFrame) then
+          MageArcaneChargesFrame:Hide()
+        end
+        if (MonkHarmonyBarFrame) then
+          MonkHarmonyBarFrame:Hide()
+        end
+        if (PaladinPowerBarFrame) then
+          PaladinPowerBarFrame:Hide()
+        end
+        if (RogueComboPointsBarFrame) then
+          RogueComboPointsBarFrame:Hide()
+        end
+        if (TotemFrame) then
+          TotemFrame:Hide()
+        end
+      else
+        ReloadUI()
+      end
+  end)
+  -- After Login/Reload
+  HideRunePower_CheckButton:RegisterEvent("PLAYER_ENTERING_WORLD")
+  HideRunePower_CheckButton:SetScript("OnEvent", function(self, event, ...)
+    if (event == "PLAYER_ENTERING_WORLD") then
+      if (AbyssUIClassicAddonSettings.RunePower == true) then
+        C_Timer.After(1, function()
+          if (RuneFrame) then
+            RuneFrame:Hide()
+          end
+          if (WarlockPowerFrame) then
+            WarlockPowerFrame:Hide()
+          end
+          if (DruidComboPointBarFrame) then
+            DruidComboPointBarFrame:Hide()
+          end
+          if (InsanityBarFrame) then
+            InsanityBarFrame:Hide()
+          end
+          if (MageArcaneChargesFrame) then
+            MageArcaneChargesFrame:Hide()
+          end
+          if (MonkHarmonyBarFrame) then
+            MonkHarmonyBarFrame:Hide()
+          end
+          if (PaladinPowerBarFrame) then
+            PaladinPowerBarFrame:Hide()
+          end
+          if (RogueComboPointsBarFrame) then
+            RogueComboPointsBarFrame:Hide()
+          end
+          if (TotemFrame) then
+            TotemFrame:Hide()
+          end
+        end)
+      end
+    end
+  end)
 end
 -- End
 local function Miscellaneous()

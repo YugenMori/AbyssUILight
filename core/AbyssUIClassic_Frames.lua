@@ -188,7 +188,7 @@ AbyssUIClassic_AFKCameraFrame.text = AbyssUIClassic_AFKCameraFrame.text or Abyss
 AbyssUIClassic_AFKCameraFrame.text:SetScale(2)
 AbyssUIClassic_AFKCameraFrame.text:SetAllPoints(true)
 AbyssUIClassic_AFKCameraFrame.text:ClearAllPoints()
-AbyssUIClassic_AFKCameraFrame.text:SetPoint("BOTTOM", -300)
+AbyssUIClassic_AFKCameraFrame.text:SetPoint("BOTTOM", 0, -200)
 AbyssUIClassic_AFKCameraFrame.text:SetWidth(GetScreenWidth()/4)
 AbyssUIClassic_AFKCameraFrame.text:SetHeight(GetScreenHeight()/2)
 AbyssUIClassic_AFKCameraFrame.text:SetText(moveString)

@@ -700,18 +700,6 @@ function AbyssUIClassic_ShowColorPicker()
 	ColorPickerFrame:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", GetCursorPosition())
 	ShowUIPanel(ColorPickerFrame)
 end
--- retail
---[[
-	if ColorPickerFrame:IsShown() then return end
-	ColorPickerFrame.previousValues = COLOR_MY_UI[character].Color
-	ColorPickerFrame.cancelFunc = ColorPicker_Cancelled
-	ColorPickerFrame.opacityFunc = ColorPicker_Changed
-	ColorPickerFrame.func = ColorPicker_Changed
-	ColorPickerFrame.swatchFunc = ColorPicker_Changed
-	ColorPickerFrame:ClearAllPoints()
-	ColorPickerFrame:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", GetCursorPosition())
-	ShowUIPanel(ColorPickerFrame)
-]]
 -- Color Save
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_LOGIN")
