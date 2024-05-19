@@ -151,6 +151,8 @@ BasicFrames:SetScript("OnEvent", function(self, event, addon)
 			MainMenuBarTexture2,
 			MainMenuBarTexture3,
 			MainMenuBarTextureExtender,
+			SlidingActionBarTexture0,
+			SlidingActionBarTexture1,
 			MainMenuMaxLevelBar0,
 			MainMenuMaxLevelBar1,
 			MainMenuMaxLevelBar2,

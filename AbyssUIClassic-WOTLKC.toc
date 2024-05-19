@@ -1,6 +1,6 @@
 ## Interface: 30403
 ## Title: AbyssUI|cffc41F3BClassic|r
-## Version: 10.2.7.2_Classic_Dragonflight
+## Version: 10.2.7.3_Classic_Dragonflight
 ## Author: Yugen
 ## Notes-enUS: Minimalist UI for World of Warcraft
 ## Notes-ptBR: Interface Minimalista para World of Warcraft
