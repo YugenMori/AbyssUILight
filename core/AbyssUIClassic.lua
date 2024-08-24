@@ -199,24 +199,19 @@ DarkException:SetScript("OnEvent", function(self, event, addon)
 			PartyMemberFrame4PetFrameTexture,
 			FocusFrameTextureFrameTexture,
 			TargetFrameToTTextureFrameTexture,
-			FocusFrameToTTextureFrameTexture,
-			MinimapBorder,
-			MiniMapTrackingButtonBorder,
-			MiniMapLFGFrameBorder,
-			MiniMapBattlefieldBorder,
-			MiniMapMailBorder, }) do
+			FocusFrameToTTextureFrameTexture, }) do
 			if AbyssUIClassicAddonSettings ~= nil then
 				if AbyssUIClassicAddonSettings.KeepUnitDark == true then
 					v:SetVertexColor(.4, .4, .4)
 				elseif AbyssUIClassicAddonSettings.KeepUnitBlizzard == true then
 					v:SetVertexColor(1, 1, 1)
-				else
-					return nil
+				else 
+					return nil 
 				end
 			end
 		end
 	self:UnregisterEvent("ADDON_LOADED")
-	DarkException:SetScript("OnEvent", nil)
+		DarkException:SetScript("OnEvent", nil)
 	end
 end)
 ------------------------- New Darker Parts -------------------------
@@ -2104,6 +2099,19 @@ local classification = UnitClassification("target")
 		return nil
 	end
 end
+local f = CreateFrame("Frame", nil)
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+	if name == "AbyssUIClassic" and GetWoWVersion <= 90600 and AbyssUIClassicAddonSettings ~= nil then
+		if AbyssUIClassicAddonSettings.KeepUnitBlizzard == true then
+			-- Reset PlayerFrame texture to Blizzard default
+			C_Timer.After(0.5, function() 
+				PlayerFrameTexture:SetVertexColor(1, 1, 1)
+				PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame")
+			end)
+		end
+	end
+end)
 --[[
 -- Target Mob(Enemy) Health Bar Color
 local frame = CreateFrame("Frame", "$parentFrame", nil)

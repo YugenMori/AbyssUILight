@@ -149,7 +149,7 @@ AbyssUIClassic_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
  			TargetFrameBackground:SetAlpha(0)
 		end
 		-- PlayerFrameStyle
-	    local function UnitFramesImproved_Style_PlayerFrame()
+    local function UnitFramesImproved_Style_PlayerFrame()
 			if (AbyssUIClassicAddonSettings.UnitFrameImproved == true) then
 				if (GetWoWVersion <= 90500) then
 				  if not InCombatLockdown() then 
@@ -209,9 +209,13 @@ AbyssUIClassic_UnitFrame:SetScript("OnEvent", function(self, event, arg1)
 				  end		      	
 				end		      	
 			else
-			  return nil
+				if (AbyssUIClassicAddonSettings.UnitFrameImproved ~= true) then
+  				C_Timer.After(0.5, function() 
+						PlayerFrameTexture:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame")
+					end)
+  			end
 			end
-		  end
+	  end
 	    -- PlayerArt
 	    local function UnitFramesImproved_PlayerFrame_ToPlayerArt(self)
 	      if ( AbyssUIClassicAddonSettings.UnitFrameImproved == true ) then

@@ -1,6 +1,6 @@
 ## Interface: 30403
 ## Title: AbyssUI|cffc41F3BClassic|r
-## Version: 11.0.0.1_Classic_TWW
+## Version: 11.0.2.1_Classic_TWW
 ## Author: Yugen
 ## Notes-enUS: Minimalist UI for World of Warcraft
 ## Notes-ptBR: Interface Minimalista para World of Warcraft
