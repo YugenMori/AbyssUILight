@@ -329,9 +329,8 @@ end
 local TooltipOnCursor = CreateFrame("Frame", nil)
 TooltipOnCursor:RegisterEvent("PLAYER_ENTERING_WORLD")
 TooltipOnCursor:SetScript("OnEvent", function()
-	if ( AbyssUIClassicAddonSettings.TooltipOnCursor == true ) then
+	if (AbyssUIClassicAddonSettings.TooltipOnCursor == true) then
 		hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
-			if GetMouseFocus() ~= WorldFrame then return end
 			tooltip:SetOwner(parent, "ANCHOR_CURSOR")
 			cursorSetPoint(tooltip)
 			-- tooltip.default = 1

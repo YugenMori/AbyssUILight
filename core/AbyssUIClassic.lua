@@ -169,7 +169,7 @@ BasicFrames:SetScript("OnEvent", function(self, event, addon)
 			MiniMapBorderTop,
 			MiniMapWorldBorder,
 			GameTimeTexture, }) do
-			MiniMapWorldMapButton:SetAlpha(0.9)
+			--MiniMapWorldMapButton:SetAlpha(0.9)
 			if AbyssUIClassicAddonSettings ~= nil then
 				AbyssUIClassic_ColorizationFrameFunction(v)
 			else
@@ -530,6 +530,7 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 				end
 			end
 			-- InterfaceOptionsFrame
+			--[[
 			for i, v in pairs({ 
 				InterfaceOptionsFrame.BottomEdge,
 				InterfaceOptionsFrame.BottomLeftCorner,
@@ -546,7 +547,9 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
+			--]]
 			-- VideoOptionsFrame
+			--[[
 			for i, v in pairs({ 
 				VideoOptionsFrame.BottomEdge,
 				VideoOptionsFrame.BottomLeftCorner,
@@ -563,6 +566,7 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 					AbyssUIClassic_ColorizationFrameFunction(v)
 				end
 			end
+			--]]
 			-- AddonList
 			for i, v in pairs({ 
 				AddonListTopBorder,
@@ -1763,6 +1767,7 @@ f:SetScript("OnEvent", function(self)
   end
 end)
 -- InterfaceOptionsFrame
+--[[
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self)
@@ -1788,6 +1793,7 @@ f:SetScript("OnEvent", function(self)
     end
   end
 end)
+--]]
 -- HonorFrame
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")

@@ -744,7 +744,7 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 		Minimap:SetScale(scale)
 		Minimap:SetFrameLevel(6)
 		if (GetWoWVersion < 30000) then
-			MiniMapTrackingFrame:SetFrameLevel(10)
+			--MiniMapTrackingFrame:SetFrameLevel(10)
 		end
 		
 		-- New Border
@@ -803,7 +803,7 @@ SquareMinimap_:SetScript("OnEvent", function(self, event, ...)
 		end
 		--MiniMapMailFrame:SetFrameLevel(10)
 		MiniMapMailIcon:SetTexture(mailicon)
-		MiniMapWorldMapButton:Hide()
+		--MiniMapWorldMapButton:Hide()
 		DropDownList1:SetClampedToScreen(true)	
 		
 		squareminimapExtras()
