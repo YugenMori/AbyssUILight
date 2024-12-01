@@ -114,9 +114,8 @@ end
 local function AbyssUIClassicMoveFrames_Slash(msg)
     if ( msg ~= "" ) then
         if ( msg == "config" ) then
-            InterfaceOptionsFrame_Show()
-            InterfaceOptionsFrame_OpenToCategory("AbyssUI|cffc41F3BClassic|r")
-            InterfaceOptionsFrame_OpenToCategory("AbyssUI|cffc41F3BClassic|r")
+            SettingsPanel:Show()
+            Settings.OpenToCategory("AbyssUI|cffc41F3BClassic|r")
         elseif (msg == "setup") then
             AbyssUIClassicSecondFrame:Show()
         elseif (msg == "reset") then

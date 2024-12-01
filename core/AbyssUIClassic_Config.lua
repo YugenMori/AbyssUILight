@@ -543,7 +543,7 @@ local function InitSettings()
         FrameButton.text:SetShadowOffset(1, -1)
       end
     FrameButton:SetScript("OnClick", function()
-      AbyssUISecondFrame:Show()
+      AbyssUIClassicSecondFrame:Show()
     end)
   end)
   -- Clear Action Bar --
